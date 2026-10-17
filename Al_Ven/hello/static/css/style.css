@@ -10,8 +10,7 @@
    9. Регистрация и Вход (reg.html, vhod.html)
    10. Сообщения Django (reg.html, vhod.html)
    11. О нас (weo.html)
-   12. Макеты, которых сейчас нет в шаблонах
-   13. Анимации
+   12. Анимации
    ========================================================================== */
 
 
@@ -492,111 +491,7 @@ footer p {
 }
 
 
-/* ! ===== 12. МАКЕТЫ, КОТОРЫХ СЕЙЧАС НЕТ В ШАБЛОНАХ ===== */
-/* ? классы остались в CSS, но ни одна страница их не использует */
-
-/* Основной контейнер контента */
-.main {
-    display: flex;
-    flex: 1;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    height: 1200px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(103, 13, 163, 1) 50%, rgba(0, 0, 0, 1) 100%);
-    border-radius: 5px;
-    box-shadow: 0 11px 5px rgba(0, 0, 0, 0.5);
-}
-
-.main_form {
-    display: flex;
-    flex: 1;
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    width: 100%;
-    height: 900px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(103, 13, 163, 1) 50%, rgba(0, 0, 0, 1) 100%);
-    border-radius: 5px;
-    box-shadow: 0 11px 5px rgba(0, 0, 0, 0.5);
-}
-
-/* Улучшенная стилизация левой боковой панели */
-.left-menu {
-    width: 250px;
-    padding: 20px;
-    margin-right: 20px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    background: -webkit-linear-gradient(150deg, #000000, #670da3); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(150deg, #000000, #670da3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-/* Заголовок меню */
-.menu-title {
-    font-weight: 700;
-    font-size: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid rgb(103, 13, 163); /* Белая граница для контраста */
-    color: #fff; /* Белый цвет текста */
-    letter-spacing: 1px; /* Немного больше пространства между буквами */
-}
-
-/* Список элементов меню */
-.left-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Элементы списка */
-.left-menu li {
-    margin-bottom: 12px;
-}
-
-/* Ссылки в меню */
-.left-menu a {
-    display: block;
-    padding: 10px 15px;
-    border-radius: 6px;
-    color: #fff; /* Белый текст */
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* При наведении на пункт меню */
-.left-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff; /* Остается белым, можно менять цвет при необходимости */
-    font-weight: 600;
-}
-
-/* Активный пункт */
-.left-menu a.active {
-    background-color: #fff; /* Белый фон для выделения */
-    color: #7B1FA2; /* Цвет текста совпадает с основным цветом панели */
-    font-weight: 700;
-}
-
-/* ! Блок контента (не используется в шаблонах) */
-.content {
-    width: 100%;
-    padding: 20px;
-    background: linear-gradient(144deg, rgb(0, 0, 0) 2%, rgb(27, 4, 43) 12%, rgb(52, 7, 82) 30%, rgb(152, 46, 222) 80%);
-}
-
-.content p1 {
-    font-size: 18px;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-
-/* * ===== 13. АНИМАЦИИ ===== */
+/* * ===== 12. АНИМАЦИИ ===== */
 
 /* ? Анимация появления (используется в .messages li) */
 @keyframes fadeIn {

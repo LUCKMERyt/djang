@@ -47,7 +47,7 @@ def weo(request):
 
 
 def news(request):
-    name = request.GET.get("", "").strip()
+    name = request.GET.get("name", "").strip()
     people = Person.objects.all()
 
     if name:

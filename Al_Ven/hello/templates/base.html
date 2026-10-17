@@ -13,12 +13,14 @@
           <a href="{% url 'index' %}"><p>SOPHISTICATED</p></a>
       </div>
       <div class="menu"> 
-          <a href="{% url 'index' %}" >Главная</a>
-          <a href="{% url 'news' %}"  >Персонал</a>
-          <a href="{% url 'products' %}">Продукция</a>
-          <a href="{% url 'blog' %}">Наш блог</a>
-          <a href="{% url 'weo' %}">О нас</a>
-          <a href="{% url 'vhod' %}">Вход</a>
+          {% with current=request.resolver_match.url_name %}
+          <a href="{% url 'index' %}"{% if current == 'index' %} class="active"{% endif %}>Главная</a>
+          <a href="{% url 'news' %}"{% if current == 'news' %} class="active"{% endif %}>Персонал</a>
+          <a href="{% url 'products' %}"{% if current == 'products' %} class="active"{% endif %}>Продукция</a>
+          <a href="{% url 'blog' %}"{% if current == 'blog' %} class="active"{% endif %}>Наш блог</a>
+          <a href="{% url 'weo' %}"{% if current == 'weo' %} class="active"{% endif %}>О нас</a>
+          <a href="{% url 'vhod' %}"{% if current == 'vhod' or current == 'reg' %} class="active"{% endif %}>Вход</a>
+          {% endwith %}
       </div> 
   </div>
 
