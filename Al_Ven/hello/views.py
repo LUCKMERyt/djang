@@ -24,9 +24,17 @@ def products(request):
     categories = Category.objects.all()
     products = Products.objects.select_related('cat_id').all()
 
+    category_id = request.GET.get('category_id')
+    selected_category = None
+
+    if category_id:
+        products = products.filter(cat_id_id=category_id)
+        selected_category = Category.objects.filter(id=category_id).first()
+
     return render(request, 'products.html', {
         'category': categories,
         'product': products,
+        'selected_category': selected_category,
     })
 
 

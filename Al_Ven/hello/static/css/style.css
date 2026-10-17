@@ -1,10 +1,31 @@
-/* Общие стили */
+/* * ========================= СОДЕРЖАНИЕ =========================
+   1. Общие стили (все страницы)
+   2. Шапка сайта: логотип и меню (base.html)
+   3. Подвал сайта (base.html)
+   4. Главная страница (index.html)
+   5. Блог (blog.html)
+   6. Персонал (news.html)
+   7. Продукция (products.html)
+   8. Таблицы — общие для Персонала и Продукции
+   9. Регистрация и Вход (reg.html, vhod.html)
+   10. Сообщения Django (reg.html, vhod.html)
+   11. О нас (weo.html)
+   12. Макеты, которых сейчас нет в шаблонах
+   13. Анимации
+   ========================================================================== */
+
+
+/* * ===== 1. ОБЩИЕ СТИЛИ (все страницы) ===== */
+
+/* Сброс отступов и единый шрифт */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
+/* Общие заголовки и текст */
 h1 {
     color: #7B1FA2;
     font-size: 28px;
@@ -14,6 +35,7 @@ p {
     color: #7B1FA2;
     font-size: 16px;
 }
+
 /* Высота для корректной работы флексбокса */
 html, body {
     height: 100%;
@@ -39,9 +61,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Можно настроить прозрачность по необходимости */
+    background: rgba(0, 0, 0, 0.3); /* ? Можно настроить прозрачность по необходимости */
     z-index: -1;
 }
+
+
+/* * ===== 2. ШАПКА САЙТА: ЛОГОТИП И МЕНЮ (base.html) ===== */
 
 /* Хедер */
 .header {
@@ -53,7 +78,6 @@ body::before {
     background-color: #000;
     color: #fff;
     flex-shrink: 0;
-
 }
 
 /* Логотип */
@@ -78,6 +102,395 @@ body::before {
     padding: 5px;
     border-bottom: 2px solid #670DA3;
 }
+
+
+/* * ===== 3. ПОДВАЛ САЙТА (base.html) ===== */
+
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+footer p {
+    font-size: 18px;
+    color: #670DA3;
+    font-weight: bold;
+}
+
+
+/* * ===== 4. ГЛАВНАЯ СТРАНИЦА (index.html) ===== */
+
+/* Блок-приветствие */
+.home-hero {
+    width: min(100% - 40px, 900px);
+    margin: 48px auto;
+    padding: 48px 32px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.home-hero h1 {
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 36px;
+    letter-spacing: 0.04em;
+}
+
+.home-hero p {
+    color: #d9c2f5;
+    line-height: 1.7;
+}
+
+/* ? Первая строка приветствия чуть крупнее остального текста */
+.home-hero .home-lead {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Кнопки-ссылки */
+.home-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.home-btn {
+    padding: 12px 28px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    background: linear-gradient(90deg, rgb(52, 7, 82), rgb(152, 46, 222));
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
+}
+
+/* Вторая кнопка — только с рамкой */
+.home-btn--ghost {
+    background: transparent;
+    border: 1px solid rgba(152, 46, 222, 0.7);
+}
+
+@media (max-width: 600px) {
+    .home-hero {
+        padding: 32px 20px;
+    }
+
+    .home-hero h1 {
+        font-size: 28px;
+    }
+}
+
+
+/* * ===== 5. БЛОГ (blog.html) ===== */
+/* ? Отдельных классов нет — используется общий p из раздела 1 */
+
+
+/* * ===== 6. ПЕРСОНАЛ (news.html) ===== */
+/* ? Страница использует таблицу из раздела 8 (.table-wrapper) */
+
+
+/* * ===== 7. ПРОДУКЦИЯ (products.html) ===== */
+
+/* Страница с таблицами */
+.table-page {
+    width: 100%;
+    color: #fff;
+}
+
+.table-page h1 {
+    margin-bottom: 28px;
+    color: #fff;
+    text-align: center;
+    font-size: 32px;
+}
+
+.table-section {
+    margin-bottom: 32px;
+}
+
+.table-section h2 {
+    margin-bottom: 14px;
+    color: #d9c2f5;
+    font-size: 22px;
+}
+
+@media (max-width: 600px) {
+    .table-page h1 {
+        font-size: 25px;
+    }
+
+    .table-section h2 {
+        font-size: 19px;
+    }
+}
+
+
+/* * ===== 8. ТАБЛИЦЫ — общие для Персонала (news.html) и Продукции (products.html) ===== */
+.table-page a {
+    text-decoration: none;
+    color: #fff;
+}
+.table-wrapper a:hover,
+.table-section h2 a:hover {
+    color: #793da1;
+    text-decoration: underline;
+    text-underline-offset: 6px; /* расстояние от текста */
+    text-decoration-thickness: 2px;
+}
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 18px rgba(152, 46, 222, 0.15);
+    backdrop-filter: blur(8px);
+}
+
+.table-wrapper table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+/* Общий градиент для всей шапки */
+.table-wrapper thead {
+    background: linear-gradient(90deg, #340752 0%, #670da3 100%);
+}
+
+.table-wrapper th,
+.table-wrapper td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(152, 46, 222, 0.2);
+}
+
+.table-wrapper th {
+    background: transparent;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.table-wrapper tbody tr {
+    background: rgba(27, 4, 43, 0.55);
+    transition: background-color 0.2s ease;
+}
+
+.table-wrapper tbody tr:nth-child(even) {
+    background: rgba(52, 7, 82, 0.55);
+}
+
+.table-wrapper tbody tr:hover {
+    background: rgba(152, 46, 222, 0.28);
+}
+
+.table-wrapper tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-wrapper .empty-message {
+    padding: 24px;
+    color: #d9c2f5;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .table-wrapper th,
+    .table-wrapper td {
+        padding: 11px 12px;
+        white-space: nowrap;
+    }
+}
+
+
+/* * ===== 9. РЕГИСТРАЦИЯ И ВХОД (reg.html, vhod.html) ===== */
+
+/* Стили для формы */
+.content_form {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(144deg, rgb(0, 0, 0) 2%, rgb(27, 4, 43) 12%, rgb(52, 7, 82) 30%, rgb(152, 46, 222) 80%);
+}
+
+.content_form form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 800px;
+    max-width: 380px;
+    padding: 40px 35px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(152, 46, 222, 0.4);
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(152, 46, 222, 0.35);
+}
+
+.content_form label {
+    color: #d9c2f5;
+    font-family: sans-serif;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* Поля ввода */
+.content_form input {
+    padding: 12px 15px;
+    font-size: 15px;
+    color: #fff;
+    background: rgba(27, 4, 43, 0.6);
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.content_form input::placeholder {
+    color: rgba(217, 194, 245, 0.4);
+}
+
+.content_form input:focus {
+    border-color: rgb(152, 46, 222);
+    box-shadow: 0 0 12px rgba(152, 46, 222, 0.5);
+    background: rgba(52, 7, 82, 0.5);
+}
+
+/* Кнопка отправки */
+.content_form button {
+    margin-top: 10px;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, rgb(52, 7, 82), rgb(152, 46, 222));
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.content_form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
+}
+
+.content_form button:active {
+    transform: translateY(0);
+}
+
+/* Ссылка «Заходи» / «Регистрируйся» */
+.reg_but {
+    color: #d9c2f5;
+    text-decoration: none;
+}
+
+.content_form form p {
+    color: #fff;
+    text-align: center;
+}
+
+
+/* * ===== 10. СООБЩЕНИЯ DJANGO (reg.html, vhod.html) ===== */
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 20px;
+    max-width: 380px; /* ? совпадает с шириной формы */
+    width: 100%;
+}
+
+.messages li {
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.4s ease;
+}
+
+/* Успешное сообщение */
+.messages li.success {
+    background: rgba(46, 125, 50, 0.35);
+    border: 1px solid rgba(102, 187, 106, 0.6);
+    box-shadow: 0 0 15px rgba(102, 187, 106, 0.35);
+}
+
+/* Сообщение об ошибке */
+.messages li.error {
+    background: rgba(183, 28, 28, 0.35);
+    border: 1px solid rgba(239, 83, 80, 0.6);
+    box-shadow: 0 0 15px rgba(239, 83, 80, 0.35);
+}
+
+/* Предупреждение */
+.messages li.warning {
+    background: rgba(230, 126, 34, 0.35);
+    border: 1px solid rgba(255, 167, 38, 0.6);
+    box-shadow: 0 0 15px rgba(255, 167, 38, 0.35);
+}
+
+/* Информационное сообщение */
+.messages li.info {
+    background: rgba(103, 13, 163, 0.4);
+    border: 1px solid rgba(152, 46, 222, 0.6);
+    box-shadow: 0 0 15px rgba(152, 46, 222, 0.35);
+}
+
+
+/* * ===== 11. О НАС (weo.html) ===== */
+
+.about-page {
+    width: min(100% - 40px, 1000px);
+    min-height: 60vh;
+    margin: 0 auto;
+    padding: 48px 32px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.about-page h1 {
+    margin-bottom: 20px;
+    color: #d9c2f5;
+    text-align: center;
+}
+
+.about-page p {
+    line-height: 1.7;
+    text-align: left;
+}
+
+
+/* ! ===== 12. МАКЕТЫ, КОТОРЫХ СЕЙЧАС НЕТ В ШАБЛОНАХ ===== */
+/* ? классы остались в CSS, но ни одна страница их не использует */
 
 /* Основной контейнер контента */
 .main {
@@ -109,13 +522,13 @@ body::before {
 /* Улучшенная стилизация левой боковой панели */
 .left-menu {
     width: 250px;
-    
     padding: 20px;
     margin-right: 20px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    background: -webkit-linear-gradient(150deg, #000000,#670da3);/* Chrome 10-25, Safari 5.1-6 */                          background: linear-gradient(150deg, #000000,#670da3);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                             
+    background: -webkit-linear-gradient(150deg, #000000, #670da3); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(150deg, #000000, #670da3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* Заголовок меню */
@@ -166,34 +579,12 @@ body::before {
     font-weight: 700;
 }
 
-/* Подвал сайта */
-
-
-footer {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    flex-shrink: 0;
-    width: 100%;
-    margin-top: auto;
-}
-
-footer p {
-    font-size: 18px;
-    color: #670DA3;
-    font-weight: bold;
-}
-
-
-/* ав */
-
+/* ! Блок контента (не используется в шаблонах) */
 .content {
     width: 100%;
     padding: 20px;
     background: linear-gradient(144deg, rgb(0, 0, 0) 2%, rgb(27, 4, 43) 12%, rgb(52, 7, 82) 30%, rgb(152, 46, 222) 80%);
 }
-
 
 .content p1 {
     font-size: 18px;
@@ -202,287 +593,9 @@ footer p {
 }
 
 
+/* * ===== 13. АНИМАЦИИ ===== */
 
-
-
-
-
-/* Стили для формы */
-
-.content_form {
-    min-height: 85vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(144deg, rgb(0, 0, 0) 2%, rgb(27, 4, 43) 12%, rgb(52, 7, 82) 30%, rgb(152, 46, 222) 80%);
-}
-
-.content_form form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    width: 800px;
-    max-width: 380px;
-    padding: 40px 35px;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(152, 46, 222, 0.4);
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(152, 46, 222, 0.35);
-}
-
-.content_form label {
-    color: #d9c2f5;
-    font-family: sans-serif;
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-.content_form input {
-    padding: 12px 15px;
-    font-size: 15px;
-    color: #fff;
-    background: rgba(27, 4, 43, 0.6);
-    border: 1px solid rgba(152, 46, 222, 0.35);
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.content_form input::placeholder {
-    color: rgba(217, 194, 245, 0.4);
-}
-
-.content_form input:focus {
-    border-color: rgb(152, 46, 222);
-    box-shadow: 0 0 12px rgba(152, 46, 222, 0.5);
-    background: rgba(52, 7, 82, 0.5);
-}
-
-.content_form button {
-    margin-top: 10px;
-    padding: 13px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background: linear-gradient(90deg, rgb(52, 7, 82), rgb(152, 46, 222));
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.content_form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
-}
-
-.content_form button:active {
-    transform: translateY(0);
-}
-
-.reg_but {
-    color: #d9c2f5;
-    text-decoration: none;
-}
-
-.content_form form p {
-    color: #fff;
-    text-align: center;
-}
-
-/* ================== Стили для Django Messages ================== */
-
-.messages {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto 20px;
-    max-width: 380px; /* совпадает с шириной формы */
-    width: 100%;
-}
-
-.messages li {
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
-    backdrop-filter: blur(10px);
-    animation: fadeIn 0.4s ease;
-}
-
-/* Успешное сообщение */
-.messages li.success {
-    background: rgba(46, 125, 50, 0.35);
-    border: 1px solid rgba(102, 187, 106, 0.6);
-    box-shadow: 0 0 15px rgba(102, 187, 106, 0.35);
-}
-
-/* Сообщение об ошибке */
-.messages li.error {
-    background: rgba(183, 28, 28, 0.35);
-    border: 1px solid rgba(239, 83, 80, 0.6);
-    box-shadow: 0 0 15px rgba(239, 83, 80, 0.35);
-}
-
-/* Предупреждение */
-.messages li.warning {
-    background: rgba(230, 126, 34, 0.35);
-    border: 1px solid rgba(255, 167, 38, 0.6);
-    box-shadow: 0 0 15px rgba(255, 167, 38, 0.35);
-}
-
-/* Информационное сообщение */
-.messages li.info {
-    background: rgba(103, 13, 163, 0.4);
-    border: 1px solid rgba(152, 46, 222, 0.6);
-    box-shadow: 0 0 15px rgba(152, 46, 222, 0.35);
-}
-
-
-
-
-
-
-
-
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid rgba(152, 46, 222, 0.35);
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.45);
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.35),
-        0 0 18px rgba(152, 46, 222, 0.15);
-    backdrop-filter: blur(8px);
-}
-
-.table-wrapper table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #fff;
-}
-
-/* Общий градиент для всей шапки */
-.table-wrapper thead {
-    background: linear-gradient(90deg, #340752 0%, #670da3 100%);
-}
-
-.table-wrapper th,
-.table-wrapper td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid rgba(152, 46, 222, 0.2);
-}
-
-.table-wrapper th {
-    background: transparent;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-}
-
-.table-wrapper tbody tr {
-    background: rgba(27, 4, 43, 0.55);
-    transition: background-color 0.2s ease;
-}
-
-.table-wrapper tbody tr:nth-child(even) {
-    background: rgba(52, 7, 82, 0.55);
-}
-
-.table-wrapper tbody tr:hover {
-    background: rgba(152, 46, 222, 0.28);
-}
-
-.table-wrapper tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.table-wrapper .empty-message {
-    padding: 24px;
-    color: #d9c2f5;
-    text-align: center;
-}
-
-@media (max-width: 600px) {
-    .table-wrapper th,
-    .table-wrapper td {
-        padding: 11px 12px;
-        white-space: nowrap;
-    }
-}
-
-/* Страница с таблицами */
-.table-page {
-    width: 100%;
-    color: #fff;
-}
-
-.table-page h1 {
-    margin-bottom: 28px;
-    color: #fff;
-    text-align: center;
-    font-size: 32px;
-}
-
-.table-section {
-    margin-bottom: 32px;
-}
-
-.table-section h2 {
-    margin-bottom: 14px;
-    color: #d9c2f5;
-    font-size: 22px;
-}
-
-/* Небольшая адаптация существующего блока таблицы */
-.table-wrapper table {
-    min-width: 650px;
-}
-
-.table-wrapper th,
-.table-wrapper td {
-    vertical-align: middle;
-}
-
-@media (max-width: 600px) {
-    .table-page h1 {
-        font-size: 25px;
-    }
-
-    .table-section h2 {
-        font-size: 19px;
-    }
-}
-
-.about-page {
-    width: min(100% - 40px, 1000px);
-    min-height: 60vh;
-    margin: 0 auto;
-    padding: 48px 32px;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(152, 46, 222, 0.35);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
-.about-page h1 {
-    margin-bottom: 20px;
-    color: #d9c2f5;
-    text-align: center;
-}
-
-.about-page p {
-    line-height: 1.7;
-    text-align: left;
-}
-
-/* Анимация появления */
+/* ? Анимация появления (используется в .messages li) */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -493,9 +606,3 @@ footer p {
         transform: translateY(0);
     }
 }
-
-
-
-
-
-

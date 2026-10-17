@@ -21,7 +21,9 @@
                     {% for cat in category %}
                     <tr>
                         <td>{{ cat.id }}</td>
-                        <td>{{ cat.name }}</td>
+                        <td>
+                            <a href="?category_id={{ cat.id }}">{{ cat.name }}</a>
+                        </td>
                         <td>{{ cat.coment }}</td>
                     </tr>
                     {% empty %}
@@ -35,7 +37,13 @@
     </section>
 
     <section class="table-section">
-        <h2>Товары</h2>
+        <h2>
+            Товары
+            {% if selected_category %}
+                — {{ selected_category.name }}
+                <a href="{% url 'products' %}">Показать все</a>
+            {% endif %}
+        </h2>
         <div class="table-wrapper">
             <table>
                 <thead>
@@ -73,5 +81,5 @@
 {% endblock %}
 
 {% block footer %}
-<p>Таблица товаров и категорий</p>
+<p>Товары и категории</p>
 {% endblock %}
