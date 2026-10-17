@@ -209,7 +209,8 @@ footer p {
 
 /* Страница с таблицами */
 .table-page {
-    width: 100%;
+    margin: auto;
+    width: 65%;
     color: #fff;
 }
 
@@ -605,8 +606,4 @@ footer p {
         opacity: 1;
         transform: translateY(0);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 046348780618fc9897ea3472531e2ca6fba7fd32
