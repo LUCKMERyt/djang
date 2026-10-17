@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -9,43 +8,60 @@
 </head>
 <body>
   <div class="header">
-    <a class="logo" href="index.html">SOPHISTICATED</a>
-    <div class="menu">
-      <a href="index.html">Главная</a>
-      <a href="news.html">Новости</a>
-      <a href="products.html">Продукция</a>
-      <a href="blog.html">Блог</a>
-      <a href="weo.html">О нас</a>
-      <a href="vhod.html">Вход</a>
-    </div>
+      <div class="logo">
+          <a href="index.html"><p>SOPHISTICATED</p></a>
+      </div>
+      <div class="menu">
+          <a href="index.html">Главная</a>
+          <a href="news.html">Персонал</a>
+          <a href="products.html" class="active">Продукция</a>
+          <a href="blog.html">Наш блог</a>
+          <a href="weo.html">О нас</a>
+          <a href="vhod.html">Вход</a>
+      </div>
   </div>
 
-  
+  <main>
+<div class="table-page">
+    <h1>Интернет-магазин</h1>
 
-  <div class="container">
-    
-<div class="page">
-<h1>Продукция</h1>
-
-<ul>
-    
-        <li>Стартовый набор (Наборы) — <b>1990 ₽</b></li>
-    
-        <li>Профессиональный набор (Наборы) — <b>4990 ₽</b></li>
-    
-        <li>Премиум-подписка (Подписки) — <b>590 ₽</b></li>
-    
-        <li>Подарочная карта (Аксессуары) — <b>1000 ₽</b></li>
-    
-</ul>
+    <section class="table-section">
+        <h2>Категории</h2>
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Название</th><th>Описание</th></tr>
+        </thead>
+        <tbody>
+                <tr><td>1</td><td>Аксессуары</td><td>Подарочные карты и мелочи</td></tr>
+                <tr><td>2</td><td>Наборы</td><td>Готовые комплекты для старта</td></tr>
+                <tr><td>3</td><td>Подписки</td><td>Доступ к сервису по подписке</td></tr>
+        </tbody>
+    </table>
 </div>
+    </section>
 
-  </div>
+    <section class="table-section">
+        <h2>Товары</h2>
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Название</th><th>Цена</th><th>Материал</th><th>Дата производства</th><th>Количество</th><th>Категория</th></tr>
+        </thead>
+        <tbody>
+                <tr><td>1</td><td>Стартовый набор</td><td>1990</td><td>Картон</td><td>2026-09-01</td><td>40</td><td>Наборы</td></tr>
+                <tr><td>2</td><td>Профессиональный набор</td><td>4990</td><td>Дерево</td><td>2026-09-05</td><td>15</td><td>Наборы</td></tr>
+                <tr><td>3</td><td>Премиум-подписка</td><td>590</td><td>Цифровой товар</td><td>2026-10-01</td><td>999</td><td>Подписки</td></tr>
+                <tr><td>4</td><td>Подарочная карта</td><td>1000</td><td>Пластик</td><td>2026-09-20</td><td>120</td><td>Аксессуары</td></tr>
+        </tbody>
+    </table>
+</div>
+    </section>
+</div>
+  </main>
 
-  <div class="footer">
-    © SOPHISTICATED
-  </div>
-
-  <script src="js/main.js"></script>
+  <footer>
+    <p>Таблица товаров и категорий</p>
+  </footer>
 </body>
 </html>
