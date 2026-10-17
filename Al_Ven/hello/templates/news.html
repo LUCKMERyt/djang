@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}О нас{% endblock %}
+
+{% block content %}
+
+
+<form method="get">
+    <input type="text" name="name" placeholder="Поиск имени">
+    <button type="submit">Фильтровать</button>
+</form>
+
+
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>Возраст</th>
+            </tr>
+                    </thead>
+                    <tbody>
+                        {% for person in people %}
+                <tr>
+                    <td>{{ person.0 }}</td>
+                    <td>{{ person.1 }}</td>
+                    <td>{{ person.2 }}</td>
+                    <td>{{ person.3 }}</td>
+                    <td>{{ person.4 }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Записей пока нет.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+<p>news</p>
+{% endblock %}

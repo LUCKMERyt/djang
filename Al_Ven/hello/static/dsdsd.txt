@@ -1,0 +1,6 @@
+    border: 1em solid rgba(0, 0, 0, 0.03);
+    border-radius: 1vw;
+
+    d:\djang\.venv\Scripts\Activate.ps1
+    cd Al_Ven
+    python manage.py runserver

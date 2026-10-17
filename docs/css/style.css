@@ -1,0 +1,165 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #1b042b;
+    color: #fff;
+    margin: 0;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: #d9b3ff;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #000;
+    border-bottom: 1px solid #340752;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #982ede;
+    text-decoration: none;
+}
+
+.menu a {
+    margin-left: 15px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: #982ede;
+}
+
+.container {
+    flex: 1;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+}
+
+.container.center {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth form {
+    width: 100%;
+    max-width: 320px;
+    text-align: left;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #670da3;
+}
+
+th {
+    background: #670da3;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 320px;
+}
+
+input, button {
+    padding: 8px;
+}
+
+.messages {
+    max-width: 800px;
+    margin: 15px auto 0;
+    padding: 10px 20px;
+    background: #670da3;
+    list-style: none;
+}
+
+.ok {
+    color: #66bb6a;
+}
+
+.bad {
+    color: #ef5350;
+}
+
+.footer {
+    padding: 15px;
+    text-align: center;
+    color: #bba5d4;
+    background: #000;
+    border-top: 1px solid #340752;
+}
+
+/* Главная, продукция, блог, новости */
+.page h1 {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #670da3;
+}
+
+.page h2 {
+    margin: 25px 0 8px;
+    color: #d9b3ff;
+}
+
+.page ul {
+    padding-left: 20px;
+    line-height: 1.8;
+}
+
+.page table {
+    margin-top: 15px;
+}
+
+.page tbody tr:nth-child(even) {
+    background: #340752;
+}
+
+.post {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #340752;
+}
+
+.page li::marker {
+    color: #982ede;
+}
+
+.page tbody tr:hover {
+    background: #4a0b73;
+}
+
+.post:last-child {
+    border-bottom: none;
+}

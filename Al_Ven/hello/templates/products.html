@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Таблица{% endblock %}
+
+{% block content %}
+<div class="table-page">
+    <h1>Интернет-магазин</h1>
+
+    <section class="table-section">
+        <h2>Категории</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cat in category %}
+                    <tr>
+                        <td>{{ cat.id }}</td>
+                        <td>{{ cat.name }}</td>
+                        <td>{{ cat.coment }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="empty-message">Категорий пока нет</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="table-section">
+        <h2>Товары</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Материал</th>
+                        <th>Дата производства</th>
+                        <th>Количество</th>
+                        <th>Категория</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in product %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.sale }}</td>
+                        <td>{{ p.material }}</td>
+                        <td>{{ p.date_prod }}</td>
+                        <td>{{ p.conter }}</td>
+                        <td>{{ p.cat_id.name }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-message">Товаров пока нет</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p>Таблица товаров и категорий</p>
+{% endblock %}

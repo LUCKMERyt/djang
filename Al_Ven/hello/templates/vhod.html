@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}ВХод{% endblock %}
+
+{% block content %}
+<div class="content_form">
+
+    <div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="pass">Пароль:</label>
+        <input type="password" id="pass" name="pass" required>
+
+        <p> Нет акаунта? ➡ <a class='reg_but' href="{% url 'reg' %}">РЕГИСТРИРУЙСЯ</a></p>
+        
+        <button type="submit">Отправить</button>
+        
+    </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}<p>vhod</p>{% endblock %}

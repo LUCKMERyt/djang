@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SOPHISTICATED{% endblock %} | SOPHISTICATED</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="header"> 
+      <div class="logo">
+          <a href="{% url 'index' %}"><p>SOPHISTICATED</p></a>
+      </div>
+      <div class="menu"> 
+          <a href="{% url 'index' %}" >Главная</a>
+          <a href="{% url 'news' %}"  >Персонал</a>
+          <a href="{% url 'products' %}">Продукция</a>
+          <a href="{% url 'blog' %}">Наш блог</a>
+          <a href="{% url 'weo' %}">О нас</a>
+          <a href="{% url 'vhod' %}">Вход</a>
+      </div> 
+  </div>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    {% block footer %}fooooer{% endblock %}
+</body>
+</html>
