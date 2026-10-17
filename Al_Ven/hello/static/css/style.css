@@ -214,6 +214,11 @@ footer p {
     color: #fff;
 }
 
+.table-page a {
+    text-decoration: none;
+    color: #fff;
+}
+
 .table-page h1 {
     margin-bottom: 28px;
     color: #fff;
@@ -243,10 +248,7 @@ footer p {
 
 
 /* * ===== 8. ТАБЛИЦЫ — общие для Персонала (news.html) и Продукции (products.html) ===== */
-.table-page a {
-    text-decoration: none;
-    color: #fff;
-}
+
 .table-wrapper a:hover,
 .table-section h2 a:hover {
     color: #793da1;
