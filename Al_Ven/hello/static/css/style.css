@@ -194,12 +194,86 @@ footer p {
         font-size: 28px;
     }
 }
+/* ===== 5. БЛОГ (blog.html) ===== */
 
+.page--blog {
+    width: min(100% - 40px, 1000px);
+    height: 101%;
+    min-height: 60vh;
+    margin: 35px auto;
+    padding: 48px 32px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
 
-/* * ===== 5. БЛОГ (blog.html) ===== */
-/* ? Отдельных классов нет — используется общий p из раздела 1 */
+.page--blog .page__eyebrow {
+    margin-bottom: 8px;
+    color: #d9c2f5;
+    text-align: center;
+}
 
+.page--blog h1 {
+    margin-bottom: 20px;
+    color: #d9c2f5;
+    text-align: center;
+}
 
+.page--blog .page__lead {
+    max-width: 60ch;
+    margin: 0 auto;
+    color: #fff;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.page--blog .content-card {
+    margin-top: 28px;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(152, 46, 222, 0.25);
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+.page--blog .content-card h2 {
+    margin: 17px 22px 12px;
+    color: #d9c2f5;
+}
+
+.page--blog .content-card p {
+    margin: 0;
+    color: #fff;
+    line-height: 1.7;
+}
+
+.page--blog .post + .post {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(152, 46, 222, 0.25);
+}
+
+.page--blog .post__header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+}
+
+.page--blog .post__header h2 {
+    margin: 0 0 4px;
+}
+
+.page--blog .post__date {
+    display: block;
+    margin-top: 8px;
+    color: #d9c2f5;
+    font-size: 0.875rem;
+    text-align: right;
+    opacity: 0.8;
+}
 /* * ===== 6. ПЕРСОНАЛ (news.html) ===== */
 /* ? Страница использует таблицу из раздела 8 (.table-wrapper) */
 
@@ -504,3 +578,4 @@ footer p {
         transform: translateY(0);
     }
 }
+

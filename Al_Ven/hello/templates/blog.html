@@ -1,9 +1,45 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}Блог{% endblock %}
 
 {% block content %}
-<p>Блог</p>
+<main class="page page--blog" aria-labelledby="page-title">
+    <header class="page__header">
+        <h1 id="page-title">Блог</h1>
+        <p class="page__lead">Новости, статьи и полезные материалы.</p>
+    </header>
+
+<section class="content-card" aria-label="Публикации">
+    <article class="post">
+        <div class="post__header">
+            <h2>Публикации 1</h2>
+        </div>
+        <p>Пока здесь нет публикаций. Загляните позже!</p>
+        <time class="post__date" datetime="2026-10-20">20.10.2026</time>
+    </article>
+
+    <article class="post">
+        <div class="post__header">
+            <h2>Публикации 2</h2>
+        </div>
+        <p>Пока здесь нет публикаций. Загляните позже!</p>
+        <time class="post__date" datetime="2026-10-20">20.10.2026</time>
+    </article>
+</section>
+
+<section class="content-card" aria-label="Публикации">
+    <article class="post">
+        <div class="post__header">
+            <h2>Публикации 1</h2>
+        </div>
+        <p>Пока здесь нет публикаций. Загляните позже!</p>
+        <time class="post__date" datetime="2026-10-20">20.10.2026</time>
+    </article>
+</section>
+
+</main>
 {% endblock %}
 
-{% block footer %}<p>BLOG</p>{% endblock %}
+{% block footer %}
+<p>Блог</p>
+{% endblock %}

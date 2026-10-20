@@ -1,12 +1,17 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}О нас{% endblock %}
 
 {% block content %}
-<section class="about-page">
-    <h1>О нас</h1>
-    <p>Расскажите здесь о компании, её истории и ценностях.</p>
-</section>
+<main class="about-page" aria-labelledby="about-title">
+    <header class="about-page__header">
+        <h1 id="about-title">О нас</h1>
+    </header>
+
+    <section aria-label="Информация о компании">
+        <p>Здесь вы можете рассказать о компании, её истории, ценностях и команде.</p>
+    </section>
+</main>
 {% endblock %}
 
 {% block footer %}
