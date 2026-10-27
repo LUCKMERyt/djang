@@ -4,35 +4,53 @@
 
 {% block content %}
 <div class="content_form">
-
-    <div>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <form method="post">
         {% csrf_token %}
 
-        <label for="name" >Имя:</label>
-        <input type="text" id="name" name="name", placeholder="Введите имя" required>
+        {{ form.non_field_errors }}
 
-        <label for="pass">Пароль:</label>
-        <input type="password" id="pass" name="pass" placeholder="Введите пароль" required>
+        <div>
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
 
-        <label for="pass_confirm">Подтвердите пароль:</label>
-        <input type="password" id="pass_confirm" name="pass_confirm" placeholder="Повторите пароль" required>
+        <div>
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Введите email" required>
-        <p> Есть акаунта? ➡ <a class='reg_but' href="{% url 'vhod' %}">ЗАХОДИ❕</a></p>
+        <div>
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <div>
+            {{ form.password_confirm.label_tag }}
+            {{ form.password_confirm }}
+            {{ form.password_confirm.errors }}
+        </div>
+
+        <p>
+            Есть аккаунт?
+            <a class="reg_but" href="{% url 'vhod' %}">Заходи!</a>
+        </p>
+
         <button type="submit">Отправить</button>
     </form>
-    </div>
 </div>
 {% endblock %}
 
-{% block footer %}<p>reg</p>{% endblock %}
+{% block footer %}
+<p>reg</p>
+{% endblock %}

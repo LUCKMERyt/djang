@@ -7,21 +7,23 @@
 
     <div>
         {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <form method="post">
         {% csrf_token %}
 
         <label for="name">Имя:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name"
+        value="{{ name|default:'' }}" required>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email"
+        value="{{ email|default:'' }}" required>
 
         <label for="pass">Пароль:</label>
         <input type="password" id="pass" name="pass" required>

@@ -3,6 +3,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 import time
 from .models import Person, Category, Products
+from .forms import UserForm
+import json
+
+
 
 # def index(request):
 #     host = request.META["HTTP_HOST"] # получаем адрес сервера
@@ -58,28 +62,28 @@ def news(request):
     return render(request, "news.html", {"people": people})
 
 
-
 def reg(request):
     if request.method == "POST":
-        name = request.POST.get("name", "")
-        password = request.POST.get("pass", "")
-        pass_confirm = request.POST.get("pass_confirm", "")
-        email = request.POST.get("email", "")
-
-        if not name or not password or not email:
-            messages.error(request, "Все поля должны быть заполнены!")
-            return redirect("reg")
-
-        if password != pass_confirm:
-            messages.error(request, "Пароли не совпадают!")
-            return redirect("reg")
-        
-        if password == pass_confirm:
-            messages.success(request, f"Регистрация успешна! Имя: {name}, Email: {email}")
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, f"Логин:{user.name}  Почта:{user.email}")
             return redirect("vhod")
     else:
-        return render(request, "reg.html")
-    
-def vhod(request):
-    return render(request, "vhod.html")
+        form = UserForm()
 
+    return render(request, "reg.html", {"form": form})
+
+
+def vhod(request):
+    name, email = "", ""
+
+    for message in messages.get_messages(request):
+        parts = str(message).split("|", 1)
+        if len(parts) == 2:
+            name, email = parts
+
+    return render(request, "vhod.html", {
+        "name": name,
+        "email": email,
+    })

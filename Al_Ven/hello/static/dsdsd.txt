@@ -4,3 +4,7 @@
     d:\djang\.venv\Scripts\Activate.ps1
     cd Al_Ven
     python manage.py runserver
+
+
+kladm 
+qwerty009
