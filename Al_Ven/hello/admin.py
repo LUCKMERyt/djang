@@ -1,21 +1,38 @@
 from django.contrib import admin
-
-# Register your models here.
-
-# admin.site.register(Genre)
+from .models import Person, Category, Products, RegisteredUser
 
 
-# from myapp 
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'fam', 'name', 'oth', 'age')
+    search_fields = ('fam', 'name', 'oth')
+    list_filter = ('age',)
+    ordering = ('fam', 'name')
+    list_per_page = 25
 
 
-# admin.site.register(kladm)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'coment')
+    search_fields = ('name', 'coment')
+    ordering = ('name',)
+    list_per_page = 25
 
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'author')
-    list_display_links = ('id',)
-    list_editable = ('title', 'author')
 
-# admin.site.register(Book, BookAdmin)
-# admin.site.register(Discussion)
-# admin.site.register(Products)
-# admin.site.register(Category)
+@admin.register(Products)
+class ProductsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'sale', 'material', 'date_prod', 'conter', 'cat_id')
+    search_fields = ('name', 'material', 'cat_id__name')
+    list_filter = ('cat_id', 'material', 'date_prod')
+    ordering = ('name',)
+    list_per_page = 25
+    date_hierarchy = 'date_prod'
+
+
+@admin.register(RegisteredUser)
+class RegisteredUserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email')
+    search_fields = ('name', 'email')
+    ordering = ('name',)
+    list_per_page = 25
+    exclude = ('password',)
