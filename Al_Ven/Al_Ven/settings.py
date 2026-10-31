@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,9 +42,7 @@ INSTALLED_APPS = [
 ]
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,14 +123,53 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+
+STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Al_Ven — Администрирование",
+    "site_header": "Панель управления",
+    "site_brand": "Al_Ven",
+    "welcome_sign": "Добро пожаловать в панель управления",
+    "copyright": "Al_Ven",
+
+    # Базовые темы Jazzmin; фиолетовый неон задаётся в admin.css
+    "theme": "darkly",
+    "dark_mode_theme": "darkly",
+
+    "show_ui_builder": True,
+    "navigation_expanded": True,
+    "show_sidebar": True,
+    "custom_css": "css/admin.css",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
+    "dark_mode_theme": "darkly",
+
+    "navbar": "navbar-dark",
+    "sidebar": "sidebar-dark-primary",
+    "accent": "accent-primary",
+
+    "navbar_fixed": True,
+    "sidebar_fixed": True,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_flat_style": True,
+
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
     },
 }
