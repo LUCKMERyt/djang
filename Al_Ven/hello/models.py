@@ -27,6 +27,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
+
 class Products(models.Model):
     name = models.CharField('Название товара', max_length=100)
     sale = models.IntegerField('Цена')
@@ -38,6 +39,9 @@ class Products(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Категория',
     )
+    image = models.ImageField(upload_to='products/', null=True, blank=True, verbose_name="Фото")
+
+
 
     def __str__(self):
         return self.name

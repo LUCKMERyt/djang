@@ -131,7 +131,12 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
 
 JAZZMIN_SETTINGS = {
     "site_title": "Al_Ven — Администрирование",
@@ -139,6 +144,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Al_Ven",
     "welcome_sign": "Добро пожаловать в панель управления",
     "copyright": "Al_Ven",
+    
 
     # Базовые темы Jazzmin; фиолетовый неон задаётся в admin.css
     "theme": "darkly",
@@ -171,5 +177,6 @@ JAZZMIN_UI_TWEAKS = {
         "warning": "btn-warning",
         "danger": "btn-danger",
         "success": "btn-success",
+        
     },
 }

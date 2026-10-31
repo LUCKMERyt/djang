@@ -1,45 +1,68 @@
 {% extends "base.html" %}
 
-{% block title %}Блог{% endblock %}
+{% block title %}Блог и новости{% endblock %}
 
 {% block content %}
 <main class="page page--blog" aria-labelledby="page-title">
     <header class="page__header">
-        <h1 id="page-title">Блог</h1>
-        <p class="page__lead">Новости, статьи и полезные материалы.</p>
+        <h1 id="page-title">Блог и новости</h1>
+        <p class="page__lead">Делимся экспертизой, рассказываем о новых поступлениях и даем полезные советы по выбору продукции.</p>
     </header>
 
-<section class="content-card" aria-label="Публикации">
-    <article class="post">
-        <div class="post__header">
-            <h2>Публикации 1</h2>
-        </div>
-        <p>Пока здесь нет публикаций. Загляните позже!</p>
-        <time class="post__date" datetime="2026-10-20">20.10.2026</time>
-    </article>
+    <section class="blog-feed" aria-label="Публикации">
+        
+        <!-- Статья 1 -->
+        <article class="post">
+            <div class="post__header">
+                <span class="post__tag">Новости компании</span>
+                <h2>Глобальное обновление ассортимента: что нового в 2026 году?</h2>
+            </div>
+            <p class="post__excerpt">
+                Мы расширили линейку продукции, добавив экологичные материалы и улучшенные эргономичные решения. 
+                В этой статье мы подробно разберем ключевые новинки, их преимущества и почему они станут отличным выбором для ваших проектов.
+            </p>
+            <div class="post__footer">
+                <time class="post__date" datetime="2026-10-25">📅 25 октября 2026</time>
+                <a href="#" class="post__read-more"></a>
+            </div>
+        </article>
 
-    <article class="post">
-        <div class="post__header">  
-            <h2>Публикации 2</h2>
-        </div>
-        <p>Пока здесь нет публикаций. Загляните позже!</p>
-        <time class="post__date" datetime="2026-10-20">20.10.2026</time>
-    </article>
-</section>
+        <!-- Статья 2 -->
+        <article class="post">
+            <div class="post__header">
+                <span class="post__tag">Полезные советы</span>
+                <h2>5 главных критериев при выборе долговечных материалов</h2>
+            </div>
+            <p class="post__excerpt">
+                Как не переплатить и получить максимум качества? Рассказываем, на какие характеристики обращать внимание 
+                в первую очередь: от плотности и влагостойкости до сертификатов соответствия и реальных отзывов.
+            </p>
+            <div class="post__footer">
+                <time class="post__date" datetime="2026-10-18">📅 18 октября 2026</time>
+                <a href="#" class="post__read-more"></a>
+            </div>
+        </article>
 
-<section class="content-card" aria-label="Публикации">
-    <article class="post">
-        <div class="post__header">
-            <h2>Публикации 1</h2>
-        </div>
-        <p>Пока здесь нет публикаций. Загляните позже!</p>
-        <time class="post__date" datetime="2026-10-20">20.10.2026</time>
-    </article>
-</section>
+        <!-- Статья 3 -->
+        <article class="post">
+            <div class="post__header">
+                <span class="post__tag">Производство</span>
+                <h2>Как мы контролируем качество: взгляд изнутри</h2>
+            </div>
+            <p class="post__excerpt">
+                Каждый этап создания нашей продукции проходит строгий многоступенчатый контроль. 
+                Мы приглашаем вас виртуально пройти по нашему цеху и узнать, какие стандарты мы соблюдаем, чтобы гарантировать надежность.
+            </p>
+            <div class="post__footer">
+                <time class="post__date" datetime="2026-10-10">📅 10 октября 2026</time>
+                <a href="#" class="post__read-more"></a>
+            </div>
+        </article>
 
+    </section>
 </main>
 {% endblock %}
 
 {% block footer %}
-<p>Блог</p>
-{% endblock %}
+<p>Блог и новости</p>
+{% endblock %} 

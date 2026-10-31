@@ -4,16 +4,48 @@
 
 {% block content %}
 <main class="about-page" aria-labelledby="about-title">
-    <header class="about-page__header">
-        <h1 id="about-title">О нас</h1>
+    <header class="about-hero">
+        <h1 id="about-title">О нашей компании</h1>
+        <p class="about-lead">Мы создаем качественные решения, объединяя инновации, надежность и внимание к деталям.</p>
     </header>
 
-    <section aria-label="Информация о компании">
-        <p>Здесь вы можете рассказать о компании, её истории, ценностях и команде.</p>
+    <section class="about-section">
+        <h2>Наша миссия</h2>
+        <p>Предоставлять клиентам продукцию высочайшего класса, делая процесс заказа простым и прозрачным. Мы верим, что честность и профессионализм — это фундамент долгосрочного и взаимовыгодного сотрудничества.</p>
+    </section>
+
+    <section class="about-values">
+        <h2>Наши ценности</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">💎</div>
+                <h3>Качество</h3>
+                <p>Только проверенные материалы и строгий контроль на всех этапах производства.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Надежность</h3>
+                <p>Мы держим слово и соблюдаем сроки, чтобы вы могли планировать свой бизнес без рисков.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🚀</div>
+                <h3>Инновации</h3>
+                <p>Постоянно развиваемся и внедряем современные подходы для улучшения нашей продукции.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <h2>Почему выбирают нас?</h2>
+        <ul class="about-list">
+            <li>Индивидуальный подход к каждому заказу и клиенту</li>
+            <li>Гарантия на всю выпускаемую продукцию</li>
+            <li>Оперативная поддержка и консультирование</li>
+        </ul>
     </section>
 </main>
 {% endblock %}
 
 {% block footer %}
-<p>ABOUT</p>
+<p>О компании</p>
 {% endblock %}

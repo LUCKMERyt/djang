@@ -1,81 +1,71 @@
 {% extends 'base.html' %}
 
-{% block title %}Таблица{% endblock %}
+{% block title %}Каталог продукции{% endblock %}
 
 {% block content %}
-<div class="table-page">
-    <h1>Интернет-магазин</h1>
+<div class="catalog-page">
+    <h1>Каталог продукции</h1>
 
-    <section class="table-section">
-        <h2>Категории</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Описание</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for cat in category %}
-                    <tr>
-                        <td>
-                            <a href="?category_id={{ cat.id }}">{{ cat.name }}</a>
-                        </td>
-                        <td>{{ cat.coment }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="3" class="empty-message">Категорий пока нет</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <!-- Фильтры сверху -->
+    <section class="catalog-filters">
+        <a href="{% url 'products' %}" class="filter-btn {% if not selected_category %}active{% endif %}">
+            Все товары
+        </a>
+        {% for cat in category %}
+            <a href="?category_id={{ cat.id }}" class="filter-btn {% if selected_category.id == cat.id %}active{% endif %}">
+                {{ cat.name }}
+            </a>
+        {% endfor %}
     </section>
 
-    <section class="table-section">
-        <h2>
-            Товары
-            {% if selected_category %}
-                — {{ selected_category.name }}
-                <a href="{% url 'products' %}">Показать все</a>
-            {% endif %}
-        </h2>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Цена</th>
-                        <th>Материал</th>
-                        <th>Дата производства</th>
-                        <th>Количество</th>
-                        <th>Категория</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in product %}
-                    <tr>
-                        <td>{{ p.name }}</td>
-                        <td>{{ p.sale }} ₽</td>
-                        <td>{{ p.material }}</td>
-                        <td>{{ p.date_prod }}</td>
-                        <td>{{ p.conter }}</td>
-                        <td>{{ p.cat_id.name }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="7" class="empty-message">Товаров пока нет</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <!-- Каталог снизу -->
+    <section class="catalog-grid">
+        {% for p in product %}
+            <article class="product-card">
+                <!-- Блок с изображением -->
+                <div class="product-card__image-wrapper">
+                    {% if p.image %}
+                        <img src="{{ p.image.url }}" alt="{{ p.name }}" class="product-card__image">
+                    {% else %}
+                        <div class="product-card__no-image">
+                            <span>📷</span>
+                            <p>Нет фото</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="product-card__header">
+                    <h3>{{ p.name }}</h3>
+                    <span class="product-card__badge">{{ p.cat_id.name }}</span>
+                </div>
+                
+                <div class="product-card__body">
+                    <p class="product-card__material">Материал: {{ p.material }}</p>
+                    <div class="product-card__details">
+                        <span>📅 {{ p.date_prod }}</span>
+                        <span>📦 В наличии: {{ p.conter }} шт.</span>
+                    </div>
+                </div>
+
+                <div class="product-card__footer">
+                    <span class="product-card__price">{{ p.sale }} ₽</span>
+                    <button class="product-card__btn">Подробнее</button>
+                </div>
+            </article>
+        {% empty %}
+            <div class="empty-message">
+                {% if selected_category %}
+                    В категории "{{ selected_category.name }}" товаров пока нет.
+                    <a href="{% url 'products' %}" class="empty-link">Показать все товары</a>
+                {% else %}
+                    Товаров пока нет.
+                {% endif %}
+            </div>
+        {% endfor %}
     </section>
 </div>
 {% endblock %}
 
 {% block footer %}
-<p>Товары и категории</p>
+<p>Каталог продукции</p>
 {% endblock %}
