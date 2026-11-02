@@ -76,7 +76,7 @@ def reg(request):
             )
             login(request, user)
             messages.success(request, "Регистрация прошла успешно.")
-            return redirect("index")
+            return redirect("account")
     else:
         form = UserForm()
 
@@ -84,13 +84,18 @@ def reg(request):
 
 def vhod(request):
     if request.user.is_authenticated:
-        return redirect("index")
+        return redirect("account")
     form = EmailAuthenticationForm(request, data=request.POST or None)
     if request.method == "POST" and form.is_valid():
         login(request, form.get_user())
         messages.success(request, "Вы вошли в аккаунт.")
-        return redirect("index")
+        return redirect("account")
     return render(request, "vhod.html", {"form": form})
+
+
+@login_required(login_url="vhod")
+def account(request):
+    return render(request, "account.html", {"account_user": request.user})
 
 
 @login_required

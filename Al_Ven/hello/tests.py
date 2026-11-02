@@ -17,7 +17,7 @@ class AuthenticationTests(TestCase):
         self.assertNotEqual(user.password, "A-strong-test-password-481!")
         self.assertTrue(user.check_password("A-strong-test-password-481!"))
         self.assertEqual(int(self.client.session["_auth_user_id"]), user.pk)
-        self.assertRedirects(response, reverse("index"))
+        self.assertRedirects(response, reverse("account"))
 
     def test_registration_rejects_mismatched_passwords(self):
         response = self.client.post(reverse("reg"), {
@@ -40,7 +40,7 @@ class AuthenticationTests(TestCase):
             "username": "test@example.com",
             "password": "A-strong-test-password-481!",
         })
-        self.assertRedirects(response, reverse("index"))
+        self.assertRedirects(response, reverse("account"))
         self.assertEqual(int(self.client.session["_auth_user_id"]), user.pk)
 
         response = self.client.post(reverse("vyhod"))
@@ -69,3 +69,26 @@ class ReviewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Review.objects.count(), 0)
+
+
+class AccountPageTests(TestCase):
+    def test_account_page_requires_login(self):
+        response = self.client.get(reverse("account"))
+
+        self.assertRedirects(response, f"{reverse('vhod')}?next={reverse('account')}")
+
+    def test_logged_in_user_sees_account_details(self):
+        user = get_user_model().objects.create_user(
+            username="account-user",
+            email="account@example.com",
+            first_name="Анна",
+            password="A-strong-test-password-481!",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("account"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Анна")
+        self.assertContains(response, "account@example.com")
+        self.assertContains(response, "Выйти из аккаунта")

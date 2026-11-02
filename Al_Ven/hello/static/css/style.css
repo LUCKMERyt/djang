@@ -1126,3 +1126,198 @@ footer p {
         flex-direction: column;
     }
 }
+
+/* Личный кабинет */
+.account-page {
+    width: min(100% - 40px, 820px);
+    margin: clamp(32px, 6vw, 64px) auto;
+    color: #fff;
+}
+
+.account-page__header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.account-avatar {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #670da3, #982ede);
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 28px rgba(152, 46, 222, 0.45);
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.account-eyebrow {
+    margin-bottom: 8px;
+    color: #d9c2f5;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.account-page__header h1 {
+    color: #fff;
+    font-size: clamp(26px, 5vw, 36px);
+}
+
+.account-page__lead {
+    margin-top: 10px;
+    color: #d9c2f5;
+    line-height: 1.6;
+}
+
+.account-card {
+    padding: clamp(24px, 5vw, 40px);
+    border: 1px solid rgba(190, 112, 244, 0.34);
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(32, 8, 47, 0.9), rgba(0, 0, 0, 0.72));
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36), 0 0 32px rgba(152, 46, 222, 0.14);
+    backdrop-filter: blur(10px);
+}
+
+.account-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    color: #fff;
+    font-size: 21px;
+}
+
+.account-card h2::before {
+    width: 4px;
+    height: 24px;
+    border-radius: 4px;
+    background: linear-gradient(#d9a8ff, #8520c2);
+    content: "";
+}
+
+.account-details__row {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.8fr) 1.2fr;
+    gap: 16px;
+    padding: 18px 12px;
+    border-bottom: 1px solid rgba(152, 46, 222, 0.18);
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.account-details__row:hover {
+    background: rgba(152, 46, 222, 0.08);
+}
+
+.account-details__row dt {
+    color: rgba(217, 194, 245, 0.72);
+}
+
+.account-details__row dd {
+    margin: 0;
+    color: #fff;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.account-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: 30px;
+}
+
+.account-action {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid rgba(152, 46, 222, 0.58);
+    border-radius: 10px;
+    background: transparent;
+    color: #e8d5fa;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.account-action:hover {
+    transform: translateY(-1px);
+    border-color: #c58af0;
+    background: rgba(152, 46, 222, 0.2);
+    box-shadow: 0 6px 18px rgba(152, 46, 222, 0.18);
+}
+
+.account-action:focus-visible {
+    outline: 3px solid #e4c5ff;
+    outline-offset: 3px;
+}
+
+.account-action--primary {
+    border-color: transparent;
+    background: linear-gradient(110deg, #520b80, #982ede);
+    color: #fff;
+}
+
+.account-action--primary:hover {
+    background: linear-gradient(110deg, #68109d, #a842e8);
+}
+
+.account-actions form {
+    margin: 0 0 0 auto;
+}
+
+.account-action--logout {
+    border-color: rgba(255, 120, 140, 0.45);
+    color: #ffc2cc;
+}
+
+.account-action--logout:hover {
+    border-color: rgba(255, 150, 165, 0.8);
+    background: rgba(190, 48, 75, 0.16);
+    box-shadow: 0 6px 18px rgba(190, 48, 75, 0.12);
+}
+
+@media (max-width: 600px) {
+    .account-page {
+        width: min(100% - 28px, 760px);
+        margin: 32px auto;
+    }
+
+    .account-avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 28px;
+    }
+
+    .account-card {
+        padding: 24px 18px;
+    }
+
+    .account-details__row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 14px 8px;
+    }
+
+    .account-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .account-actions form {
+        margin: 0;
+    }
+
+    .account-action {
+        width: 100%;
+    }
+}

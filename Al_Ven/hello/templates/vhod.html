@@ -1,31 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}ВХод{% endblock %}
+{% block title %}Вход{% endblock %}
 
 {% block content %}
 <div class="content_form">
-    {% if user.is_authenticated %}
-        <p>Вы вошли как {{ user.first_name|default:user.email }}.</p>
-        <form method="post" action="{% url 'vyhod' %}">
-            {% csrf_token %}
-            <button type="submit">Выйти</button>
-        </form>
-    {% else %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            {% for field in form %}
-                <div>
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {{ field.errors }}
-                </div>
-            {% endfor %}
-            <p>Нет аккаунта? ➡ <a class="reg_but" href="{% url 'reg' %}">Зарегистрируйтесь</a></p>
-            <button type="submit">Войти</button>
-        </form>
-    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <p>Нет аккаунта? ➡ <a class="reg_but" href="{% url 'reg' %}">Зарегистрируйтесь</a></p>
+        <button type="submit">Войти</button>
+    </form>
 </div>
 {% endblock %}
 
-{% block footer %}<p>vhod</p>{% endblock %}
+{% block footer %}<p>Вход в аккаунт</p>{% endblock %}

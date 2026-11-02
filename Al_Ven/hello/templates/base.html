@@ -19,7 +19,11 @@
           <a href="{% url 'products' %}"{% if current == 'products' %} class="active"{% endif %}>Продукция</a>
           <a href="{% url 'blog' %}"{% if current == 'blog' %} class="active"{% endif %}>Наш блог</a>
           <a href="{% url 'weo' %}"{% if current == 'weo' %} class="active"{% endif %}>О нас</a>
-          <a href="{% url 'vhod' %}"{% if current == 'vhod' or current == 'reg' %} class="active"{% endif %}>{% if user.is_authenticated %}Аккаунт{% else %}Вход{% endif %}</a>
+          {% if user.is_authenticated %}
+          <a href="{% url 'account' %}"{% if current == 'account' %} class="active"{% endif %}>Аккаунт</a>
+          {% else %}
+          <a href="{% url 'vhod' %}"{% if current == 'vhod' or current == 'reg' %} class="active"{% endif %}>Вход</a>
+          {% endif %}
           <a href="{% url 'reviews' %}">Отзывы</a> <!-- Новая ссылка -->
           {% endwith %}
       </div> 
