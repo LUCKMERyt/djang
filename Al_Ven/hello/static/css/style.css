@@ -918,3 +918,211 @@ footer p {
         transform: translateY(0);
     }
 }
+
+
+
+
+/* * ===== 13. ОТЗЫВЫ (reviews.html) ===== */
+
+.page--reviews {
+    width: min(100% - 40px, 900px);
+    margin: 40px auto;
+    padding: 48px 32px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.page--reviews .page__header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(152, 46, 222, 0.25);
+}
+
+.page--reviews h1 {
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 36px;
+}
+
+.page--reviews .page__lead {
+    color: #d9c2f5;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.page--reviews h2 {
+    color: #d9c2f5;
+    font-size: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Форма отзыва */
+.review-form-section {
+    background: rgba(27, 4, 43, 0.4);
+    border: 1px solid rgba(152, 46, 222, 0.2);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 48px;
+}
+
+.review-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: #d9c2f5;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.review-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(152, 46, 222, 0.35);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.review-input:focus {
+    outline: none;
+    border-color: #982ede;
+    box-shadow: 0 0 12px rgba(152, 46, 222, 0.4);
+}
+
+.review-input::placeholder {
+    color: rgba(217, 194, 245, 0.4);
+}
+
+.review-submit-btn {
+    padding: 14px 28px;
+    background: linear-gradient(90deg, rgb(52, 7, 82), rgb(152, 46, 222));
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.review-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
+}
+
+/* Список отзывов */
+.reviews-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-card {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(152, 46, 222, 0.15);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.3s ease;
+}
+
+.review-card:hover {
+    border-color: rgba(152, 46, 222, 0.4);
+}
+
+.review-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.review-card__author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.review-card__avatar {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #670da3, #982ede);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.review-card__author h3 {
+    color: #fff;
+    font-size: 17px;
+    margin: 0 0 4px;
+}
+
+.review-card__date {
+    color: rgba(217, 194, 245, 0.6);
+    font-size: 13px;
+}
+
+.review-card__rating {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.star.filled {
+    color: #ffd700; /* Золотой цвет для заполненных звезд */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.review-card__text {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    font-size: 15px;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .page--reviews {
+        padding: 32px 20px;
+    }
+    .page--reviews h1 {
+        font-size: 28px;
+    }
+    .review-form-section {
+        padding: 24px 16px;
+    }
+    .review-card__header {
+        flex-direction: column;
+    }
+}

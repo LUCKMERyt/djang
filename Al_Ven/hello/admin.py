@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Person, Category, Products, RegisteredUser
+from .models import Person, Category, Products, Review
 
 
 @admin.register(Person)
@@ -29,10 +29,31 @@ class ProductsAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_prod'
 
 
-@admin.register(RegisteredUser)
-class RegisteredUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email')
-    search_fields = ('name', 'email')
-    ordering = ('name',)
+# ==========================================
+# НОВОЕ: Админка для отзывов
+# ==========================================
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    # Поля, которые будут отображаться в таблице списка
+    list_display = ('name', 'rating', 'text_preview', 'created_at')
+    
+    # Фильтры в правой колонке
+    list_filter = ('rating', 'created_at')
+    
+    # Поля, по которым работает поиск (лупа сверху)
+    search_fields = ('name', 'text')
+    
+    # Сортировка по умолчанию (новые сверху)
+    ordering = ('-created_at',)
+    
+    # Поля, которые нельзя редактировать вручную
+    readonly_fields = ('created_at',)
+    
     list_per_page = 25
-    exclude = ('password',)
+
+    # Метод для красивого отображения длинного текста в таблице
+    @admin.display(description='Текст отзыва')
+    def text_preview(self, obj):
+        if len(obj.text) > 60:
+            return obj.text[:60] + '...'
+        return obj.text

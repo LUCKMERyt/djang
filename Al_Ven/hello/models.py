@@ -51,14 +51,19 @@ class Products(models.Model):
         verbose_name_plural = 'Товары'
 
 
-class RegisteredUser(models.Model):
-    name = models.CharField('Имя пользователя', max_length=100)
-    email = models.EmailField('Электронная почта', unique=True)
-    password = models.CharField('Пароль', max_length=128)
-
-    def __str__(self):
-        return self.name
+class Review(models.Model):
+    RATING_CHOICES = [(i, f"{i} ⭐") for i in range(1, 6)]
+    
+    name = models.CharField(max_length=100, verbose_name="Ваше имя")
+    rating = models.IntegerField(choices=RATING_CHOICES, verbose_name="Оценка")
+    text = models.TextField(verbose_name="Текст отзыва")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата публикации")
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+        db_table = 'hello_reviews'
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+        ordering = ['-created_at'] # Сортировка: новые сверху
+
+    def __str__(self):
+        return f"Отзыв от {self.name} ({self.rating}⭐)"

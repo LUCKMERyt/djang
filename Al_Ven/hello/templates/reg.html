@@ -17,29 +17,13 @@
 
         {{ form.non_field_errors }}
 
-        <div>
-            {{ form.name.label_tag }}
-            {{ form.name }}
-            {{ form.name.errors }}
-        </div>
-
-        <div>
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {{ form.email.errors }}
-        </div>
-
-        <div>
-            {{ form.password.label_tag }}
-            {{ form.password }}
-            {{ form.password.errors }}
-        </div>
-
-        <div>
-            {{ form.password_confirm.label_tag }}
-            {{ form.password_confirm }}
-            {{ form.password_confirm.errors }}
-        </div>
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
 
         <p>
             Есть аккаунт?

@@ -19,12 +19,20 @@
           <a href="{% url 'products' %}"{% if current == 'products' %} class="active"{% endif %}>Продукция</a>
           <a href="{% url 'blog' %}"{% if current == 'blog' %} class="active"{% endif %}>Наш блог</a>
           <a href="{% url 'weo' %}"{% if current == 'weo' %} class="active"{% endif %}>О нас</a>
-          <a href="{% url 'vhod' %}"{% if current == 'vhod' or current == 'reg' %} class="active"{% endif %}>Вход</a>
+          <a href="{% url 'vhod' %}"{% if current == 'vhod' or current == 'reg' %} class="active"{% endif %}>{% if user.is_authenticated %}Аккаунт{% else %}Вход{% endif %}</a>
+          <a href="{% url 'reviews' %}">Отзывы</a> <!-- Новая ссылка -->
           {% endwith %}
       </div> 
   </div>
 
   <main>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
 
