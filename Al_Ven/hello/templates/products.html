@@ -49,7 +49,19 @@
 
                 <div class="product-card__footer">
                     <span class="product-card__price">{{ p.sale }} ₽</span>
-                    <button class="product-card__btn">Подробнее</button>
+                    <button
+                        class="product-card__btn"
+                        type="button"
+                        data-product-name="{{ p.name }}"
+                        data-product-category="{{ p.cat_id.name }}"
+                        data-product-material="{{ p.material }}"
+                        data-product-date="{{ p.date_prod|date:'d.m.Y' }}"
+                        data-product-quantity="{{ p.conter }}"
+                        data-product-price="{{ p.sale }}"
+                        {% if p.image %}data-product-image="{{ p.image.url }}"{% endif %}
+                        aria-haspopup="dialog"
+                        aria-controls="product-modal"
+                    >Подробнее</button>
                 </div>
             </article>
         {% empty %}
@@ -64,8 +76,81 @@
         {% endfor %}
     </section>
 </div>
+
+<dialog class="product-modal" id="product-modal" aria-labelledby="product-modal-title">
+    <div class="product-modal__panel">
+        <button class="product-modal__close" type="button" aria-label="Закрыть окно">×</button>
+        <div class="product-modal__image-wrap" hidden>
+            <img class="product-modal__image" alt="">
+        </div>
+        <p class="product-modal__eyebrow">ИНФОРМАЦИЯ О ТОВАРЕ</p>
+        <h2 id="product-modal-title"></h2>
+        <p class="product-modal__category"></p>
+        <dl class="product-modal__details">
+            <div><dt>Материал</dt><dd data-product-field="material"></dd></div>
+            <div><dt>Дата производства</dt><dd data-product-field="date"></dd></div>
+            <div><dt>Наличие</dt><dd data-product-field="quantity"></dd></div>
+        </dl>
+        <div class="product-modal__footer">
+            <strong class="product-modal__price"></strong>
+            <button class="product-card__btn product-modal__done" type="button">Понятно</button>
+        </div>
+    </div>
+</dialog>
 {% endblock %}
 
 {% block footer %}
 <p>Каталог продукции</p>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(() => {
+    const modal = document.getElementById("product-modal");
+    if (!modal) return;
+
+    const title = modal.querySelector("#product-modal-title");
+    const category = modal.querySelector(".product-modal__category");
+    const imageWrap = modal.querySelector(".product-modal__image-wrap");
+    const image = modal.querySelector(".product-modal__image");
+    const price = modal.querySelector(".product-modal__price");
+    const closeButtons = modal.querySelectorAll(".product-modal__close, .product-modal__done");
+    let opener = null;
+
+    document.querySelectorAll(".product-card__btn[aria-controls='product-modal']").forEach((button) => {
+        button.addEventListener("click", () => {
+            opener = button;
+            title.textContent = button.dataset.productName || "Товар";
+            category.textContent = button.dataset.productCategory || "";
+            modal.querySelector("[data-product-field='material']").textContent = button.dataset.productMaterial || "—";
+            modal.querySelector("[data-product-field='date']").textContent = button.dataset.productDate || "—";
+            modal.querySelector("[data-product-field='quantity']").textContent = `${button.dataset.productQuantity || 0} шт.`;
+            price.textContent = `${button.dataset.productPrice || "—"} ₽`;
+
+            if (button.dataset.productImage) {
+                image.src = button.dataset.productImage;
+                image.alt = button.dataset.productName || "Фото товара";
+                imageWrap.hidden = false;
+            } else {
+                image.removeAttribute("src");
+                image.alt = "";
+                imageWrap.hidden = true;
+            }
+
+            modal.showModal();
+        });
+    });
+
+    const closeModal = () => modal.close();
+    closeButtons.forEach((button) => button.addEventListener("click", closeModal));
+
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+    });
+
+    modal.addEventListener("close", () => {
+        if (opener) opener.focus();
+    });
+})();
+</script>
 {% endblock %}

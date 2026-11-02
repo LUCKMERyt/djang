@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from .models import Review
+from datetime import date
+from .models import Category, Products, Review
 
 
 class AuthenticationTests(TestCase):
@@ -92,3 +93,25 @@ class AccountPageTests(TestCase):
         self.assertContains(response, "Анна")
         self.assertContains(response, "account@example.com")
         self.assertContains(response, "Выйти из аккаунта")
+
+
+class ProductModalTests(TestCase):
+    def test_catalog_renders_product_modal_data(self):
+        category = Category.objects.create(name="Украшения", coment="Описание категории")
+        product = Products.objects.create(
+            name="Тестовое украшение",
+            sale=2500,
+            material="Серебро",
+            date_prod=date(2026, 1, 15),
+            conter=3,
+            cat_id=category,
+        )
+
+        response = self.client.get(reverse("products"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="product-modal"')
+        self.assertContains(response, f'data-product-name="{product.name}"')
+        self.assertContains(response, 'data-product-material="Серебро"')
+        self.assertContains(response, 'data-product-price="2500"')
+        self.assertContains(response, "modal.showModal()")
