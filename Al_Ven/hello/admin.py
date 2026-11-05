@@ -4,7 +4,10 @@ from .models import Person, Category, Products, Review
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'fam', 'name', 'oth', 'age')
+    # NOTE: Эти поля позволяют быстро просматривать команду и редактировать
+    # контакты сотрудника без открытия дополнительных разделов.
+    list_display = ('id', 'fam', 'name', 'position', 'age', 'image')
+    fields = ('name', 'fam', 'oth', 'age', 'position', 'email', 'phone', 'description', 'image')
     search_fields = ('fam', 'name', 'oth')
     list_filter = ('age',)
     ordering = ('fam', 'name')
@@ -21,6 +24,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
+    # NOTE: Описание и изображение доступны редактору прямо в форме товара.
     list_display = ('id', 'name', 'image_preview', 'sale', 'material', 'date_prod', 'conter', 'cat_id')
     fields = ('name', 'description', 'image', 'sale', 'material', 'date_prod', 'conter', 'cat_id')
     search_fields = ('name', 'material', 'cat_id__name')
@@ -41,6 +45,7 @@ class ProductsAdmin(admin.ModelAdmin):
 # ==========================================
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+    # ! Перед публикацией сайта отзывы желательно модерировать в этой панели.
     # Поля, которые будут отображаться в таблице списка
     list_display = ('name', 'rating', 'text_preview', 'created_at')
     

@@ -1,9 +1,12 @@
 {% load static %}
+{# NOTE: Общий шаблон сайта. Все страницы наследуют base.html. #}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <!-- ! UTF-8 обязателен для корректного отображения русского текста. -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SOPHISTICATED — каталог товаров, команда и отзывы клиентов.">
   <title>{% block title %}SOPHISTICATED{% endblock %} | SOPHISTICATED</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -29,6 +32,7 @@
       </div> 
   </div>
 
+  <!-- NOTE: Здесь отображаются сообщения Django и содержимое текущей страницы. -->
   <main>
     {% if messages %}
       <ul class="messages">
@@ -40,8 +44,23 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer>
-    {% block footer %}© SOPHISTICATED{% endblock %}
+  <!-- NOTE: Контакты берутся из context_processors.py и доступны на всех страницах. -->
+  <footer class="site-footer">
+    <div class="site-footer__brand">
+      <strong>SOPHISTICATED</strong>
+      <span>Украшения, стиль и товары для жизни</span>
+    </div>
+    <div class="site-footer__contacts">
+      <a href="mailto:{{ SITE_CONTACTS.email }}">✉ {{ SITE_CONTACTS.email }}</a>
+      <a href="tel:{{ SITE_CONTACTS.phone }}">☎ {{ SITE_CONTACTS.phone }}</a>
+      <span>⌖ {{ SITE_CONTACTS.address }}</span>
+    </div>
+    <div class="site-footer__socials" aria-label="Социальные сети">
+      <a href="{{ SITE_CONTACTS.vk }}" target="_blank" rel="noopener noreferrer">VK</a>
+      <a href="{{ SITE_CONTACTS.telegram }}" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <a href="{{ SITE_CONTACTS.youtube }}" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+    <small>© SOPHISTICATED, 2026</small>
   </footer>
   {% block scripts %}{% endblock %}
 </body>

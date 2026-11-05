@@ -10,6 +10,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    # NOTE: Именованные маршруты используются в шаблонах через тег url.
     path('', views.index, name='index'),
     path('reg/', views.reg, name='reg'),
     path('admin/', admin.site.urls),
@@ -22,9 +23,12 @@ urlpatterns = [
     path('account/', views.account, name='account'),
     path('vyhod/', views.vyhod, name='vyhod'),
     path('reviews/', views.reviews_page, name='reviews'),
+    path('robots.txt', views.robots_txt, name='robots_txt'),
+    path('sitemap.xml', views.sitemap_xml, name='sitemap_xml'),
     
 
 ]
 
 if settings.DEBUG:
+    # ! В production media должен обслуживать Nginx, CDN или object storage.
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

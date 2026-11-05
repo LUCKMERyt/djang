@@ -4,14 +4,42 @@
 
 {% block content %}
 <section class="home-hero">
-    <h1>Главная страница</h1>
-    <p class="home-lead">Добро пожаловать на сайт SOPHISTICATED!</p>
-    <p>Здесь вы можете посмотреть нашу продукцию и узнать больше о нас.</p>
+    <p class="home-kicker">SOPHISTICATED / 2026</p>
+    <h1>Стиль, который<br><span>говорит за вас</span></h1>
+    <p class="home-lead">Товары с характером, вниманием к деталям и атмосферой фиолетового неона.</p>
+    <p>Откройте каталог, познакомьтесь с нашей командой и найдите то, что подходит именно вам.</p>
 
     <div class="home-links">
         <a class="home-btn" href="{% url 'products' %}">Каталог</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">О нас</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'news' %}">Наша команда</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы клиентов</a>
     </div>
+</section>
+
+<section class="home-features" aria-label="Преимущества">
+    <article class="home-feature-card">
+        <span class="home-feature-card__number">01</span>
+        <h2>Выбранный ассортимент</h2>
+        <p>Мы собираем практичные и красивые товары в одном каталоге.</p>
+    </article>
+    <article class="home-feature-card">
+        <span class="home-feature-card__number">02</span>
+        <h2>Понятные детали</h2>
+        <p>Фотографии, описания, материалы и наличие доступны в карточке товара.</p>
+    </article>
+    <article class="home-feature-card">
+        <span class="home-feature-card__number">03</span>
+        <h2>Живой сервис</h2>
+        <p>Познакомьтесь с командой и оставьте свой отзыв о сайте и товарах.</p>
+    </article>
+</section>
+
+<section class="home-callout">
+    <div>
+        <p class="home-kicker">НАЙДИТЕ СВОЁ</p>
+        <h2>Начните с каталога</h2>
+    </div>
+    <a class="home-btn" href="{% url 'products' %}">Смотреть товары →</a>
 </section>
 {% endblock %}
 
