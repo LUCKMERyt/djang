@@ -40,6 +40,7 @@ class Products(models.Model):
         verbose_name='Категория',
     )
     image = models.ImageField(upload_to='products/', null=True, blank=True, verbose_name="Фото")
+    description = models.TextField('Описание товара', max_length=1000, blank=True, default='')
 
 
 

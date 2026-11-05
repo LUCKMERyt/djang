@@ -94,6 +94,10 @@ if DB_ENGINE == "mysql":
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "3306"),
         "CONN_MAX_AGE": int(os.environ.get("DB_CONN_MAX_AGE", "60")),
+        "OPTIONS": {
+            "charset": "utf8mb4",
+            "init_command": "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci",
+        },
     }}
 elif DB_ENGINE == "sqlite":
     DATABASES = {"default": {
@@ -149,6 +153,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = '/media/'
+# Загруженные изображения товаров сохраняются отдельно от исходников проекта.
 MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

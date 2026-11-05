@@ -57,7 +57,8 @@
                         data-product-material="{{ p.material }}"
                         data-product-date="{{ p.date_prod|date:'d.m.Y' }}"
                         data-product-quantity="{{ p.conter }}"
-                        data-product-price="{{ p.sale }}"
+                         data-product-price="{{ p.sale }}"
+                         data-product-description="{{ p.description|escape }}"
                         {% if p.image %}data-product-image="{{ p.image.url }}"{% endif %}
                         aria-haspopup="dialog"
                         aria-controls="product-modal"
@@ -86,6 +87,7 @@
         <p class="product-modal__eyebrow">ИНФОРМАЦИЯ О ТОВАРЕ</p>
         <h2 id="product-modal-title"></h2>
         <p class="product-modal__category"></p>
+        <p class="product-modal__description"></p>
         <dl class="product-modal__details">
             <div><dt>Материал</dt><dd data-product-field="material"></dd></div>
             <div><dt>Дата производства</dt><dd data-product-field="date"></dd></div>
@@ -114,6 +116,7 @@
     const imageWrap = modal.querySelector(".product-modal__image-wrap");
     const image = modal.querySelector(".product-modal__image");
     const price = modal.querySelector(".product-modal__price");
+    const description = modal.querySelector(".product-modal__description");
     const closeButtons = modal.querySelectorAll(".product-modal__close, .product-modal__done");
     let opener = null;
 
@@ -126,6 +129,7 @@
             modal.querySelector("[data-product-field='date']").textContent = button.dataset.productDate || "—";
             modal.querySelector("[data-product-field='quantity']").textContent = `${button.dataset.productQuantity || 0} шт.`;
             price.textContent = `${button.dataset.productPrice || "—"} ₽`;
+            description.textContent = button.dataset.productDescription || "Описание товара пока не добавлено.";
 
             if (button.dataset.productImage) {
                 image.src = button.dataset.productImage;

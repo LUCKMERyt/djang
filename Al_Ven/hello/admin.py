@@ -21,12 +21,19 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'sale', 'material', 'date_prod', 'conter', 'cat_id')
+    list_display = ('id', 'name', 'image_preview', 'sale', 'material', 'date_prod', 'conter', 'cat_id')
+    fields = ('name', 'description', 'image', 'sale', 'material', 'date_prod', 'conter', 'cat_id')
     search_fields = ('name', 'material', 'cat_id__name')
     list_filter = ('cat_id', 'material', 'date_prod')
     ordering = ('name',)
     list_per_page = 25
     date_hierarchy = 'date_prod'
+
+    @admin.display(description='Фото')
+    def image_preview(self, obj):
+        if not obj.image:
+            return '—'
+        return f'Есть: {obj.image.name}'
 
 
 # ==========================================

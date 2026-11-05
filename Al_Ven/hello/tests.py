@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from datetime import date
@@ -114,4 +115,23 @@ class ProductModalTests(TestCase):
         self.assertContains(response, f'data-product-name="{product.name}"')
         self.assertContains(response, 'data-product-material="Серебро"')
         self.assertContains(response, 'data-product-price="2500"')
+        self.assertContains(response, 'data-product-description=""')
         self.assertContains(response, "modal.showModal()")
+
+    def test_catalog_renders_product_image(self):
+        category = Category.objects.create(name="Украшения", coment="Описание категории")
+        product = Products.objects.create(
+            name="Товар с фото",
+            sale=1500,
+            material="Серебро",
+            date_prod=date(2026, 2, 1),
+            conter=1,
+            cat_id=category,
+            image=SimpleUploadedFile("product.jpg", b"test image", content_type="image/jpeg"),
+        )
+
+        response = self.client.get(reverse("products"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f'src="{product.image.url}"')
+        self.assertContains(response, f'data-product-image="{product.image.url}"')
