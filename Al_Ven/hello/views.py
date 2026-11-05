@@ -28,8 +28,14 @@ from .authentication import username_for_email
 #     """)
 
 def index(request):
-    # NOTE: Главная страница не требует данных из базы.
-    return render(request, "index.html")
+    # NOTE: На главной показываем короткую витрину, чтобы пользователь сразу
+    # видел товары, категории и отзывы, а не только приветственный текст.
+    featured_categories = Category.objects.order_by('name')[:6]
+    latest_reviews = Review.objects.all()[:3]
+    return render(request, "index.html", {
+        'featured_categories': featured_categories,
+        'latest_reviews': latest_reviews,
+    })
 
 
 def robots_txt(request):
