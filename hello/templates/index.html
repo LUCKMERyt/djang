@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+    <p class="home-kicker">SOPHISTICATED / 2026</p>
+    <h1>Стиль, который<br><span>говорит за вас</span></h1>
+    <p class="home-lead">SOPHISTICATED — вещи, которые делают каждый день ярче.</p>
+    <p>Современный каталог товаров для дома, отдыха, учёбы, спорта и повседневной жизни.</p>
+
+    <div class="home-links">
+        <a class="home-btn" href="{% url 'products' %}">Каталог</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'news' %}">Наша команда</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы клиентов</a>
+    </div>
+</section>
+
+<section class="home-section home-section--categories">
+    <div class="home-section__heading">
+        <div>
+            <p class="home-kicker">ИССЛЕДУЙТЕ КАТАЛОГ</p>
+            <h2>Выберите направление</h2>
+        </div>
+        <a class="home-section__link" href="{% url 'products' %}">Все товары →</a>
+    </div>
+    <div class="home-category-grid">
+        {% for cat in featured_categories %}
+            <a class="home-category-card" href="{% url 'products' %}?category_id={{ cat.id }}">
+                <span>0{{ forloop.counter }}</span>
+                <strong>{{ cat.name }}</strong>
+                <small>{{ cat.coment|truncatechars:75 }}</small>
+            </a>
+        {% empty %}
+            <p>Категории скоро появятся.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="home-features" aria-label="Преимущества">
+    <article class="home-feature-card">
+        <span class="home-feature-card__number">01</span>
+        <h2>Выбранный ассортимент</h2>
+        <p>Мы собираем практичные и красивые товары в одном каталоге.</p>
+    </article>
+    <article class="home-feature-card">
+        <span class="home-feature-card__number">02</span>
+        <h2>Понятные детали</h2>
+        <p>Фотографии, описания, материалы и наличие доступны в карточке товара.</p>
+    </article>
+    <article class="home-feature-card">
+        <span class="home-feature-card__number">03</span>
+        <h2>Живой сервис</h2>
+        <p>Познакомьтесь с командой и оставьте свой отзыв о сайте и товарах.</p>
+    </article>
+</section>
+
+<section class="home-callout">
+    <div>
+        <p class="home-kicker">НАЙДИТЕ СВОЁ</p>
+        <h2>Начните с каталога</h2>
+    </div>
+    <a class="home-btn" href="{% url 'products' %}">Смотреть товары →</a>
+</section>
+
+<section class="home-section home-reviews-preview">
+    <div class="home-section__heading">
+        <div>
+            <p class="home-kicker">МНЕНИЕ КЛИЕНТОВ</p>
+            <h2>Что говорят о нас</h2>
+        </div>
+        <a class="home-section__link" href="{% url 'reviews' %}">Все отзывы →</a>
+    </div>
+    <div class="home-review-grid">
+        {% for review in latest_reviews %}
+            <article class="home-review-card">
+                <div class="home-review-card__rating">{% for star in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+                <p>«{{ review.text|truncatechars:150 }}»</p>
+                <strong>{{ review.name }}</strong>
+            </article>
+        {% empty %}
+            <p>Отзывы клиентов скоро появятся.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+<p>Главная</p>
+{% endblock %}

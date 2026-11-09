@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Мой аккаунт{% endblock %}
+
+{% block content %}
+<section class="account-page" aria-labelledby="account-title">
+    <header class="account-page__header">
+        <div class="account-avatar" aria-hidden="true">
+            {{ account_user.first_name|default:account_user.email|first|upper }}
+        </div>
+        <p class="account-eyebrow">ЛИЧНЫЙ КАБИНЕТ</p>
+        <h1 id="account-title">Рады видеть вас, {{ account_user.first_name|default:account_user.email }}!</h1>
+        <p class="account-page__lead">Здесь собрана информация о вашем аккаунте.</p>
+    </header>
+
+    <div class="account-card">
+        <h2>Данные аккаунта</h2>
+        <dl class="account-details">
+            <div class="account-details__row">
+                <dt>Имя</dt>
+                <dd>{{ account_user.first_name|default:'Не указано' }}</dd>
+            </div>
+            <div class="account-details__row">
+                <dt>Электронная почта</dt>
+                <dd>{{ account_user.email }}</dd>
+            </div>
+            <div class="account-details__row">
+                <dt>Аккаунт создан</dt>
+                <dd><time datetime="{{ account_user.date_joined|date:'Y-m-d' }}">{{ account_user.date_joined|date:'d.m.Y' }}</time></dd>
+            </div>
+        </dl>
+
+        <div class="account-actions">
+            <a class="account-action account-action--primary" href="{% url 'products' %}">Перейти в каталог</a>
+            <a class="account-action" href="{% url 'reviews' %}">Читать отзывы</a>
+            <form method="post" action="{% url 'vyhod' %}">
+                {% csrf_token %}
+                <button class="account-action account-action--logout" type="submit">Выйти из аккаунта</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}<p>Личный кабинет · SOPHISTICATED</p>{% endblock %}

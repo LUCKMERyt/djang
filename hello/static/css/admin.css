@@ -1,0 +1,510 @@
+:root {
+    --cyber-bg: #090611;
+    --cyber-panel: rgba(18, 12, 32, 0.94);
+    --cyber-purple: #9b4dff;
+    --cyber-pink: #ff2bd6;
+    --cyber-cyan: #27f5ff;
+    --cyber-text: #eee6ff;
+}
+
+/* Базовая раскладка */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+body {
+    color: var(--cyber-text) !important;
+    background-color: var(--cyber-bg) !important;
+    background-image:
+        linear-gradient(rgba(9, 6, 17, 0.72), rgba(9, 6, 17, 0.88)),
+        url("https://img.magnific.com/free-vector/gradient-purple-technology-background_23-2149108837.jpg?semt=ais_hybrid&w=740&q=80") !important;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.content-wrapper {
+    background: transparent !important;
+}
+
+.content,
+.container-fluid {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.content {
+    padding: 20px !important;
+}
+
+/* Верхняя панель */
+.main-header {
+    background: rgba(16, 9, 27, 0.96) !important;
+    border-bottom: 1px solid var(--cyber-purple) !important;
+    box-shadow: 0 0 14px rgba(155, 77, 255, 0.45);
+}
+
+.main-header .nav-link,
+.main-header .navbar-brand {
+    color: var(--cyber-cyan) !important;
+}
+
+/* Боковая панель */
+.main-sidebar {
+    background: rgba(13, 8, 23, 0.97) !important;
+    border-right: 1px solid rgba(155, 77, 255, 0.55);
+    box-shadow: 4px 0 18px rgba(155, 77, 255, 0.18);
+}
+
+.brand-link {
+    color: var(--cyber-cyan) !important;
+    border-bottom: 1px solid rgba(155, 77, 255, 0.4) !important;
+    text-shadow: 0 0 8px var(--cyber-cyan);
+}
+
+.sidebar .nav-link {
+    color: #d8c9f5 !important;
+    transition: 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+    color: #fff !important;
+    background: rgba(155, 77, 255, 0.18) !important;
+    box-shadow: inset 3px 0 var(--cyber-cyan);
+}
+
+.sidebar .nav-link.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
+    box-shadow: 0 0 12px rgba(155, 77, 255, 0.55);
+}
+
+/* Заголовки */
+.content-header h1,
+.card-title,
+h1,
+h2,
+h3 {
+    color: var(--cyber-cyan) !important;
+    text-shadow: 0 0 8px rgba(39, 245, 255, 0.35);
+}
+
+/* Карточки и панели */
+.card,
+.info-box,
+.small-box,
+.modal-content {
+    color: var(--cyber-text) !important;
+    background: var(--cyber-panel) !important;
+    border: 1px solid rgba(155, 77, 255, 0.45) !important;
+    box-shadow: 0 0 12px rgba(155, 77, 255, 0.18);
+}
+
+.card-header,
+.card-footer {
+    background: rgba(26, 16, 41, 0.9) !important;
+    border-color: rgba(155, 77, 255, 0.3) !important;
+}
+
+/* Таблицы */
+.table,
+.table td,
+.table th {
+    color: var(--cyber-text) !important;
+    border-color: rgba(155, 77, 255, 0.25) !important;
+}
+
+.table thead th {
+    color: var(--cyber-cyan) !important;
+    background: #1a1029 !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(155, 77, 255, 0.12) !important;
+}
+
+/* Формы */
+.form-control,
+.custom-select,
+select,
+textarea,
+input {
+    max-width: 100%;
+    color: var(--cyber-text) !important;
+    background-color: #100b1b !important;
+    border: 1px solid rgba(155, 77, 255, 0.65) !important;
+}
+
+.form-control:focus,
+.custom-select:focus,
+select:focus,
+textarea:focus,
+input:focus {
+    border-color: var(--cyber-cyan) !important;
+    box-shadow: 0 0 8px rgba(39, 245, 255, 0.45) !important;
+}
+
+label,
+.help-block,
+.helptext {
+    color: #d8c9f5 !important;
+}
+
+/* Кнопки */
+.btn-primary,
+input[type="submit"],
+.submit-row input {
+    color: #fff !important;
+    background: linear-gradient(100deg, #792ee5, #bd32ff) !important;
+    border: 1px solid var(--cyber-pink) !important;
+    box-shadow: 0 0 10px rgba(255, 43, 214, 0.3);
+}
+
+.btn-primary:hover,
+input[type="submit"]:hover,
+.submit-row input:hover {
+    background: linear-gradient(100deg, #963fff, #e13bff) !important;
+    box-shadow: 0 0 16px rgba(255, 43, 214, 0.6);
+}
+
+.btn-info {
+    color: #fff !important;
+    background: #087f91 !important;
+    border-color: var(--cyber-cyan) !important;
+}
+
+/* Ссылки и пагинация */
+a {
+    color: var(--cyber-cyan);
+}
+
+a:hover {
+    color: var(--cyber-pink);
+    text-shadow: 0 0 6px rgba(255, 43, 214, 0.5);
+}
+
+.page-item.active .page-link {
+    color: #fff !important;
+    background: var(--cyber-purple) !important;
+    border-color: var(--cyber-pink) !important;
+}
+
+/* Сообщения */
+.alert,
+.callout {
+    color: var(--cyber-text) !important;
+    background: #160d25 !important;
+    border-color: var(--cyber-purple) !important;
+}
+
+/* Django Admin / Jazzmin: форма редактирования */
+.change-form form {
+    width: 100%;
+}
+
+.change-form .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.change-form .row > .col-md-9,
+.change-form .row > .col-md-8,
+.change-form .row > .col-lg-9,
+.change-form .row > .col-lg-8 {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Панель кнопок формы */
+.change-form form .submit-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: stretch;
+    gap: 8px;
+    width: 100% !important;
+    margin: 16px 0 !important;
+    padding: 12px !important;
+    background: var(--cyber-panel) !important;
+    border: 1px solid rgba(155, 77, 255, 0.45) !important;
+    border-radius: 6px;
+}
+
+.change-form form .submit-row input,
+.change-form form .submit-row button,
+.change-form form .submit-row a {
+    float: none !important;
+    flex: 1 1 180px;
+    width: auto !important;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+/* Таблицы на узких экранах */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Мобильная версия */
+@media (max-width: 767.98px) {
+    .content {
+        padding: 12px !important;
+    }
+
+    .container-fluid {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .change-form form .submit-row {
+        flex-direction: column;
+    }
+
+    .change-form form .submit-row input,
+    .change-form form .submit-row button,
+    .change-form form .submit-row a {
+        width: 100% !important;
+        flex-basis: auto;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .content-wrapper,
+    .main-footer {
+        margin-left: 0 !important;
+    }
+}
+
+/* Скрыть панель Customize */
+.control-sidebar,
+.control-sidebar-dark,
+.control-sidebar-light,
+.control-sidebar-bg,
+.control-sidebar-slide-open {
+    display: none !important;
+}
+
+/* Убрать кнопку открытия панели */
+.nav-item a[data-widget="control-sidebar"],
+.nav-link[data-widget="control-sidebar"],
+[data-widget="control-sidebar"] {
+    display: none !important;
+}
+
+
+
+
+/* Цвет боковой панели */
+.main-sidebar,
+.main-sidebar .sidebar,
+.main-sidebar .brand-link {
+    background-color: #110b1d !important;
+}
+
+.main-sidebar {
+    border-right: 1px solid rgba(155, 77, 255, 0.55) !important;
+}
+
+.sidebar .nav-header {
+    color: var(--cyber-cyan) !important;
+}
+
+.sidebar .nav-link {
+    background-color: transparent !important;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(155, 77, 255, 0.2) !important;
+}
+
+.sidebar .nav-link.active,
+.sidebar .menu-open > .nav-link {
+    color: #fff !important;
+    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
+}
+
+
+
+/* Боковое меню Jazzmin / AdminLTE */
+.main-sidebar,
+.main-sidebar::before,
+.main-sidebar .sidebar,
+.main-sidebar .brand-link,
+.main-sidebar .user-panel {
+    background-color: #110b1d !important;
+    background-image: none !important;
+}
+
+.main-sidebar .nav-sidebar > .nav-item > .nav-link {
+    color: #d8c9f5 !important;
+    background-color: transparent !important;
+}
+
+.main-sidebar .nav-sidebar > .nav-item > .nav-link:hover,
+.main-sidebar .nav-sidebar > .nav-item > .nav-link.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
+}
+
+.main-sidebar .nav-header {
+    color: var(--cyber-cyan) !important;
+}
+
+
+/* Боковая панель Jazzmin / AdminLTE */
+html body .main-sidebar,
+html body .main-sidebar::before,
+html body .main-sidebar .brand-link,
+html body .main-sidebar .sidebar,
+html body .main-sidebar .user-panel,
+html body .main-sidebar nav,
+html body .main-sidebar .nav-sidebar {
+    background: #110b1d !important;
+    background-image: none !important;
+}
+
+/* Пункты меню */
+html body .main-sidebar .nav-sidebar .nav-link {
+    color: #d8c9f5 !important;
+    background: transparent !important;
+}
+
+html body .main-sidebar .nav-sidebar .nav-link:hover,
+html body .main-sidebar .nav-sidebar .nav-link.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
+}
+
+/* Заголовки разделов */
+html body .main-sidebar .nav-header {
+    color: var(--cyber-cyan) !important;
+}
+.main-sidebar,
+.main-sidebar::before {
+    background: #110b1d !important;
+}
+
+
+/* Переопределение палитры боковой панели темы Darkly */
+[data-bs-theme="dark"] .app-sidebar,
+[data-bs-theme="dark"] .app-sidebar::before {
+    --lte-sidebar-bg: #110b1d;
+    --lte-sidebar-color: #d8c9f5;
+    --lte-sidebar-hover-bg: rgba(155, 77, 255, 0.2);
+    --lte-sidebar-active-bg: linear-gradient(90deg, #7028c9, #a33cff);
+    --lte-sidebar-menu-active-bg: rgba(155, 77, 255, 0.2);
+    --lte-sidebar-header-color: #27f5ff;
+
+    background: #110b1d !important;
+    background-image: none !important;
+}
+
+[data-bs-theme="dark"] .app-sidebar .nav-link {
+    color: #d8c9f5 !important;
+}
+
+[data-bs-theme="dark"] .app-sidebar .nav-link:hover,
+[data-bs-theme="dark"] .app-sidebar .nav-link.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
+}
+
+[data-bs-theme="dark"] .app-sidebar .nav-header {
+    color: #27f5ff !important;
+}
+
+/* Верхняя панель AdminLTE / Jazzmin */
+[data-bs-theme="dark"] .app-header {
+    --lte-navbar-bg: rgba(16, 9, 27, 0.96);
+    --lte-navbar-color: #27f5ff;
+
+    background: rgba(16, 9, 27, 0.96) !important;
+    background-image: none !important;
+    border-bottom: 1px solid #9b4dff !important;
+    box-shadow: 0 0 14px rgba(155, 77, 255, 0.45);
+}
+
+[data-bs-theme="dark"] .app-header .nav-link,
+[data-bs-theme="dark"] .app-header .navbar-brand {
+    color: #27f5ff !important;
+}
+
+/* Хлебные крошки */
+[data-bs-theme="dark"] .app-content-header,
+[data-bs-theme="dark"] .breadcrumb {
+    background: #110b1d !important;
+    color: #d8c9f5 !important;
+}
+
+[data-bs-theme="dark"] .breadcrumb-item,
+[data-bs-theme="dark"] .breadcrumb-item a {
+    color: #27f5ff !important;
+}
+
+[data-bs-theme="dark"] .breadcrumb-item.active {
+    color: #d8c9f5 !important;
+}
+
+[data-bs-theme="dark"] .breadcrumb-item + .breadcrumb-item::before {
+    color: #9b4dff !important;
+}
+
+/* Только кнопки-вкладки формы */
+.change-form .nav-tabs .nav-link {
+    color: var(--cyber-text) !important;
+    background: #1a1029 !important;
+    border: 1px solid #9b4dff !important;
+}
+
+.change-form .nav-tabs .nav-link:hover,
+.change-form .nav-tabs .nav-link.active {
+    color: #fff !important;
+    background: #35145c !important;
+    border-color: var(--cyber-cyan) !important;
+}
+
+
+html body .change-form .submit-row input,
+html body .change-form .submit-row button,
+html body .change-form .submit-row a,
+html body .change-form .nav-tabs .nav-link {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+/* Синяя обводка только у кнопок */
+button,
+.btn,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.submit-row a {
+    border: 1px solid #100b1b !important;
+}
+
+
+.btn-group>.btn-group:not(:first-child), .btn-group>:not(.btn-check:first-child)+.btn {
+    margin-left: calc(-1 * var(--bs-border-width));
+    background-color: #43a1ff !important;
+}
+
+
+.btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn.dropdown-toggle-split:first-child, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    background-color: #9b4dff  !important;
+}

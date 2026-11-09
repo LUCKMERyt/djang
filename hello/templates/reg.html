@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}РЕГИСТРАЦИЯ{% endblock %}
+
+{% block content %}
+<div class="content_form">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+
+        <p>
+            Есть аккаунт?
+            <a class="reg_but" href="{% url 'vhod' %}">Заходи!</a>
+        </p>
+
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p>reg</p>
+{% endblock %}

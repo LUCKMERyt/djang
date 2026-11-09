@@ -5,11 +5,19 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+<<<<<<< HEAD
 
 # ИМПОРТ МОДЕЛЕЙ (добавлен Review)
 from .models import Person, Category, Products, Review
 
 # ИМПОРТ ФОРМ (все в одной строке, без дублирования)
+=======
+
+# ИМПОРТ МОДЕЛЕЙ (добавлен Review)
+from .models import Person, Category, Products, Review
+
+# ИМПОРТ ФОРМ (все в одной строке, без дублирования)
+>>>>>>> ba1251643db6b316926ce6157665da0ddbce4d82
 from .forms import UserForm, ReviewForm, EmailAuthenticationForm
 from .authentication import username_for_email
 
@@ -35,6 +43,63 @@ def index(request):
     return render(request, "index.html", {
         'featured_categories': featured_categories,
         'latest_reviews': latest_reviews,
+<<<<<<< HEAD
+    })
+
+
+def robots_txt(request):
+    # NOTE: В production замените домен на фактический адрес сайта.
+    return HttpResponse(
+        'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: /sitemap.xml\n',
+        content_type='text/plain',
+    )
+
+
+def sitemap_xml(request):
+    # TODO: Добавить динамические URL товаров после появления отдельных страниц товаров.
+    return HttpResponse(
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        '<url><loc>/</loc></url><url><loc>/products/</loc></url>'
+        '<url><loc>/news/</loc></url><url><loc>/reviews/</loc></url>'
+        '<url><loc>/blog/</loc></url><url><loc>/weo/</loc></url>'
+        '</urlset>',
+        content_type='application/xml',
+    )
+
+def products(request):
+    # NOTE: select_related уменьшает количество запросов к таблице категорий.
+    categories = Category.objects.all()
+    products = Products.objects.select_related('cat_id').all()
+
+    category_id = request.GET.get('category_id')
+    query = request.GET.get('q', '').strip()
+    material = request.GET.get('material', '').strip()
+    sort = request.GET.get('sort', 'name')
+    stock = request.GET.get('stock', '')
+    selected_category = None
+
+    if category_id:
+        products = products.filter(cat_id_id=category_id)
+        selected_category = Category.objects.filter(id=category_id).first()
+
+    # ! Фильтры используют ORM и не собирают SQL из пользовательской строки.
+    if query:
+        products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
+    if material:
+        products = products.filter(material__icontains=material)
+    if stock == 'available':
+        products = products.filter(conter__gt=0)
+    if sort in {'name', 'sale', '-sale', 'date_prod', '-date_prod'}:
+        products = products.order_by(sort)
+
+    return render(request, 'products.html', {
+        'category': categories,
+        'product': products,
+            'selected_category': selected_category,
+            'query': query, 'material': material, 'sort': sort, 'stock': stock,
+=======
+>>>>>>> ba1251643db6b316926ce6157665da0ddbce4d82
     })
 
 
