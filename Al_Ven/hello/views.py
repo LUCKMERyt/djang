@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 # ИМПОРТ МОДЕЛЕЙ (добавлен Review)
 from .models import Person, Category, Products, Review
@@ -26,23 +28,67 @@ from .authentication import username_for_email
 #     """)
 
 def index(request):
-    return render(request, "index.html")
+    # NOTE: На главной показываем короткую витрину, чтобы пользователь сразу
+    # видел товары, категории и отзывы, а не только приветственный текст.
+    featured_categories = Category.objects.order_by('name')[:6]
+    latest_reviews = Review.objects.all()[:3]
+    return render(request, "index.html", {
+        'featured_categories': featured_categories,
+        'latest_reviews': latest_reviews,
+    })
+
+
+def robots_txt(request):
+    # NOTE: В production замените домен на фактический адрес сайта.
+    return HttpResponse(
+        'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: /sitemap.xml\n',
+        content_type='text/plain',
+    )
+
+
+def sitemap_xml(request):
+    # TODO: Добавить динамические URL товаров после появления отдельных страниц товаров.
+    return HttpResponse(
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        '<url><loc>/</loc></url><url><loc>/products/</loc></url>'
+        '<url><loc>/news/</loc></url><url><loc>/reviews/</loc></url>'
+        '<url><loc>/blog/</loc></url><url><loc>/weo/</loc></url>'
+        '</urlset>',
+        content_type='application/xml',
+    )
 
 def products(request):
+    # NOTE: select_related уменьшает количество запросов к таблице категорий.
     categories = Category.objects.all()
     products = Products.objects.select_related('cat_id').all()
 
     category_id = request.GET.get('category_id')
+    query = request.GET.get('q', '').strip()
+    material = request.GET.get('material', '').strip()
+    sort = request.GET.get('sort', 'name')
+    stock = request.GET.get('stock', '')
     selected_category = None
 
     if category_id:
         products = products.filter(cat_id_id=category_id)
         selected_category = Category.objects.filter(id=category_id).first()
 
+    # ! Фильтры используют ORM и не собирают SQL из пользовательской строки.
+    if query:
+        products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
+    if material:
+        products = products.filter(material__icontains=material)
+    if stock == 'available':
+        products = products.filter(conter__gt=0)
+    if sort in {'name', 'sale', '-sale', 'date_prod', '-date_prod'}:
+        products = products.order_by(sort)
+
     return render(request, 'products.html', {
         'category': categories,
         'product': products,
-        'selected_category': selected_category,
+            'selected_category': selected_category,
+            'query': query, 'material': material, 'sort': sort, 'stock': stock,
     })
 
 def blog(request):
@@ -52,17 +98,13 @@ def weo(request):
     return render(request, "weo.html")
 
 def news(request):
-    name = request.GET.get("name", "").strip()
+    # NOTE: Страница персонала показывает всю команду карточками без фильтра.
     people = Person.objects.all()
-
-    if name:
-        people = people.filter(name__icontains=name)
-
-    people = people.values_list("id", "name", "fam", "oth", "age")
 
     return render(request, "news.html", {"people": people})
 
 def reg(request):
+    # ! Пароль передаётся в create_user, поэтому Django сохраняет его хеш.
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():

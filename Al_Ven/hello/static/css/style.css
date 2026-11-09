@@ -1,4 +1,4 @@
-/* * ========================= СОДЕРЖАНИЕ =========================
+﻿/* NOTE: ========================= СОДЕРЖАНИЕ =========================
    1. Общие стили (все страницы)
    2. Шапка сайта: логотип и меню (base.html)
    3. Подвал сайта (base.html)
@@ -14,7 +14,7 @@
    ========================================================================== */
 
 
-/* * ===== 1. ОБЩИЕ СТИЛИ (все страницы) ===== */
+/* NOTE: ===== 1. ОБЩИЕ СТИЛИ (все страницы) ===== */
 :root {
     color-scheme: dark;
     --neon: #b84dff;
@@ -75,7 +75,7 @@ body::before {
 }
 
 
-/* * ===== 2. ШАПКА САЙТА: ЛОГОТИП И МЕНЮ (base.html) ===== */
+/* NOTE: ===== 2. ШАПКА САЙТА: ЛОГОТИП И МЕНЮ (base.html) ===== */
 .header {
     width: 100%;
     display: flex;
@@ -123,7 +123,7 @@ body::before {
 }
 
 
-/* * ===== 3. ПОДВАЛ САЙТА (base.html) ===== */
+/* NOTE: ===== 3. ПОДВАЛ САЙТА (base.html) ===== */
 footer {
     background: rgba(7, 5, 11, 0.92);
     color: #fff;
@@ -142,7 +142,7 @@ footer p {
 }
 
 
-/* * ===== 4. ГЛАВНАЯ СТРАНИЦА (index.html) ===== */
+/* NOTE: ===== 4. ГЛАВНАЯ СТРАНИЦА (index.html) ===== */
 .home-hero {
     width: min(100% - 40px, 900px);
     margin: 48px auto;
@@ -210,7 +210,7 @@ footer p {
 }
 
 
-/* * ===== 5. БЛОГ (blog.html) — ОБНОВЛЕННАЯ ВЕРСИЯ ===== */
+/* NOTE: ===== 5. БЛОГ (blog.html) — ОБНОВЛЕННАЯ ВЕРСИЯ ===== */
 
 .page--blog {
     width: min(100% - 40px, 900px);
@@ -349,11 +349,11 @@ footer p {
 }
 
 
-/* * ===== 6. ПЕРСОНАЛ (news.html) ===== */
+/* NOTE: ===== 6. ПЕРСОНАЛ (news.html) ===== */
 /* Использует общие стили таблиц из раздела 8 (.table-wrapper) */
 
 
-/* * ===== 7. ПРОДУКЦИЯ (products.html) — КАТАЛОГ С ФИЛЬТРАМИ И ФОТО ===== */
+/* NOTE: ===== 7. ПРОДУКЦИЯ (products.html) — КАТАЛОГ С ФИЛЬТРАМИ И ФОТО ===== */
 .catalog-page {
     width: min(100% - 40px, 1200px);
     margin: 40px auto;
@@ -583,7 +583,7 @@ footer p {
 }
 
 
-/* * ===== 8. ТАБЛИЦЫ — общие (используются для Персонала в news.html) ===== */
+/* NOTE: ===== 8. ТАБЛИЦЫ — общие (используются для Персонала в news.html) ===== */
 .table-wrapper a:hover {
     color: #793da1;
     text-decoration: underline;
@@ -659,7 +659,7 @@ footer p {
 }
 
 
-/* * ===== 9. РЕГИСТРАЦИЯ И ВХОД (reg.html, vhod.html) ===== */
+/* NOTE: ===== 9. РЕГИСТРАЦИЯ И ВХОД (reg.html, vhod.html) ===== */
 .content_form {
     min-height: 85vh;
     display: flex;
@@ -752,7 +752,7 @@ footer p {
 }
 
 
-/* * ===== 10. СООБЩЕНИЯ DJANGO (reg.html, vhod.html) ===== */
+/* NOTE: ===== 10. СООБЩЕНИЯ DJANGO (reg.html, vhod.html) ===== */
 .messages {
     list-style: none;
     padding: 0;
@@ -797,7 +797,7 @@ footer p {
 }
 
 
-/* * ===== 11. О НАС (weo.html) — РАСШИРЕННАЯ ВЕРСИЯ ===== */
+/* NOTE: ===== 11. О НАС (weo.html) — РАСШИРЕННАЯ ВЕРСИЯ ===== */
 .about-page {
     width: min(100% - 40px, 900px);
     margin: 40px auto;
@@ -938,7 +938,7 @@ footer p {
 }
 
 
-/* * ===== 12. АНИМАЦИИ ===== */
+/* NOTE: ===== 12. АНИМАЦИИ ===== */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -953,7 +953,7 @@ footer p {
 
 
 
-/* * ===== 13. ОТЗЫВЫ (reviews.html) ===== */
+/* NOTE: ===== 13. ОТЗЫВЫ (reviews.html) ===== */
 
 .page--reviews {
     width: min(100% - 40px, 900px);
@@ -1156,6 +1156,102 @@ footer p {
     .review-card__header {
         flex-direction: column;
     }
+}
+
+.site-footer {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr 1fr;
+    gap: 24px;
+    align-items: center;
+    text-align: left;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.site-footer__brand,
+.site-footer__contacts,
+.site-footer__socials {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.site-footer__brand strong { color: #d9a7ff; letter-spacing: .12em; }
+.site-footer a { color: #e8d6ff; text-decoration: none; }
+.site-footer a:hover { color: #ff9df5; }
+.site-footer__socials { flex-direction: row; gap: 14px; }
+.site-footer small { grid-column: 1 / -1; opacity: .6; }
+
+@media (max-width: 700px) {
+    .site-footer { grid-template-columns: 1fr; text-align: center; }
+    .site-footer__socials { justify-content: center; }
+}
+
+/* NOTE: Главная страница использует hero, преимущества и отдельный CTA-блок. */
+.home-kicker { color: var(--neon-bright); font-size: 12px; font-weight: bold; letter-spacing: .22em; text-transform: uppercase; }
+.home-hero h1 span { color: var(--neon-bright); }
+.home-features { width: min(100% - 40px, 1100px); margin: 0 auto 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.home-feature-card { padding: 26px; min-height: 190px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(39,16,67,.86), rgba(14,8,25,.88)); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+.home-feature-card__number { color: var(--neon-bright); font-weight: bold; }
+.home-feature-card h2 { margin: 16px 0 10px; color: var(--text); font-size: 21px; }
+.home-feature-card p { line-height: 1.6; }
+
+/* NOTE: Секции витрины главной страницы не меняют основной каталог. */
+.home-section { width: min(100% - 40px, 1100px); margin: 0 auto 56px; }
+.home-section__heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 20px; }
+.home-section__heading h2 { margin-top: 8px; color: var(--text); font-size: clamp(24px, 4vw, 34px); }
+.home-section__link { color: var(--neon-bright); text-decoration: none; font-weight: bold; white-space: nowrap; }
+.home-section__link:hover { color: #fff; }
+.home-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.home-category-card { min-height: 150px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 16px; color: var(--text); text-decoration: none; background: rgba(25, 10, 46, .75); transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+.home-category-card:hover { transform: translateY(-4px); border-color: var(--neon-bright); background: rgba(75, 25, 105, .55); }
+.home-category-card span { color: var(--neon-bright); font-size: 13px; }
+.home-category-card strong { font-size: 20px; }
+.home-category-card small { color: var(--muted); line-height: 1.4; }
+.home-review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.home-review-card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(25, 10, 46, .75); }
+.home-review-card p { margin: 14px 0; line-height: 1.6; }
+.home-review-card__rating { color: #ffb3f6; letter-spacing: 3px; }
+.home-review-card strong { color: var(--neon-bright); }
+.home-callout { width: min(100% - 40px, 1100px); margin: 0 auto 52px; padding: 28px 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border: 1px solid rgba(212,154,255,.45); border-radius: 18px; background: rgba(74,25,103,.35); }
+.home-callout h2 { margin-top: 8px; color: #fff; font-size: clamp(24px, 4vw, 36px); }
+
+.catalog-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin: 0 auto 24px;
+    max-width: 1100px;
+}
+
+.catalog-tools input[type="search"],
+.catalog-tools input[type="text"],
+.catalog-tools select {
+    min-width: 180px;
+    flex: 1;
+    padding: 13px 16px;
+    border: 1px solid rgba(174, 91, 255, .55);
+    border-radius: 12px;
+    color: #fff;
+    background: rgba(25, 12, 58, .8);
+}
+
+.catalog-tools select option { color: #201033; }
+.stock-filter { display: inline-flex; gap: 8px; align-items: center; color: #eadbff; white-space: nowrap; }
+
+.person-card .product-card__body p:last-child {
+    color: rgba(236, 221, 255, .8);
+    line-height: 1.5;
+}
+
+/* NOTE: Мобильная раскладка главной страницы и CTA-блока. */
+@media (max-width: 760px) {
+    .home-features { grid-template-columns: 1fr; }
+    .home-callout { flex-direction: column; align-items: flex-start; }
+    .home-section__heading { align-items: flex-start; flex-direction: column; }
+    .home-category-grid, .home-review-grid { grid-template-columns: 1fr; }
 }
 
 /* Единая неоновая отделка для всех страниц */
@@ -1747,3 +1843,4 @@ body > main > form button:hover {
         padding: 12px 4px;
     }
 }
+
