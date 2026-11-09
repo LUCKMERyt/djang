@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 иван иванов https://avatars.mds.yandex.net/i?id=754b3d87a3fc6137e7e3201dcc634385_sr-4428810-images-thumbs&n=13
 
 валя петрова  https://static.tildacdn.com/tild3735-3361-4232-a561-623565323565/Frame_3040.png
@@ -6,4 +7,14 @@
 
 Геннадий генадьев https://i.vuzopedia.ru/storage/app/uploads/public/670/d4b/392/670d4b392afd6332147000.webp
 
+=======
+иван иванов https://avatars.mds.yandex.net/i?id=754b3d87a3fc6137e7e3201dcc634385_sr-4428810-images-thumbs&n=13
+
+валя петрова  https://static.tildacdn.com/tild3735-3361-4232-a561-623565323565/Frame_3040.png
+
+артём дмитриев https://storage.myseldon.com/news-pict-b9/B92B2B0B1999384FE3F10389D25471DE
+
+Геннадий генадьев https://i.vuzopedia.ru/storage/app/uploads/public/670/d4b/392/670d4b392afd6332147000.webp
+
+>>>>>>> origin/main
 Инга Сергевна https://avatars.mds.yandex.net/i?id=53c2cc0875a55c268b705722f09b6d7dc428774e-11424584-images-thumbs&n=13
