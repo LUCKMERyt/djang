@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{# NOTE: Отзывы добавляются через POST с CSRF-защитой и сохраняются в hello_reviews. #}
+
+{% block title %}Отзывы клиентов{% endblock %}
+
+{% block content %}
+<main class="page page--reviews" aria-labelledby="reviews-title">
+    <header class="page__header">
+        <h1 id="reviews-title">Отзывы наших клиентов</h1>
+        <p class="page__lead">Нам важно ваше мнение! Поделитесь своим опытом использования нашей продукции.</p>
+    </header>
+
+    <!-- Форма добавления отзыва -->
+    <section class="review-form-section" aria-label="Форма отзыва">
+        <h2>Оставить отзыв</h2>
+        <form method="post" class="review-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+
+            <div class="form-group">
+                {{ form.rating.label_tag }}
+                {{ form.rating }}
+            </div>
+
+            <div class="form-group">
+                {{ form.text.label_tag }}
+                {{ form.text }}
+            </div>
+
+            <button type="submit" class="review-submit-btn">Отправить отзыв</button>
+        </form>
+    </section>
+
+    <!-- Список отзывов -->
+    <section class="reviews-list-section" aria-label="Список отзывов">
+        <h2>Последние отзывы</h2>
+        
+        <div class="reviews-grid">
+            {% for review in reviews_list %}
+                <article class="review-card">
+                    <div class="review-card__header">
+                        <div class="review-card__author">
+                            <div class="review-card__avatar">{{ review.name|first|upper }}</div>
+                            <div>
+                                <h3>{{ review.name }}</h3>
+                                <time class="review-card__date">{{ review.created_at|date:"d.m.Y" }}</time>
+                            </div>
+                        </div>
+                        <div class="review-card__rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}
+                                    <span class="star filled">★</span>
+                                {% else %}
+                                    <span class="star empty">★</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="review-card__text">{{ review.text|linebreaks }}</p>
+                </article>
+            {% empty %}
+                <div class="empty-message">
+                    Пока нет ни одного отзыва. Будьте первым!
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block footer %}
+<p>Отзывы клиентов</p>
+{% endblock %}
