@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# ! В production DEBUG должен быть False.
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() in {"1", "true", "yes"}
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
@@ -73,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'hello.context_processors.site_contacts',
             ],
         },
     },
@@ -84,6 +86,7 @@ WSGI_APPLICATION = 'Al_Ven.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# NOTE: Локальная разработка может использовать SQLite, production — MySQL.
 DB_ENGINE = os.environ.get("DB_ENGINE", "mysql").lower()
 if DB_ENGINE == "mysql":
     DATABASES = {"default": {
@@ -94,6 +97,11 @@ if DB_ENGINE == "mysql":
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "3306"),
         "CONN_MAX_AGE": int(os.environ.get("DB_CONN_MAX_AGE", "60")),
+        # ! utf8mb4 необходим для русского текста, emoji и других Unicode-символов.
+        "OPTIONS": {
+            "charset": "utf8mb4",
+            "init_command": "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci",
+        },
     }}
 elif DB_ENGINE == "sqlite":
     DATABASES = {"default": {
@@ -145,10 +153,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 
+# NOTE: STATIC_ROOT используется только как каталог collectstatic.
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# NOTE: Замените демонстрационные значения через переменные окружения на production.
+SITE_EMAIL = os.environ.get('SITE_EMAIL', 'hello@sophisticated.ru')
+SITE_PHONE = os.environ.get('SITE_PHONE', '+7 (999) 000-00-00')
+SITE_ADDRESS = os.environ.get('SITE_ADDRESS', 'Москва, ул. Примерная, 10')
+SITE_VK = os.environ.get('SITE_VK', 'https://vk.com/')
+SITE_TELEGRAM = os.environ.get('SITE_TELEGRAM', 'https://t.me/')
+SITE_YOUTUBE = os.environ.get('SITE_YOUTUBE', 'https://www.youtube.com/')
+
+# NOTE: MEDIA_ROOT содержит загруженные фотографии товаров и сотрудников.
 MEDIA_URL = '/media/'
+# Загруженные изображения товаров сохраняются отдельно от исходников проекта.
 MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
