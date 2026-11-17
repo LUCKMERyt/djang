@@ -17,6 +17,8 @@
    13. Общие состояния и визуальная отделка
 */
 
+
+
 /* ==========================================================================
    1. Базовые стили и переменные
    ========================================================================== */
@@ -1264,6 +1266,14 @@ body > main > form input {
     border-radius: 50%;
     background: linear-gradient(135deg, #5a1684, #b84dff);
     box-shadow: 0 0 28px rgba(184, 77, 255, 0.38), inset 0 0 18px rgba(255, 255, 255, 0.12);
+}
+
+.catalog-lead {
+    max-width: 760px;
+    margin: -12px auto 24px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
 }
 
 .account-avatar-wrap {
