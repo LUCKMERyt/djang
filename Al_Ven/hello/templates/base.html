@@ -6,7 +6,7 @@
   <!-- ! UTF-8 обязателен для корректного отображения русского текста. -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="SOPHISTICATED — каталог товаров, команда и отзывы клиентов.">
+  <meta name="description" content="SOPHISTICATED — кураторская витрина вещей для осознанного повседневного выбора.">
   <title>{% block title %}SOPHISTICATED{% endblock %} | SOPHISTICATED</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -18,16 +18,16 @@
       <div class="menu"> 
           {% with current=request.resolver_match.url_name %}
           <a href="{% url 'index' %}"{% if current == 'index' %} class="active"{% endif %}>Главная</a>
-          <a href="{% url 'news' %}"{% if current == 'news' %} class="active"{% endif %}>Персонал</a>
-          <a href="{% url 'products' %}"{% if current == 'products' %} class="active"{% endif %}>Продукция</a>
-          <a href="{% url 'blog' %}"{% if current == 'blog' %} class="active"{% endif %}>Наш блог</a>
-          <a href="{% url 'weo' %}"{% if current == 'weo' %} class="active"{% endif %}>О нас</a>
+          <a href="{% url 'news' %}"{% if current == 'news' %} class="active"{% endif %}>Команда</a>
+          <a href="{% url 'products' %}"{% if current == 'products' %} class="active"{% endif %}>Витрина</a>
+          <a href="{% url 'blog' %}"{% if current == 'blog' %} class="active"{% endif %}>Журнал</a>
+          <a href="{% url 'weo' %}"{% if current == 'weo' %} class="active"{% endif %}>Философия</a>
           {% if user.is_authenticated %}
           <a href="{% url 'account' %}"{% if current == 'account' %} class="active"{% endif %}>Аккаунт</a>
           {% else %}
           <a href="{% url 'vhod' %}"{% if current == 'vhod' or current == 'reg' %} class="active"{% endif %}>Вход</a>
           {% endif %}
-          <a href="{% url 'reviews' %}">Отзывы</a> <!-- Новая ссылка -->
+           <a href="{% url 'reviews' %}"{% if current == 'reviews' %} class="active"{% endif %}>Отзывы</a>
           {% endwith %}
       </div> 
   </div>
@@ -48,7 +48,7 @@
   <footer class="site-footer">
     <div class="site-footer__brand">
       <strong>SOPHISTICATED</strong>
-      <span>Украшения, стиль и товары для жизни</span>
+       <span>Вещи с характером для осознанной жизни</span>
     </div>
     <div class="site-footer__contacts">
       <a href="mailto:{{ SITE_CONTACTS.email }}">✉ {{ SITE_CONTACTS.email }}</a>
@@ -60,7 +60,7 @@
       <a href="{{ SITE_CONTACTS.telegram }}" target="_blank" rel="noopener noreferrer">Telegram</a>
       <a href="{{ SITE_CONTACTS.youtube }}" target="_blank" rel="noopener noreferrer">YouTube</a>
     </div>
-    <small>© SOPHISTICATED, 2026</small>
+    <small>© SOPHISTICATED, 2026 · Выбирайте осмысленно</small>
   </footer>
   {% block scripts %}{% endblock %}
 </body>

@@ -182,20 +182,45 @@ SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_HSTS_SECONDS", "0"))
 
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Al_Ven — Администрирование",
-    "site_header": "Панель управления",
-    "site_brand": "Al_Ven",
+    "site_title": "SOPHISTICATED — Администрирование",
+    "site_header": "Панель управления SOPHISTICATED",
+    "site_brand": "SOPHISTICATED",
     "welcome_sign": "Добро пожаловать в панель управления",
-    "copyright": "Al_Ven",
-    
+    "copyright": "SOPHISTICATED",
+    "related_modal_active": True,
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "show_ui_builder": False,
+    "topmenu_links": [
+        {"name": "Открыть сайт", "url": "/", "new_window": True},
+    ],
+    "usermenu_links": [
+        {"name": "Открыть сайт", "url": "/", "new_window": True},
+    ],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user-shield",
+        "auth.group": "fas fa-user-friends",
+        "hello.Person": "fas fa-id-badge",
+        "hello.Category": "fas fa-layer-group",
+        "hello.Products": "fas fa-gem",
+        "hello.Review": "fas fa-comment-dots",
+    },
+    "order_with_respect_to": [
+        "hello",
+        "hello.Products",
+        "hello.Category",
+        "hello.Person",
+        "hello.Review",
+        "auth",
+        "auth.User",
+        "auth.Group",
+    ],
 
     # Базовые темы Jazzmin; фиолетовый неон задаётся в admin.css
     "theme": "darkly",
     "dark_mode_theme": "darkly",
 
-    "show_ui_builder": True,
-    "navigation_expanded": True,
-    "show_sidebar": True,
     "custom_css": "css/admin.css",
 }
 

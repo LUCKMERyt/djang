@@ -5,8 +5,13 @@
 {% block content %}
 <section class="account-page" aria-labelledby="account-title">
     <header class="account-page__header">
-        <div class="account-avatar" aria-hidden="true">
-            {{ account_user.first_name|default:account_user.email|first|upper }}
+        <div class="account-avatar-wrap">
+            <div class="account-avatar" aria-hidden="true">
+                {{ account_user.first_name|default:account_user.email|first|upper }}
+            </div>
+            <button class="account-photo-placeholder" type="button" disabled title="Загрузка фотографии скоро будет доступна">
+                Изменить фото
+            </button>
         </div>
         <p class="account-eyebrow">ЛИЧНЫЙ КАБИНЕТ</p>
         <h1 id="account-title">Рады видеть вас, {{ account_user.first_name|default:account_user.email }}!</h1>
@@ -38,6 +43,48 @@
                 <button class="account-action account-action--logout" type="submit">Выйти из аккаунта</button>
             </form>
         </div>
+    </div>
+
+    <div class="account-edit-grid">
+        <section class="account-card account-edit-card" aria-labelledby="account-name-title">
+            <h2 id="account-name-title">Изменить имя</h2>
+            <form method="post" class="account-edit-form" autocomplete="off">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="name">
+                {{ name_form.name.label_tag }}
+                {{ name_form.name }}
+                {{ name_form.name.errors }}
+                <button class="account-action account-action--primary" type="submit">Сохранить имя</button>
+            </form>
+        </section>
+
+        <section class="account-card account-edit-card" aria-labelledby="account-username-title">
+            <h2 id="account-username-title">Изменить логин</h2>
+            <form method="post" class="account-edit-form" autocomplete="off">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="username">
+                {{ username_form.username.label_tag }}
+                {{ username_form.username }}
+                {{ username_form.username.errors }}
+                <button class="account-action account-action--primary" type="submit">Сохранить логин</button>
+            </form>
+        </section>
+
+        <section class="account-card account-edit-card" aria-labelledby="account-password-title">
+            <h2 id="account-password-title">Изменить пароль</h2>
+            <form method="post" class="account-edit-form" autocomplete="off">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="password">
+                {% for field in password_form %}
+                    <div class="account-form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <button class="account-action account-action--primary" type="submit">Сохранить пароль</button>
+            </form>
+        </section>
     </div>
 </section>
 {% endblock %}

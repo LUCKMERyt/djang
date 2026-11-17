@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<section class="admin-dashboard-hero">
+    <div>
+        <span class="admin-dashboard-kicker">SOPHISTICATED / CONTROL CENTER</span>
+        <h1>Панель управления</h1>
+        <p>Управляйте каталогом, командой и отзывами из одного рабочего пространства.</p>
+    </div>
+    <div class="admin-dashboard-mark">✦</div>
+</section>
+<section class="admin-quick-actions" aria-label="Быстрые действия">
+    <a href="{% url 'admin:hello_products_add' %}" class="admin-quick-action admin-quick-action--primary"><span class="admin-quick-action__icon">＋</span><span><strong>Добавить товар</strong><small>Новая позиция каталога</small></span></a>
+    <a href="{% url 'admin:hello_person_add' %}" class="admin-quick-action"><span class="admin-quick-action__icon">♙</span><span><strong>Добавить сотрудника</strong><small>Обновить команду</small></span></a>
+    <a href="{% url 'admin:hello_category_add' %}" class="admin-quick-action"><span class="admin-quick-action__icon">◇</span><span><strong>Новая категория</strong><small>Структура каталога</small></span></a>
+    <a href="/" target="_blank" rel="noopener" class="admin-quick-action"><span class="admin-quick-action__icon">↗</span><span><strong>Открыть сайт</strong><small>Посмотреть витрину</small></span></a>
+</section>
+<div class="admin-dashboard-section-title"><span>Разделы управления</span><span class="admin-dashboard-line"></span></div>
+{% if app_list %}{% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}{% else %}<p>{% translate "You don't have permission to view or edit anything." %}</p>{% endif %}
+{% endblock %}

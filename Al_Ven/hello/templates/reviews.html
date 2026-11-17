@@ -13,7 +13,7 @@
     <!-- Форма добавления отзыва -->
     <section class="review-form-section" aria-label="Форма отзыва">
         <h2>Оставить отзыв</h2>
-        <form method="post" class="review-form">
+        <form method="post" class="review-form" autocomplete="off">
             {% csrf_token %}
             
             <div class="form-group">
@@ -47,7 +47,9 @@
                             <div class="review-card__avatar">{{ review.name|first|upper }}</div>
                             <div>
                                 <h3>{{ review.name }}</h3>
-                                <time class="review-card__date">{{ review.created_at|date:"d.m.Y" }}</time>
+                                <time class="review-card__date" datetime="{{ review.created_at|date:'c' }}">
+                                    {{ review.created_at|date:"d.m.Y, H:i" }}
+                                </time>
                             </div>
                         </div>
                         <div class="review-card__rating">

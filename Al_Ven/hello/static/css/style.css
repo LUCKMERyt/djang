@@ -1,20 +1,25 @@
-﻿﻿/* NOTE: ========================= СОДЕРЖАНИЕ =========================
-   1. Общие стили (все страницы)
-   2. Шапка сайта: логотип и меню (base.html)
-   3. Подвал сайта (base.html)
-   4. Главная страница (index.html)
-   5. Блог (blog.html) — ОБНОВЛЕННАЯ ВЕРСИЯ С ТЕГАМИ И КНОПКАМИ
-   6. Персонал (news.html)
-   7. Продукция (products.html) — КАТАЛОГ С ФИЛЬТРАМИ, КАРТОЧКАМИ И ФОТО
-   8. Таблицы — общие (используются для Персонала в news.html)
-   9. Регистрация и Вход (reg.html, vhod.html)
-   10. Сообщения Django (reg.html, vhod.html)
-   11. О нас (weo.html) — РАСШИРЕННАЯ ВЕРСИЯ
-   12. Анимации
+﻿/*
+   Основной стиль сайта Al_Ven.
+
+   Содержание:
+   1. Базовые стили и переменные
+   2. Шапка сайта
+   3. Подвал сайта
+   4. Главная страница
+   5. Блог
+   6. Персонал
+   7. Каталог продукции
+   8. Регистрация и вход
+   9. Сообщения Django
+   10. Страница «О нас»
+   11. Отзывы
+   12. Дополнительные компоненты главной страницы
+   13. Общие состояния и визуальная отделка
+*/
+
+/* ==========================================================================
+   1. Базовые стили и переменные
    ========================================================================== */
-
-
-/* NOTE: ===== 1. ОБЩИЕ СТИЛИ (все страницы) ===== */
 :root {
     color-scheme: dark;
     --neon: #b84dff;
@@ -74,19 +79,20 @@ body::before {
     z-index: -1;
 }
 
-
-/* NOTE: ===== 2. ШАПКА САЙТА: ЛОГОТИП И МЕНЮ (base.html) ===== */
+/* ==========================================================================
+   2. Шапка сайта (base.html)
+   ========================================================================== */
 .header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    padding: 17px clamp(18px, 4vw, 56px);
+    padding: 17px 40px;
     background: rgba(7, 5, 11, 0.9);
     border-bottom: 1px solid rgba(184, 77, 255, 0.24);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(16px);
+
     color: #fff;
     flex-shrink: 0;
 }
@@ -111,7 +117,7 @@ body::before {
     border: 1px solid transparent;
     border-radius: 8px;
     font-weight: bold;
-    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+
 }
 
 .menu a:hover,
@@ -122,8 +128,9 @@ body::before {
     box-shadow: 0 0 16px rgba(184, 77, 255, 0.1);
 }
 
-
-/* NOTE: ===== 3. ПОДВАЛ САЙТА (base.html) ===== */
+/* ==========================================================================
+   3. Подвал сайта (base.html)
+   ========================================================================== */
 footer {
     background: rgba(7, 5, 11, 0.92);
     color: #fff;
@@ -141,10 +148,11 @@ footer p {
     font-weight: bold;
 }
 
-
-/* NOTE: ===== 4. ГЛАВНАЯ СТРАНИЦА (index.html) ===== */
+/* ==========================================================================
+   4. Главная страница (index.html)
+   ========================================================================== */
 .home-hero {
-    width: min(100% - 40px, 900px);
+    width: 900px;
     margin: 48px auto;
     padding: 48px 32px;
     text-align: center;
@@ -187,11 +195,10 @@ footer p {
     text-decoration: none;
     background: linear-gradient(90deg, rgb(52, 7, 82), rgb(152, 46, 222));
     border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
+
 }
 
 .home-btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
 }
 
@@ -200,20 +207,12 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.7);
 }
 
-@media (max-width: 600px) {
-    .home-hero {
-        padding: 32px 20px;
-    }
-    .home-hero h1 {
-        font-size: 28px;
-    }
-}
-
-
-/* NOTE: ===== 5. БЛОГ (blog.html) — ОБНОВЛЕННАЯ ВЕРСИЯ ===== */
+/* ==========================================================================
+   5. Блог (blog.html)
+   ========================================================================== */
 
 .page--blog {
-    width: min(100% - 40px, 900px);
+    width: 900px;
     min-height: 60vh;
     margin: 40px auto;
     padding: 48px 32px;
@@ -222,7 +221,7 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.35);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+
 }
 
 .page--blog .page__header {
@@ -259,11 +258,10 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.2);
     border-radius: 12px;
     padding: 28px;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
 }
 
 .post:hover {
-    transform: translateY(-4px);
     border-color: rgba(152, 46, 222, 0.6);
     box-shadow: 0 8px 20px rgba(152, 46, 222, 0.15);
 }
@@ -324,7 +322,7 @@ footer p {
     text-decoration: none;
     font-weight: 600;
     font-size: 15px;
-    transition: color 0.2s ease, transform 0.2s ease;
+
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -332,30 +330,17 @@ footer p {
 
 .post__read-more:hover {
     color: #d9c2f5;
-    transform: translateX(4px);
 }
 
-@media (max-width: 600px) {
-    .page--blog {
-        padding: 32px 20px;
-    }
-    .page--blog h1 {
-        font-size: 28px;
-    }
-    .post__footer {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
+/* ==========================================================================
+   6. Персонал (news.html)
+   ========================================================================== */
 
-
-/* NOTE: ===== 6. ПЕРСОНАЛ (news.html) ===== */
-/* Использует общие стили таблиц из раздела 8 (.table-wrapper) */
-
-
-/* NOTE: ===== 7. ПРОДУКЦИЯ (products.html) — КАТАЛОГ С ФИЛЬТРАМИ И ФОТО ===== */
+/* ==========================================================================
+   7. Каталог продукции (products.html)
+   ========================================================================== */
 .catalog-page {
-    width: min(100% - 40px, 1200px);
+    width: 1200px;
     margin: 40px auto;
     color: #fff;
 }
@@ -385,15 +370,14 @@ footer p {
     border-radius: 50px;
     font-size: 15px;
     font-weight: 600;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
+
 }
 
 .filter-btn:hover {
     background: rgba(152, 46, 222, 0.25);
     border-color: #982ede;
     color: #fff;
-    transform: translateY(-2px);
+
 }
 
 .filter-btn.active {
@@ -405,7 +389,7 @@ footer p {
 
 .catalog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
 }
 
@@ -416,12 +400,11 @@ footer p {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    backdrop-filter: blur(8px);
+
 }
 
 .product-card:hover {
-    transform: translateY(-6px);
+
     box-shadow: 0 12px 30px rgba(152, 46, 222, 0.25);
     border-color: rgba(152, 46, 222, 0.6);
 }
@@ -443,12 +426,20 @@ footer p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+
 }
 
-.product-card:hover .product-card__image {
-    transform: scale(1.05);
+/* Портреты команды показываются целиком и не обрезаются как фото товаров. */
+.people-page .person-card .product-card__image-wrapper {
+    height: 300px;
+    background: rgba(8, 6, 13, 0.92);
 }
+
+.people-page .person-card .product-card__image {
+    object-fit: contain;
+    object-position: center center;
+}
+
 
 .product-card__no-image {
     display: flex;
@@ -534,7 +525,7 @@ footer p {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
+
 }
 
 .product-card__btn:hover {
@@ -566,142 +557,9 @@ footer p {
     color: #d9c2f5;
 }
 
-@media (max-width: 600px) {
-    .catalog-page h1 {
-        font-size: 28px;
-    }
-    .catalog-filters {
-        justify-content: flex-start;
-        overflow-x: auto;
-        padding-bottom: 10px;
-        flex-wrap: nowrap;
-        -webkit-overflow-scrolling: touch;
-    }
-    .filter-btn {
-        flex-shrink: 0;
-    }
-}
-
-
-/* NOTE: ===== 8. ТАБЛИЦЫ — общие (используются для Персонала в news.html) ===== */
-.table-wrapper a:hover {
-    color: #793da1;
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-thickness: 2px;
-}
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid rgba(152, 46, 222, 0.35);
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.45);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px rgba(152, 46, 222, 0.15);
-    backdrop-filter: blur(8px);
-}
-
-.table-wrapper table {
-    width: 100%;
-    min-width: 650px;
-    border-collapse: collapse;
-    color: #fff;
-}
-
-.table-wrapper thead {
-    background: linear-gradient(90deg, #340752 0%, #670da3 100%);
-}
-
-.table-wrapper th,
-.table-wrapper td {
-    padding: 14px 16px;
-    text-align: left;
-    max-width: 1240px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.site-footer__brand,
-.site-footer__contacts,
-.site-footer__socials {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.site-footer__brand strong { color: #d9a7ff; letter-spacing: .12em; }
-.site-footer a { color: #e8d6ff; text-decoration: none; }
-.site-footer a:hover { color: #ff9df5; }
-.site-footer__socials { flex-direction: row; gap: 14px; }
-.site-footer small { grid-column: 1 / -1; opacity: .6; }
-
-@media (max-width: 700px) {
-    .site-footer { grid-template-columns: 1fr; text-align: center; }
-    .site-footer__socials { justify-content: center; }
-}
-
-/* NOTE: Главная страница использует hero, преимущества и отдельный CTA-блок. */
-.home-kicker { color: var(--neon-bright); font-size: 12px; font-weight: bold; letter-spacing: .22em; text-transform: uppercase; }
-.home-hero h1 span { color: var(--neon-bright); }
-.home-features { width: min(100% - 40px, 1100px); margin: 0 auto 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.home-feature-card { padding: 26px; min-height: 190px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(39,16,67,.86), rgba(14,8,25,.88)); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
-.home-feature-card__number { color: var(--neon-bright); font-weight: bold; }
-.home-feature-card h2 { margin: 16px 0 10px; color: var(--text); font-size: 21px; }
-.home-feature-card p { line-height: 1.6; }
-
-/* NOTE: Секции витрины главной страницы не меняют основной каталог. */
-.home-section { width: min(100% - 40px, 1100px); margin: 0 auto 56px; }
-.home-section__heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 20px; }
-.home-section__heading h2 { margin-top: 8px; color: var(--text); font-size: clamp(24px, 4vw, 34px); }
-.home-section__link { color: var(--neon-bright); text-decoration: none; font-weight: bold; white-space: nowrap; }
-.home-section__link:hover { color: #fff; }
-.home-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.home-category-card { min-height: 150px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 16px; color: var(--text); text-decoration: none; background: rgba(25, 10, 46, .75); transition: transform .2s ease, border-color .2s ease, background .2s ease; }
-.home-category-card:hover { transform: translateY(-4px); border-color: var(--neon-bright); background: rgba(75, 25, 105, .55); }
-.home-category-card span { color: var(--neon-bright); font-size: 13px; }
-.home-category-card strong { font-size: 20px; }
-.home-category-card small { color: var(--muted); line-height: 1.4; }
-.home-review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.home-review-card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(25, 10, 46, .75); }
-.home-review-card p { margin: 14px 0; line-height: 1.6; }
-.home-review-card__rating { color: #ffb3f6; letter-spacing: 3px; }
-.home-review-card strong { color: var(--neon-bright); }
-.home-callout { width: min(100% - 40px, 1100px); margin: 0 auto 52px; padding: 28px 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border: 1px solid rgba(212,154,255,.45); border-radius: 18px; background: rgba(74,25,103,.35); }
-.home-callout h2 { margin-top: 8px; color: #fff; font-size: clamp(24px, 4vw, 36px); }
-
-.table-wrapper tbody tr {
-    background: rgba(27, 4, 43, 0.55);
-    transition: background-color 0.2s ease;
-}
-
-.table-wrapper tbody tr:nth-child(even) {
-    background: rgba(52, 7, 82, 0.55);
-}
-
-.table-wrapper tbody tr:hover {
-    background: rgba(152, 46, 222, 0.28);
-}
-
-.table-wrapper tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.table-wrapper .empty-message-table {
-    padding: 24px;
-    color: #d9c2f5;
-    text-align: center;
-}
-
-@media (max-width: 600px) {
-    .table-wrapper th,
-    .table-wrapper td {
-        padding: 11px 12px;
-        white-space: nowrap;
-    }
-}
-
-
-/* NOTE: ===== 9. РЕГИСТРАЦИЯ И ВХОД (reg.html, vhod.html) ===== */
+/* ==========================================================================
+   8. Регистрация и вход (reg.html, vhod.html)
+   ========================================================================== */
 .content_form {
     min-height: 85vh;
     display: flex;
@@ -720,7 +578,7 @@ footer p {
     padding: 36px;
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(10px);
+
     border: 1px solid rgba(152, 46, 222, 0.4);
     border-radius: 16px;
     box-shadow: 0 0 30px rgba(152, 46, 222, 0.35);
@@ -748,7 +606,7 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.35);
     border-radius: 8px;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
+
 }
 
 .content_form input::placeholder {
@@ -771,17 +629,14 @@ footer p {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+
 }
 
 .content_form button:hover {
-    transform: translateY(-2px);
+
     box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
 }
 
-.content_form button:active {
-    transform: translateY(0);
-}
 
 .reg_but {
     color: #d9c2f5;
@@ -793,8 +648,9 @@ footer p {
     text-align: center;
 }
 
-
-/* NOTE: ===== 10. СООБЩЕНИЯ DJANGO (reg.html, vhod.html) ===== */
+/* ==========================================================================
+   9. Сообщения Django (reg.html, vhod.html)
+   ========================================================================== */
 .messages {
     list-style: none;
     padding: 0;
@@ -810,8 +666,7 @@ footer p {
     font-size: 14px;
     font-weight: 600;
     color: #fff;
-    backdrop-filter: blur(10px);
-    animation: fadeIn 0.4s ease;
+
 }
 
 .messages li.success {
@@ -838,10 +693,11 @@ footer p {
     box-shadow: 0 0 15px rgba(152, 46, 222, 0.35);
 }
 
-
-/* NOTE: ===== 11. О НАС (weo.html) — РАСШИРЕННАЯ ВЕРСИЯ ===== */
+/* ==========================================================================
+   10. Страница «О нас» (weo.html)
+   ========================================================================== */
 .about-page {
-    width: min(100% - 40px, 900px);
+    width: 900px;
     margin: 40px auto;
     padding: 48px 32px;
     color: #fff;
@@ -849,7 +705,7 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.35);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+
 }
 
 .about-hero {
@@ -908,7 +764,7 @@ footer p {
 
 .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     margin-top: 24px;
 }
@@ -919,11 +775,11 @@ footer p {
     border-radius: 12px;
     padding: 24px;
     text-align: center;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+
 }
 
 .value-card:hover {
-    transform: translateY(-4px);
+
     border-color: rgba(152, 46, 222, 0.6);
 }
 
@@ -970,35 +826,12 @@ footer p {
     font-size: 18px;
 }
 
-@media (max-width: 600px) {
-    .about-page {
-        padding: 32px 20px;
-    }
-    .about-hero h1 {
-        font-size: 28px;
-    }
-}
-
-
-/* NOTE: ===== 12. АНИМАЦИИ ===== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-
-
-/* NOTE: ===== 13. ОТЗЫВЫ (reviews.html) ===== */
+/* ==========================================================================
+   11. Отзывы (reviews.html)
+   ========================================================================== */
 
 .page--reviews {
-    width: min(100% - 40px, 900px);
+    width: 900px;
     margin: 40px auto;
     padding: 48px 32px;
     color: #fff;
@@ -1006,7 +839,7 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.35);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+
 }
 
 .page--reviews .page__header {
@@ -1073,7 +906,7 @@ footer p {
     color: #fff;
     font-size: 15px;
     font-family: inherit;
-    transition: border-color 0.3s, box-shadow 0.3s;
+
 }
 
 .review-input:focus {
@@ -1095,12 +928,12 @@ footer p {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+
     margin-top: 10px;
 }
 
 .review-submit-btn:hover {
-    transform: translateY(-2px);
+
     box-shadow: 0 6px 20px rgba(152, 46, 222, 0.6);
 }
 
@@ -1116,7 +949,7 @@ footer p {
     border: 1px solid rgba(152, 46, 222, 0.15);
     border-radius: 12px;
     padding: 24px;
-    transition: border-color 0.3s ease;
+
 }
 
 .review-card:hover {
@@ -1182,21 +1015,6 @@ footer p {
     margin: 0;
 }
 
-@media (max-width: 600px) {
-    .page--reviews {
-        padding: 32px 20px;
-    }
-    .page--reviews h1 {
-        font-size: 28px;
-    }
-    .review-form-section {
-        padding: 24px 16px;
-    }
-    .review-card__header {
-        flex-direction: column;
-    }
-}
-
 .site-footer {
     display: grid;
     grid-template-columns: 1.2fr 1.5fr 1fr;
@@ -1208,43 +1026,26 @@ footer p {
     margin-right: auto;
 }
 
-.site-footer__brand,
-.site-footer__contacts,
-.site-footer__socials {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.site-footer__brand strong { color: #d9a7ff; letter-spacing: .12em; }
-.site-footer a { color: #e8d6ff; text-decoration: none; }
-.site-footer a:hover { color: #ff9df5; }
-.site-footer__socials { flex-direction: row; gap: 14px; }
-.site-footer small { grid-column: 1 / -1; opacity: .6; }
-
-@media (max-width: 700px) {
-    .site-footer { grid-template-columns: 1fr; text-align: center; }
-    .site-footer__socials { justify-content: center; }
-}
-
-/* NOTE: Главная страница использует hero, преимущества и отдельный CTA-блок. */
+/* ==========================================================================
+   12. Дополнительные компоненты главной страницы
+   ========================================================================== */
 .home-kicker { color: var(--neon-bright); font-size: 12px; font-weight: bold; letter-spacing: .22em; text-transform: uppercase; }
 .home-hero h1 span { color: var(--neon-bright); }
-.home-features { width: min(100% - 40px, 1100px); margin: 0 auto 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.home-features { width: 1100px; margin: 0 auto 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .home-feature-card { padding: 26px; min-height: 190px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(39,16,67,.86), rgba(14,8,25,.88)); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
 .home-feature-card__number { color: var(--neon-bright); font-weight: bold; }
 .home-feature-card h2 { margin: 16px 0 10px; color: var(--text); font-size: 21px; }
 .home-feature-card p { line-height: 1.6; }
 
-/* NOTE: Секции витрины главной страницы не меняют основной каталог. */
-.home-section { width: min(100% - 40px, 1100px); margin: 0 auto 56px; }
+/* Витрина главной страницы: преимущества, категории и отзывы. */
+.home-section { width: 1100px; margin: 0 auto 56px; }
 .home-section__heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 20px; }
-.home-section__heading h2 { margin-top: 8px; color: var(--text); font-size: clamp(24px, 4vw, 34px); }
+.home-section__heading h2 { margin-top: 8px; color: var(--text); font-size: 34px; }
 .home-section__link { color: var(--neon-bright); text-decoration: none; font-weight: bold; white-space: nowrap; }
 .home-section__link:hover { color: #fff; }
 .home-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.home-category-card { min-height: 150px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 16px; color: var(--text); text-decoration: none; background: rgba(25, 10, 46, .75); transition: transform .2s ease, border-color .2s ease, background .2s ease; }
-.home-category-card:hover { transform: translateY(-4px); border-color: var(--neon-bright); background: rgba(75, 25, 105, .55); }
+.home-category-card { min-height: 150px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 16px; color: var(--text); text-decoration: none; background: rgba(25, 10, 46, .75); }
+.home-category-card:hover { border-color: var(--neon-bright); background: rgba(75, 25, 105, .55); }
 .home-category-card span { color: var(--neon-bright); font-size: 13px; }
 .home-category-card strong { font-size: 20px; }
 .home-category-card small { color: var(--muted); line-height: 1.4; }
@@ -1253,8 +1054,8 @@ footer p {
 .home-review-card p { margin: 14px 0; line-height: 1.6; }
 .home-review-card__rating { color: #ffb3f6; letter-spacing: 3px; }
 .home-review-card strong { color: var(--neon-bright); }
-.home-callout { width: min(100% - 40px, 1100px); margin: 0 auto 52px; padding: 28px 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border: 1px solid rgba(212,154,255,.45); border-radius: 18px; background: rgba(74,25,103,.35); }
-.home-callout h2 { margin-top: 8px; color: #fff; font-size: clamp(24px, 4vw, 36px); }
+.home-callout { width: 1100px; margin: 0 auto 52px; padding: 28px 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border: 1px solid rgba(212,154,255,.45); border-radius: 18px; background: rgba(74,25,103,.35); }
+.home-callout h2 { margin-top: 8px; color: #fff; font-size: 36px; }
 
 .catalog-tools {
     display: flex;
@@ -1285,111 +1086,9 @@ footer p {
     line-height: 1.5;
 }
 
-/* NOTE: Мобильная раскладка главной страницы и CTA-блока. */
-@media (max-width: 760px) {
-    .home-features { grid-template-columns: 1fr; }
-    .home-callout { flex-direction: column; align-items: flex-start; }
-    .home-section__heading { align-items: flex-start; flex-direction: column; }
-    .home-category-grid, .home-review-grid { grid-template-columns: 1fr; }
-}
-
-.site-footer {
-    display: grid;
-    grid-template-columns: 1.2fr 1.5fr 1fr;
-    gap: 24px;
-    align-items: center;
-    text-align: left;
-    max-width: 1240px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.site-footer__brand,
-.site-footer__contacts,
-.site-footer__socials {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.site-footer__brand strong { color: #d9a7ff; letter-spacing: .12em; }
-.site-footer a { color: #e8d6ff; text-decoration: none; }
-.site-footer a:hover { color: #ff9df5; }
-.site-footer__socials { flex-direction: row; gap: 14px; }
-.site-footer small { grid-column: 1 / -1; opacity: .6; }
-
-@media (max-width: 700px) {
-    .site-footer { grid-template-columns: 1fr; text-align: center; }
-    .site-footer__socials { justify-content: center; }
-}
-
-/* NOTE: Главная страница использует hero, преимущества и отдельный CTA-блок. */
-.home-kicker { color: var(--neon-bright); font-size: 12px; font-weight: bold; letter-spacing: .22em; text-transform: uppercase; }
-.home-hero h1 span { color: var(--neon-bright); }
-.home-features { width: min(100% - 40px, 1100px); margin: 0 auto 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.home-feature-card { padding: 26px; min-height: 190px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(39,16,67,.86), rgba(14,8,25,.88)); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
-.home-feature-card__number { color: var(--neon-bright); font-weight: bold; }
-.home-feature-card h2 { margin: 16px 0 10px; color: var(--text); font-size: 21px; }
-.home-feature-card p { line-height: 1.6; }
-
-/* NOTE: Секции витрины главной страницы не меняют основной каталог. */
-.home-section { width: min(100% - 40px, 1100px); margin: 0 auto 56px; }
-.home-section__heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 20px; }
-.home-section__heading h2 { margin-top: 8px; color: var(--text); font-size: clamp(24px, 4vw, 34px); }
-.home-section__link { color: var(--neon-bright); text-decoration: none; font-weight: bold; white-space: nowrap; }
-.home-section__link:hover { color: #fff; }
-.home-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.home-category-card { min-height: 150px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 16px; color: var(--text); text-decoration: none; background: rgba(25, 10, 46, .75); transition: transform .2s ease, border-color .2s ease, background .2s ease; }
-.home-category-card:hover { transform: translateY(-4px); border-color: var(--neon-bright); background: rgba(75, 25, 105, .55); }
-.home-category-card span { color: var(--neon-bright); font-size: 13px; }
-.home-category-card strong { font-size: 20px; }
-.home-category-card small { color: var(--muted); line-height: 1.4; }
-.home-review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.home-review-card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(25, 10, 46, .75); }
-.home-review-card p { margin: 14px 0; line-height: 1.6; }
-.home-review-card__rating { color: #ffb3f6; letter-spacing: 3px; }
-.home-review-card strong { color: var(--neon-bright); }
-.home-callout { width: min(100% - 40px, 1100px); margin: 0 auto 52px; padding: 28px 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border: 1px solid rgba(212,154,255,.45); border-radius: 18px; background: rgba(74,25,103,.35); }
-.home-callout h2 { margin-top: 8px; color: #fff; font-size: clamp(24px, 4vw, 36px); }
-
-.catalog-tools {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-    margin: 0 auto 24px;
-    max-width: 1100px;
-}
-
-.catalog-tools input[type="search"],
-.catalog-tools input[type="text"],
-.catalog-tools select {
-    min-width: 180px;
-    flex: 1;
-    padding: 13px 16px;
-    border: 1px solid rgba(174, 91, 255, .55);
-    border-radius: 12px;
-    color: #fff;
-    background: rgba(25, 12, 58, .8);
-}
-
-.catalog-tools select option { color: #201033; }
-.stock-filter { display: inline-flex; gap: 8px; align-items: center; color: #eadbff; white-space: nowrap; }
-
-.person-card .product-card__body p:last-child {
-    color: rgba(236, 221, 255, .8);
-    line-height: 1.5;
-}
-
-/* NOTE: Мобильная раскладка главной страницы и CTA-блока. */
-@media (max-width: 760px) {
-    .home-features { grid-template-columns: 1fr; }
-    .home-callout { flex-direction: column; align-items: flex-start; }
-    .home-section__heading { align-items: flex-start; flex-direction: column; }
-    .home-category-grid, .home-review-grid { grid-template-columns: 1fr; }
-}
-
-/* Единая неоновая отделка для всех страниц */
+/* ==========================================================================
+   13. Общие состояния и визуальная отделка
+   ========================================================================== */
 main {
     flex: 1 0 auto;
 }
@@ -1484,13 +1183,7 @@ textarea:focus-visible {
     background: radial-gradient(ellipse, rgba(98, 37, 137, 0.28), rgba(8, 6, 13, 0.8));
 }
 
-.product-card__btn,
-.filter-btn,
-.home-btn,
-.review-submit-btn,
-.content_form button {
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
+
 
 .product-card__btn:focus-visible,
 .filter-btn:focus-visible,
@@ -1501,16 +1194,9 @@ textarea:focus-visible {
     outline-offset: 3px;
 }
 
-.table-wrapper {
-    width: min(100% - 40px, 1100px);
-    margin: 24px auto 48px;
-    background: rgba(11, 7, 17, 0.86);
-    border-color: var(--line);
-}
-
 body > main > form {
     display: flex;
-    width: min(100% - 40px, 560px);
+    width: 560px;
     align-items: center;
     gap: 10px;
     margin: 38px auto 20px;
@@ -1530,18 +1216,313 @@ body > main > form input {
     background: rgba(25, 12, 58, .8);
 }
 
-.catalog-tools select option { color: #201033; }
-.stock-filter { display: inline-flex; gap: 8px; align-items: center; color: #eadbff; white-space: nowrap; }
-
-.person-card .product-card__body p:last-child {
-    color: rgba(236, 221, 255, .8);
-    line-height: 1.5;
+/* Личный кабинет: самостоятельный адаптивный блок в стиле SOPHISTICATED. */
+.account-page {
+    width: min(920px, calc(100% - 32px));
+    margin: 48px auto 64px;
+    padding: 52px;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 90% 8%, rgba(184, 77, 255, 0.16), transparent 24rem),
+        linear-gradient(145deg, rgba(29, 14, 42, 0.92), rgba(8, 6, 13, 0.94));
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.38), 0 0 34px rgba(184, 77, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-/* NOTE: Мобильная раскладка главной страницы и CTA-блока. */
+.account-page::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: linear-gradient(180deg, transparent, var(--neon), transparent);
+}
+
+.account-page__header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 20px;
+    align-items: center;
+    margin-bottom: 34px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(184, 77, 255, 0.2);
+}
+
+.account-avatar {
+    width: 82px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-row: span 3;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 800;
+    border: 1px solid rgba(212, 154, 255, 0.7);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5a1684, #b84dff);
+    box-shadow: 0 0 28px rgba(184, 77, 255, 0.38), inset 0 0 18px rgba(255, 255, 255, 0.12);
+}
+
+.account-avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    grid-row: span 3;
+}
+
+.account-avatar-wrap .account-avatar {
+    grid-row: auto;
+}
+
+.account-photo-placeholder {
+    padding: 5px 9px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(184, 77, 255, 0.06);
+    border: 1px solid rgba(184, 77, 255, 0.24);
+    border-radius: 7px;
+    cursor: not-allowed;
+    opacity: .72;
+}
+
+.account-photo-placeholder::before {
+    content: '◌ ';
+    color: var(--neon-bright);
+}
+
+.account-eyebrow {
+    margin: 0 0 8px;
+    color: var(--neon-bright);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .2em;
+}
+
+.account-page__header h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(25px, 4vw, 36px);
+    line-height: 1.2;
+}
+
+.account-page__lead {
+    margin: 10px 0 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.account-card {
+    padding: 28px;
+    background: rgba(15, 8, 24, 0.7);
+    border: 1px solid rgba(184, 77, 255, 0.22);
+    border-radius: 16px;
+}
+
+.account-card h2 {
+    margin: 0 0 20px;
+    color: var(--neon-bright);
+    font-size: 21px;
+}
+
+.account-details {
+    margin: 0;
+}
+
+.account-details__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(184, 77, 255, 0.14);
+}
+
+.account-details__row:first-child {
+    padding-top: 0;
+}
+
+.account-details__row:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.account-details dt {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.account-details dd {
+    margin: 0;
+    color: var(--text);
+    font-weight: 700;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.account-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.account-actions form {
+    display: contents;
+}
+
+.account-action {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    background: rgba(184, 77, 255, 0.08);
+    border: 1px solid rgba(184, 77, 255, 0.38);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.account-action:hover {
+    color: #fff;
+    background: rgba(184, 77, 255, 0.18);
+    border-color: var(--neon-bright);
+    box-shadow: 0 0 18px rgba(184, 77, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.account-action--primary {
+    background: linear-gradient(110deg, #5a1684, #b84dff);
+    border-color: transparent;
+}
+
+.account-action--logout {
+    color: #ffc3d5;
+    background: rgba(170, 37, 79, 0.12);
+    border-color: rgba(238, 99, 143, 0.4);
+}
+
+.account-action--logout:hover {
+    background: rgba(196, 48, 95, 0.25);
+    border-color: #ff8caf;
+}
+
+@media (max-width: 640px) {
+    .account-page {
+        width: min(100% - 20px, 920px);
+        margin: 24px auto 40px;
+        padding: 28px 18px;
+        border-radius: 18px;
+    }
+
+    .account-page__header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .account-avatar {
+        grid-row: auto;
+        margin-bottom: 14px;
+    }
+
+    .account-avatar-wrap {
+        grid-row: auto;
+        margin-bottom: 14px;
+    }
+
+    .account-avatar-wrap .account-avatar {
+        margin-bottom: 0;
+    }
+
+    .account-card {
+        padding: 20px 16px;
+    }
+
+    .account-details__row {
+        display: block;
+    }
+
+    .account-details dd {
+        margin-top: 6px;
+        text-align: left;
+    }
+
+    .account-action,
+    .account-actions form {
+        width: 100%;
+    }
+}
+
+.account-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.account-edit-card {
+    min-width: 0;
+}
+
+.account-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.account-edit-form label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.account-edit-form input {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    color: var(--text);
+    background: rgba(8, 6, 13, 0.78);
+    border: 1px solid rgba(184, 77, 255, 0.35);
+    border-radius: 9px;
+}
+
+.account-edit-form input:focus {
+    outline: none;
+    border-color: var(--neon-bright);
+    box-shadow: 0 0 14px rgba(184, 77, 255, 0.22);
+}
+
+.account-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.account-edit-form .errorlist {
+    margin: 0;
+    padding: 0;
+    color: #ff9fbd;
+    list-style: none;
+    font-size: 13px;
+}
+
+.account-edit-form .account-action {
+    width: 100%;
+    margin-top: 10px;
+}
+
 @media (max-width: 760px) {
-    .home-features { grid-template-columns: 1fr; }
-    .home-callout { flex-direction: column; align-items: flex-start; }
-    .home-section__heading { align-items: flex-start; flex-direction: column; }
-    .home-category-grid, .home-review-grid { grid-template-columns: 1fr; }
+    .account-edit-grid {
+        grid-template-columns: 1fr;
+    }
 }

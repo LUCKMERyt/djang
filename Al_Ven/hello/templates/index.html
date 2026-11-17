@@ -4,25 +4,25 @@
 
 {% block content %}
 <section class="home-hero">
-    <p class="home-kicker">SOPHISTICATED / 2026</p>
-    <h1>Стиль, который<br><span>говорит за вас</span></h1>
-    <p class="home-lead">SOPHISTICATED — вещи, которые делают каждый день ярче.</p>
-    <p>Современный каталог товаров для дома, отдыха, учёбы, спорта и повседневной жизни.</p>
+    <p class="home-kicker">SOPHISTICATED / CURATED EVERYDAY</p>
+    <h1>Вещи, которые<br><span>остаются с вами</span></h1>
+    <p class="home-lead">Мы собираем предметы с характером — для тех, кто выбирает не случайное, а своё.</p>
+    <p>Изучайте материалы, сравнивайте детали и находите вещи, которые естественно становятся частью вашей жизни.</p>
 
     <div class="home-links">
-        <a class="home-btn" href="{% url 'products' %}">Каталог</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'news' %}">Наша команда</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы клиентов</a>
+        <a class="home-btn" href="{% url 'products' %}">Исследовать витрину</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">Наша философия</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Истории клиентов</a>
     </div>
 </section>
 
 <section class="home-section home-section--categories">
     <div class="home-section__heading">
         <div>
-            <p class="home-kicker">ИССЛЕДУЙТЕ КАТАЛОГ</p>
-            <h2>Выберите направление</h2>
+            <p class="home-kicker">ПЕРВЫЙ ШАГ</p>
+            <h2>Начните с того, что вам близко</h2>
         </div>
-        <a class="home-section__link" href="{% url 'products' %}">Все товары →</a>
+        <a class="home-section__link" href="{% url 'products' %}">Вся витрина →</a>
     </div>
     <div class="home-category-grid">
         {% for cat in featured_categories %}
@@ -40,34 +40,34 @@
 <section class="home-features" aria-label="Преимущества">
     <article class="home-feature-card">
         <span class="home-feature-card__number">01</span>
-        <h2>Выбранный ассортимент</h2>
-        <p>Мы собираем практичные и красивые товары в одном каталоге.</p>
+        <h2>Кураторский отбор</h2>
+        <p>В витрину попадают вещи, в которых есть польза, характер и честная история.</p>
     </article>
     <article class="home-feature-card">
         <span class="home-feature-card__number">02</span>
-        <h2>Понятные детали</h2>
-        <p>Фотографии, описания, материалы и наличие доступны в карточке товара.</p>
+        <h2>Выбор без шума</h2>
+        <p>Материалы, дата создания, наличие и описание собраны в одной понятной карточке.</p>
     </article>
     <article class="home-feature-card">
         <span class="home-feature-card__number">03</span>
-        <h2>Живой сервис</h2>
-        <p>Познакомьтесь с командой и оставьте свой отзыв о сайте и товарах.</p>
+        <h2>Люди за витриной</h2>
+        <p>Познакомьтесь с командой, которая ищет, проверяет и рассказывает о каждой находке.</p>
     </article>
 </section>
 
 <section class="home-callout">
     <div>
-        <p class="home-kicker">НАЙДИТЕ СВОЁ</p>
-        <h2>Начните с каталога</h2>
+        <p class="home-kicker">ВАША ВЕЩЬ УЖЕ ЖДЁТ</p>
+        <h2>Выбирайте с вниманием</h2>
     </div>
-    <a class="home-btn" href="{% url 'products' %}">Смотреть товары →</a>
+        <a class="home-btn" href="{% url 'products' %}">Перейти к выбору →</a>
 </section>
 
 <section class="home-section home-reviews-preview">
     <div class="home-section__heading">
         <div>
-            <p class="home-kicker">МНЕНИЕ КЛИЕНТОВ</p>
-            <h2>Что говорят о нас</h2>
+            <p class="home-kicker">ОПЫТ ПОКУПАТЕЛЕЙ</p>
+            <h2>Выбор, которым делятся</h2>
         </div>
         <a class="home-section__link" href="{% url 'reviews' %}">Все отзывы →</a>
     </div>

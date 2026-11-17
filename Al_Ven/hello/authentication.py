@@ -17,9 +17,12 @@ class EmailBackend(ModelBackend):
         try:
             user = user_model.objects.get(email__iexact=email)
         except user_model.DoesNotExist:
-            # Perform a password hash to reduce timing differences for unknown emails.
-            user_model().set_password(password)
-            return None
+            try:
+                user = user_model.objects.get(username__iexact=email)
+            except user_model.DoesNotExist:
+                # Perform a password hash to reduce timing differences for unknown emails.
+                user_model().set_password(password)
+                return None
 
         if user.check_password(password) and self.user_can_authenticate(user):
             return user

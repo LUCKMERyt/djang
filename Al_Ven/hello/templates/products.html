@@ -5,10 +5,10 @@
 
 {% block content %}
 <div class="catalog-page">
-    <h1>Каталог продукции</h1>
+<h1>Кураторская витрина</h1>
     <!-- NOTE: GET-параметры сохраняют состояние поиска после отправки формы. -->
     <form method="get" class="catalog-tools">
-        <input type="search" name="q" value="{{ query }}" placeholder="Поиск товара">
+        <input type="search" name="q" value="{{ query }}" placeholder="Найти свою вещь">
         <input type="text" name="material" value="{{ material }}" placeholder="Материал">
         <select name="sort" aria-label="Сортировка">
             <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию</option>
@@ -17,13 +17,13 @@
             <option value="date_prod" {% if sort == 'date_prod' %}selected{% endif %}>По дате</option>
         </select>
         <label class="stock-filter"><input type="checkbox" name="stock" value="available" {% if stock == 'available' %}checked{% endif %}> В наличии</label>
-        <button class="product-card__btn" type="submit">Применить</button>
+            <button class="product-card__btn" type="submit">Найти</button>
     </form>
 
     <!-- Фильтры сверху -->
     <section class="catalog-filters">
         <a href="{% url 'products' %}" class="filter-btn {% if not selected_category %}active{% endif %}">
-            Все товары
+            Вся витрина
         </a>
         {% for cat in category %}
             <a href="?category_id={{ cat.id }}" class="filter-btn {% if selected_category.id == cat.id %}active{% endif %}">
@@ -86,7 +86,7 @@
                     В категории "{{ selected_category.name }}" товаров пока нет.
                     <a href="{% url 'products' %}" class="empty-link">Показать все товары</a>
                 {% else %}
-                    Товаров пока нет.
+                    В этой части витрины пока нет вещей.
                 {% endif %}
             </div>
         {% endfor %}
