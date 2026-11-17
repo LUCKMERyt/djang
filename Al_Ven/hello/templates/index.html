@@ -4,25 +4,25 @@
 
 {% block content %}
 <section class="home-hero">
-    <p class="home-kicker">SOPHISTICATED / CURATED EVERYDAY</p>
-    <h1>Вещи, которые<br><span>остаются с вами</span></h1>
-    <p class="home-lead">Мы собираем предметы с характером — для тех, кто выбирает не случайное, а своё.</p>
-    <p>Изучайте материалы, сравнивайте детали и находите вещи, которые естественно становятся частью вашей жизни.</p>
+    <p class="home-kicker">SOPHISTICATED / ОПТОВЫЙ СКЛАД</p>
+    <h1>Товары оптом<br><span>для вашего бизнеса</span></h1>
+    <p class="home-lead">Надёжный склад украшений, аксессуаров и подарков для магазинов, маркетплейсов и корпоративных закупок.</p>
+    <p>Выбирайте товары из наличия, оформляйте оптовые закупки и пополняйте ассортимент без лишних посредников.</p>
 
     <div class="home-links">
-        <a class="home-btn" href="{% url 'products' %}">Исследовать витрину</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">Наша философия</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Истории клиентов</a>
+        <a class="home-btn" href="{% url 'products' %}">Перейти в оптовый каталог</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">Условия поставки</a>
+        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы партнёров</a>
     </div>
 </section>
 
 <section class="home-section home-section--categories">
     <div class="home-section__heading">
         <div>
-            <p class="home-kicker">ПЕРВЫЙ ШАГ</p>
-            <h2>Начните с того, что вам близко</h2>
+            <p class="home-kicker">ОПТОВЫЙ АССОРТИМЕНТ</p>
+            <h2>Выберите категорию для закупки</h2>
         </div>
-        <a class="home-section__link" href="{% url 'products' %}">Вся витрина →</a>
+        <a class="home-section__link" href="{% url 'products' %}">Весь каталог →</a>
     </div>
     <div class="home-category-grid">
         {% for cat in featured_categories %}
@@ -57,17 +57,17 @@
 
 <section class="home-callout">
     <div>
-        <p class="home-kicker">ВАША ВЕЩЬ УЖЕ ЖДЁТ</p>
-        <h2>Выбирайте с вниманием</h2>
+        <p class="home-kicker">ПОСТАВКИ ИЗ НАЛИЧИЯ</p>
+        <h2>Пополняйте ассортимент выгодно</h2>
     </div>
-        <a class="home-btn" href="{% url 'products' %}">Перейти к выбору →</a>
+        <a class="home-btn" href="{% url 'products' %}">Смотреть товары →</a>
 </section>
 
 <section class="home-section home-reviews-preview">
     <div class="home-section__heading">
         <div>
-            <p class="home-kicker">ОПЫТ ПОКУПАТЕЛЕЙ</p>
-            <h2>Выбор, которым делятся</h2>
+            <p class="home-kicker">ОПЫТ ПАРТНЁРОВ</p>
+            <h2>Нас выбирают для оптовых закупок</h2>
         </div>
         <a class="home-section__link" href="{% url 'reviews' %}">Все отзывы →</a>
     </div>

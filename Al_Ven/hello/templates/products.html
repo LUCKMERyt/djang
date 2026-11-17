@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {# NOTE: Каталог поддерживает фильтрацию на сервере и модальное окно товара. #}
 
-{% block title %}Каталог продукции{% endblock %}
+{% block title %}Оптовый каталог{% endblock %}
 
 {% block content %}
 <div class="catalog-page">
-<h1>Кураторская витрина</h1>
+<h1>Оптовый каталог со склада</h1>
+    <p class="catalog-lead">Товары в наличии для магазинов, маркетплейсов и корпоративных закупок.</p>
     <!-- NOTE: GET-параметры сохраняют состояние поиска после отправки формы. -->
     <form method="get" class="catalog-tools">
-        <input type="search" name="q" value="{{ query }}" placeholder="Найти свою вещь">
+        <input type="search" name="q" value="{{ query }}" placeholder="Найти товар для закупки">
         <input type="text" name="material" value="{{ material }}" placeholder="Материал">
         <select name="sort" aria-label="Сортировка">
             <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию</option>
@@ -23,7 +24,7 @@
     <!-- Фильтры сверху -->
     <section class="catalog-filters">
         <a href="{% url 'products' %}" class="filter-btn {% if not selected_category %}active{% endif %}">
-            Вся витрина
+            Все товары
         </a>
         {% for cat in category %}
             <a href="?category_id={{ cat.id }}" class="filter-btn {% if selected_category.id == cat.id %}active{% endif %}">
@@ -86,7 +87,7 @@
                     В категории "{{ selected_category.name }}" товаров пока нет.
                     <a href="{% url 'products' %}" class="empty-link">Показать все товары</a>
                 {% else %}
-                    В этой части витрины пока нет вещей.
+                    На складе пока нет подходящих товаров.
                 {% endif %}
             </div>
         {% endfor %}
@@ -118,7 +119,7 @@
 {% endblock %}
 
 {% block footer %}
-<p>Каталог продукции</p>
+<p>Оптовый каталог со склада · Поставки для бизнеса</p>
 {% endblock %}
 
 {% block scripts %}

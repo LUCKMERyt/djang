@@ -1266,6 +1266,14 @@ body > main > form input {
     box-shadow: 0 0 28px rgba(184, 77, 255, 0.38), inset 0 0 18px rgba(255, 255, 255, 0.12);
 }
 
+.catalog-lead {
+    max-width: 760px;
+    margin: -12px auto 24px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+}
+
 .account-avatar-wrap {
     display: flex;
     flex-direction: column;

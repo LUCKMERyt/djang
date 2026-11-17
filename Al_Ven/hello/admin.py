@@ -126,7 +126,7 @@ class ProductsAdmin(admin.ModelAdmin):
 
 
 # ==========================================
-# НОВОЕ: Админка для отзывов
+# Админка для отзывов
 # ==========================================
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
