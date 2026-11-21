@@ -1,0 +1,15 @@
+=== ПРОВЕРКА ФОТО В БАЗЕ И НА ДИСКЕ ===
+Товаров: 100
+Без поля image: 0
+Битых/отсутствующих: 0
+Форматы: {'JPEG': 99, 'PNG': 1}
+
+=== СОТРУДНИКИ ===
+  id=1 Ковалёва Анна -> people/1-portrait.jpg | OK | JPEG
+  id=2 Соколов Дмитрий -> people/2-portrait.jpg | OK | JPEG
+  id=3 Орлова Мария -> people/3-portrait.jpg | OK | JPEG
+  id=4 Волков Илья -> people/4-portrait.jpg | OK | JPEG
+  id=5 Лебедева Екатерина -> people/6-portrait.jpg | OK | JPEG
+
+=== УНИКАЛЬНОСТЬ ===
+Уникальных путей у товаров: 100 из 100

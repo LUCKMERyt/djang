@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+{% block doc_name %}Карточка позиции{% endblock %}
+
+{% block canonical %}<link rel="canonical" href="{% url 'product_detail' slug=product.slug %}">{% endblock %}
+
+{% block content %}
+<div class="sheet">
+    <header class="sheet__head">
+        <h1>{{ product.name }}</h1>
+        <p class="sheet__lead">{{ product.cat_id.name }}</p>
+    </header>
+
+    <div class="section">
+        <div class="section__bar"><b>Позиция из наличия</b></div>
+        <div class="section__body">
+            <div class="product-page__grid">
+                <div class="product-page__media">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                             class="product-page__image" width="400" loading="eager">
+                    {% else %}
+                        <div class="empty-message">Фото товара недоступно</div>
+                    {% endif %}
+                    <a class="btn btn--ghost" href="{% url 'products' %}">Назад в каталог</a>
+                </div>
+                <div class="product-page__info">
+                    <dl class="product-page__details">
+                        <div><dt>Категория</dt><dd>{{ product.cat_id.name }}</dd></div>
+                        <div><dt>Цена</dt><dd class="product-page__price">{{ product.sale }} ₽</dd></div>
+                        <div><dt>Наличие</dt><dd>{{ product.conter }} шт.</dd></div>
+                        <div><dt>Материал</dt><dd>{{ product.material }}</dd></div>
+                        <div><dt>Дата производства</dt><dd>{{ product.date_prod|date:'d.m.Y' }}</dd></div>
+                    </dl>
+                    <p class="product-page__desc">
+                        {{ product.description|default:"Описание товара пока не добавлено." }}
+                    </p>
+                    <div class="product-page__share" aria-label="Поделиться товаром">
+                        <span class="product-page__share-label">Поделиться:</span>
+                        <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ product.name }}"
+                           target="_blank" rel="noopener noreferrer">VK</a>
+                        <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}"
+                           target="_blank" rel="noopener noreferrer">Telegram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if related %}
+    <div class="section">
+        <div class="section__bar"><b>Похожие товары</b></div>
+        <div class="section__body">
+            <div class="home-category-grid">
+                {% for p in related %}
+                    <a class="home-category-card" href="{% url 'product_detail' slug=p.slug %}">
+                        <span class="home-category-card__top">
+                            <span>{{ p.name|truncatechars:20 }}</span>
+                            <span class="pearl-dot pearl-dot--blue"></span>
+                        </span>
+                        <strong>{{ p.sale }} ₽</strong>
+                        <small>{{ p.cat_id.name|truncatechars:40 }}</small>
+                        <span class="home-category-card__go"><span>Подробнее →</span></span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.name }}",
+  "description": "{{ product.description|default:'Позиция из наличия оптового склада SOPHISTICATED' }}",
+  "price": "{{ product.sale }}",
+  "priceCurrency": "RUB",
+  "availability": "{% if product.conter > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+  {% if product.image %}"image": "{{ product.image.url }}",{% endif %}
+  "brand": "SOPHISTICATED",
+  "category": "{{ product.cat_id.name }}",
+  "isFamilyFriendly": true
+}
+</script>
+{% endblock %}

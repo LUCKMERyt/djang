@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{# NOTE: Каталог — таблица позиций накладной; поддерживает фильтрацию на сервере и модальное окно товара. #}
+{# NOTE: Каталог — таблица позиций накладной; поддерживает фильтрацию на сервере и детальные страницы товаров. #}
+
+{% block canonical %}<link rel="canonical" href="{% url 'products' %}">{% endblock %}
 
 {% block title %}Оптовый каталог{% endblock %}
 {% block doc_name %}Оптовая накладная, позиции из наличия{% endblock %}
@@ -77,20 +79,8 @@
                     <td class="qty right">{{ p.conter }} шт.</td>
                     <td class="price right">{{ p.sale }} ₽</td>
                     <td>
-                        <button
-                            class="btn btn--ghost"
-                            type="button"
-                            data-product-name="{{ p.name }}"
-                            data-product-category="{{ p.cat_id.name }}"
-                            data-product-material="{{ p.material }}"
-                            data-product-date="{{ p.date_prod|date:'d.m.Y' }}"
-                            data-product-quantity="{{ p.conter }}"
-                            data-product-price="{{ p.sale }}"
-                            data-product-description="{{ p.description|escape }}"
-                            {% if p.image %}data-product-image="{{ p.image.url }}"{% endif %}
-                            aria-haspopup="dialog"
-                            aria-controls="product-modal"
-                        >Подробнее</button>
+                        <a href="{% url 'product_detail' slug=p.slug %}"
+                           class="btn btn--ghost" aria-label="Карточка товара: {{ p.name }}">Подробнее</a>
                     </td>
                 </tr>
                 {% endfor %}

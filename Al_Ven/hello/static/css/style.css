@@ -1446,7 +1446,87 @@ select option {
 
 
 /* ==========================================================================
-   13. Анимации (@keyframes)
+   13. Карточка товара — детальная страница (/products/<slug>/)
+   ========================================================================== */
+.product-page__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.product-page__media {
+    flex: 0 0 320px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.product-page__image {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--line);
+    background: var(--deep);
+}
+
+.product-page__info {
+    flex: 1 1 420px;
+    min-width: 0;
+}
+
+.product-page__details {
+    border-top: 2px solid var(--text);
+}
+
+.product-page__details > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.product-page__details dt {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.product-page__details dd {
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.product-page__price {
+    color: var(--pearl-mint);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.product-page__desc {
+    margin-top: 16px;
+    color: var(--text);
+}
+
+.product-page__share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    align-items: center;
+    color: var(--muted);
+}
+
+.product-page__share a {
+    border-bottom: 2px solid var(--pearl-mint);
+}
+
+
+/* ==========================================================================
+   14. Анимации (@keyframes)
    ========================================================================== */
 @keyframes page-enter {
     from { opacity: 0; transform: translateY(6px); }

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login, logout, update_session_auth_hash
@@ -47,16 +47,41 @@ def robots_txt(request):
 
 
 def sitemap_xml(request):
-    # TODO: Добавить динамические URL товаров после появления отдельных страниц товаров.
+    # NOTE: Статические URL плюс детальные страницы товаров (/products/<slug>/).
+    products = Products.objects.all().order_by('-date_prod')
+    urls = [
+        '/',
+        '/products/',
+        '/news/',
+        '/reviews/',
+        '/blog/',
+        '/weo/',
+    ] + [f'/products/{p.slug}/' for p in products]
+    entries = ''.join(f'<url><loc>{u}</loc></url>' for u in urls)
     return HttpResponse(
         '<?xml version="1.0" encoding="UTF-8"?>'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        '<url><loc>/</loc></url><url><loc>/products/</loc></url>'
-        '<url><loc>/news/</loc></url><url><loc>/reviews/</loc></url>'
-        '<url><loc>/blog/</loc></url><url><loc>/weo/</loc></url>'
-        '</urlset>',
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>',
         content_type='application/xml',
     )
+
+def product_detail(request, slug):
+    # NOTE: select_related для категории — один запрос к базе вместо двух.
+    product = get_object_or_404(
+        Products.objects.select_related('cat_id'),
+        slug=slug,
+    )
+    # NOTE: Похожие товары из той же категории — для виртуальной витрины и SEO.
+    related = (
+        Products.objects.select_related('cat_id')
+        .filter(cat_id=product.cat_id)
+        .exclude(pk=product.pk)
+        .order_by('-id')[:6]
+    )
+    return render(request, 'product_detail.html', {
+        'product': product,
+        'related': related,
+    })
+
 
 def products(request):
     # NOTE: select_related уменьшает количество запросов к таблице категорий.

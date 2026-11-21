@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 # ! Основная модель сотрудника. Фотографии хранятся в media/people/,
@@ -51,8 +52,20 @@ class Products(models.Model):
     # NOTE: ImageField хранит путь, а сами изображения находятся в MEDIA_ROOT/products/.
     image = models.ImageField(upload_to='products/', null=True, blank=True, verbose_name="Фото")
     description = models.TextField('Описание товара', max_length=1000, blank=True, default='')
+    # NOTE: Slug для детальной страницы товара — дружелюбный URL для SEO.
+    slug = models.SlugField(unique=True, blank=True, null=True, verbose_name='URL-пропуск')
 
-
+    def save(self, *args, **kwargs):
+        # NOTE: Генерируем уникальный slug из названия, если не задан.
+        if not self.slug:
+            base = slugify(self.name)
+            slug = base
+            n = 1
+            while Products.objects.filter(slug=slug).exists():
+                slug = f'{base}-{n}'
+                n += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

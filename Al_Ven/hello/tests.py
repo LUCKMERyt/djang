@@ -135,3 +135,64 @@ class ProductModalTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, f'src="{product.image.url}"')
         self.assertContains(response, f'data-product-image="{product.image.url}"')
+
+
+class ProductDetailTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name="Украшения", coment="Описание категории")
+        self.product = Products.objects.create(
+            name="Тестовый товар",
+            sale=2500,
+            material="Серебро",
+            date_prod=date(2026, 1, 15),
+            conter=3,
+            cat_id=self.category,
+            description="Описание товара для карточки.",
+        )
+
+    def test_product_detail_renders(self):
+        response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.product.name)
+        self.assertContains(response, self.product.cat_id.name)
+        self.assertContains(response, f'href="/products/{self.product.slug}/"', count=1)
+
+    def test_product_detail_has_jsonld_and_canonical(self):
+        response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
+
+        self.assertContains(response, '"@type": "Product"')
+        self.assertContains(response, "https://schema.org/InStock")
+        self.assertContains(response, f'rel="canonical" href="/products/{self.product.slug}/"')
+
+    def test_product_detail_out_of_stock(self):
+        Products.objects.filter(pk=self.product.pk).update(conter=0)
+        response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "https://schema.org/OutOfStock")
+
+    def test_product_detail_404(self):
+        response = self.client.get("/products/no-such-slug/")
+        self.assertEqual(response.status_code, 404)
+
+    def test_catalog_links_to_product_pages(self):
+        response = self.client.get(reverse("products"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f'href="/products/{self.product.slug}/"',
+        )
+
+    def test_slug_generated_on_create(self):
+        product = Products.objects.create(
+            name="Новый товар",
+            sale=100,
+            material="Дерево",
+            date_prod=date(2026, 3, 1),
+            conter=1,
+            cat_id=self.category,
+        )
+        self.assertTrue(product.slug)
+        self.assertIn("новый-товар", product.slug)
