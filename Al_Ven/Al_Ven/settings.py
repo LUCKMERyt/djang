@@ -184,6 +184,10 @@ SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_HSTS_SECONDS", "0"))
 # NOTE: Получатели оповещений (EMAIL_BACKEND = console — в dev письма в консоль).
 ADMINS = [('SOPHISTICATED', 'hello@sophisticated.ru'), ('Danila Shish', 'dota2mama2@gmail.com')]
 
+# NOTE: ID счётчиков аналитики для каталога (пустые — счётчики не подключены).
+YMETRICA_ID = os.environ.get('SITE_YMETRICA_ID', '')
+GA_MEASUREMENT_ID = os.environ.get('GA_MEASUREMENT_ID', '')
+
 JAZZMIN_SETTINGS = {
     "site_title": "SOPHISTICATED — Администрирование",
     "site_header": "Панель управления SOPHISTICATED",
