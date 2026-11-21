@@ -146,6 +146,7 @@ $env:DB_ENGINE = "sqlite"
 - [`README_ARCHITECTURE.md`](README_ARCHITECTURE.md) — карта слоёв и потока запроса.
 - [`README_TESTING.md`](README_TESTING.md) — автоматические и ручные проверки.
 - [`README_ANIMATIONS.md`](README_ANIMATIONS.md) — контракт анимаций и доступности.
+- [`README_FILES.md`](README_FILES.md) — карта всех файлов: зачем нужен каждый файл и каталог.
 
 ## Технологии
 

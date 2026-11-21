@@ -72,10 +72,12 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
-                'django.template.context_processors.settings',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'hello.context_processors.site_contacts',
+                # NOTE: Собственный процессор, т.к. django.template.context_processors.settings
+                # разрешается в LazySettings (не вызываемый) в этой версии Django.
+                'hello.context_processors.settings',
             ],
         },
     },

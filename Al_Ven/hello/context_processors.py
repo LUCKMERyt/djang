@@ -1,4 +1,10 @@
-from django.conf import settings
+from django.conf import settings as _settings
+
+
+def settings(request):
+    # NOTE: Собственный context_processor, который пробрасывает все
+    # настройки Django в шаблоны (название `settings`, как в ожиданиях).
+    return {'settings': _settings}
 
 
 def site_contacts(request):
