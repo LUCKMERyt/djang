@@ -14,11 +14,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600&family=Oswald:wght@500;700&display=swap">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body data-page="{{ request.resolver_match.url_name|default:'' }}">
+  <!-- NOTE: Тонкая полоса прогресса прокрутки; обновляется в static/js/motion.js. -->
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
   <div class="header">
     <div class="header__inner">
       <div class="logo">
-        <a href="{% url 'index' %}"><span class="logo__pearl" aria-hidden="true"></span>SOPHISTICATED</a>
+        <a href="{% url 'index' %}"><span class="logo__pearl" aria-hidden="true"></span><span class="logo__text">SOPHISTICATED</span></a>
       </div>
       <nav class="menu" aria-label="Основная навигация">
           {% with current=request.resolver_match.url_name %}
@@ -61,23 +64,6 @@
 
   <!-- NOTE: Контакты берутся из context_processors.py и доступны на всех страницах. -->
   <footer class="site-footer">
-<<<<<<< HEAD
-    <div class="site-footer__brand">
-      <strong>SOPHISTICATED</strong>
-       <span>Оптовый склад товаров для вашего бизнеса</span>
-    </div>
-    <div class="site-footer__contacts">
-      <a href="mailto:{{ SITE_CONTACTS.email }}">✉ {{ SITE_CONTACTS.email }}</a>
-      <a href="tel:{{ SITE_CONTACTS.phone }}">☎ {{ SITE_CONTACTS.phone }}</a>
-      <span>⌖ {{ SITE_CONTACTS.address }}</span>
-    </div>
-    <div class="site-footer__socials" aria-label="Социальные сети">
-      <a href="{{ SITE_CONTACTS.vk }}" target="_blank" rel="noopener noreferrer">VK</a>
-      <a href="{{ SITE_CONTACTS.telegram }}" target="_blank" rel="noopener noreferrer">Telegram</a>
-      <a href="{{ SITE_CONTACTS.youtube }}" target="_blank" rel="noopener noreferrer">YouTube</a>
-    </div>
-    <small>© SOPHISTICATED, 2026 · Оптовые поставки для бизнеса</small>
-=======
     <div class="site-footer__inner">
       <div class="site-footer__brand">
         <strong>SOPHISTICATED</strong>
@@ -95,8 +81,8 @@
       </div>
       <small>© SOPHISTICATED, 2026. Оптовые поставки для бизнеса</small>
     </div>
->>>>>>> 708f9e2605deded193d04afac0261d9f9a82b3eb
   </footer>
+  <script src="{% static 'js/motion.js' %}"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

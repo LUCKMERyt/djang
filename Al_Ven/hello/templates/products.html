@@ -19,12 +19,14 @@
             <form method="get" class="catalog-tools">
                 <input type="search" name="q" value="{{ query }}" placeholder="Найти товар для закупки" aria-label="Поиск по названию и описанию">
                 <input type="text" name="material" value="{{ material }}" placeholder="Материал" aria-label="Материал">
-                <select name="sort" aria-label="Сортировка">
-                    <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию</option>
-                    <option value="sale" {% if sort == 'sale' %}selected{% endif %}>Сначала дешевле</option>
-                    <option value="-sale" {% if sort == '-sale' %}selected{% endif %}>Сначала дороже</option>
-                    <option value="date_prod" {% if sort == 'date_prod' %}selected{% endif %}>По дате</option>
-                </select>
+                <span class="select-wrap">
+                    <select name="sort" aria-label="Сортировка">
+                        <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию</option>
+                        <option value="sale" {% if sort == 'sale' %}selected{% endif %}>Сначала дешевле</option>
+                        <option value="-sale" {% if sort == '-sale' %}selected{% endif %}>Сначала дороже</option>
+                        <option value="date_prod" {% if sort == 'date_prod' %}selected{% endif %}>По дате</option>
+                    </select>
+                </span>
                 <label class="stock-filter"><input type="checkbox" name="stock" value="available" {% if stock == 'available' %}checked{% endif %}> В наличии</label>
                 <button class="btn" type="submit">Найти</button>
             </form>

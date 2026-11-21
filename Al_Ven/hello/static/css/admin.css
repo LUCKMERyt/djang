@@ -1,42 +1,55 @@
+/* ==========================================================================
+   Администрирование — оформление под основной стиль сайта (SOPHISTICATED,
+   «Ночной склад»): белый текст на тёмном, акцент-жемчуг (f6dce4 → bfe6dc →
+   b3c3f2), Owen с углами 0, таблицы и формы в документном стиле.
+   ========================================================================== */
 :root {
-    --cyber-bg: #090611;
-    --cyber-panel: rgba(18, 12, 32, 0.94);
-    --cyber-purple: #9b4dff;
-    --cyber-pink: #ff2bd6;
-    --cyber-cyan: #27f5ff;
-    --cyber-text: #eee6ff;
+    --adm-bg: #14181b;
+    --adm-panel: #1e2327;
+    --adm-deep: #0e1113;
+    --adm-line: rgba(246, 220, 228, 0.42);
+    --adm-text: #f1f3f0;
+    --adm-muted: #a9b1ab;
+    --adm-faint: rgba(241, 243, 240, 0.45);
+
+    --pearl-pink: #f6dce4;
+    --pearl-mint: #bfe6dc;
+    --pearl-blue: #b3c3f2;
+    --pearl: linear-gradient(110deg, var(--pearl-pink), var(--pearl-mint) 50%, var(--pearl-blue));
+    --pearl-mint-solid: #bfe6dc;
+
+    --font-head: "Oswald", Impact, "Arial Narrow", sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, "Segoe UI", Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+    --adm-wrap: min(1200px, calc(100% - 32px));
 }
 
-/* Базовая раскладка */
-*,
-*::before,
-*::after {
+/* ---------------- Базовые стили ---------------- */
+* {
     box-sizing: border-box;
 }
 
 html,
 body {
+    background: var(--adm-bg);
+    color: var(--adm-text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
     min-width: 320px;
-    overflow-x: hidden;
 }
 
 body {
-    color: var(--cyber-text) !important;
-    background-color: var(--cyber-bg) !important;
-    background-image:
-        linear-gradient(rgba(9, 6, 17, 0.72), rgba(9, 6, 17, 0.88)),
-        url("https://img.magnific.com/free-vector/gradient-purple-technology-background_23-2149108837.jpg?semt=ais_hybrid&w=740&q=80") !important;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.content-wrapper {
-    background: transparent !important;
+main {
+    flex: 1 0 auto;
 }
 
-.content,
 .container-fluid {
     width: 100%;
     max-width: 100%;
@@ -44,969 +57,620 @@ body {
 }
 
 .content {
-    padding: 20px !important;
+    padding: 20px;
 }
 
-/* Верхняя панель */
+::selection {
+    color: var(--adm-bg);
+    background: var(--pearl-mint);
+}
+
+a {
+    color: var(--adm-text);
+}
+
+a:hover {
+    color: var(--pearl-pink);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--pearl-mint);
+    outline-offset: 2px;
+}
+
+/* ---------------- Шапка ---------------- */
 .main-header {
-    background: rgba(16, 9, 27, 0.96) !important;
-    border-bottom: 1px solid var(--cyber-purple) !important;
-    box-shadow: 0 0 14px rgba(155, 77, 255, 0.45);
+    background: rgba(30, 35, 39, 0.97) !important;
+    border-bottom: 2px solid rgba(246, 220, 228, 0.42);
+}
+
+.main-header .navbar-brand,
+.brand-link {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    color: var(--adm-text);
+    text-decoration: none;
 }
 
 .main-header .nav-link,
 .main-header .navbar-brand {
-    color: var(--cyber-cyan) !important;
+    color: var(--adm-muted);
+    font-weight: 600;
 }
 
-/* Боковая панель */
-.main-sidebar {
-    background: rgba(13, 8, 23, 0.97) !important;
-    border-right: 1px solid rgba(155, 77, 255, 0.55);
-    box-shadow: 4px 0 18px rgba(155, 77, 255, 0.18);
+.main-header .nav-link:hover {
+    color: var(--adm-text);
 }
 
-.brand-link {
-    color: var(--cyber-cyan) !important;
-    border-bottom: 1px solid rgba(155, 77, 255, 0.4) !important;
-    text-shadow: 0 0 8px var(--cyber-cyan);
-}
-
-.sidebar .nav-link {
-    color: #d8c9f5 !important;
-    transition: 0.2s ease;
-}
-
-.sidebar .nav-link:hover {
-    color: #fff !important;
-    background: rgba(155, 77, 255, 0.18) !important;
-    box-shadow: inset 3px 0 var(--cyber-cyan);
-}
-
-.sidebar .nav-link.active {
-    color: #fff !important;
-    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
-    box-shadow: 0 0 12px rgba(155, 77, 255, 0.55);
-}
-
-/* Заголовки */
-.content-header h1,
-.card-title,
-h1,
-h2,
-h3 {
-    color: var(--cyber-cyan) !important;
-    text-shadow: 0 0 8px rgba(39, 245, 255, 0.35);
-}
-
-/* Карточки и панели */
-.card,
-.info-box,
-.small-box,
-.modal-content {
-    color: var(--cyber-text) !important;
-    background: var(--cyber-panel) !important;
-    border: 1px solid rgba(155, 77, 255, 0.45) !important;
-    box-shadow: 0 0 12px rgba(155, 77, 255, 0.18);
-}
-
-.card-header,
-.card-footer {
-    background: rgba(26, 16, 41, 0.9) !important;
-    border-color: rgba(155, 77, 255, 0.3) !important;
-}
-
-/* Таблицы */
-.table,
-.table td,
-.table th {
-    color: var(--cyber-text) !important;
-    border-color: rgba(155, 77, 255, 0.25) !important;
-}
-
-.table thead th {
-    color: var(--cyber-cyan) !important;
-    background: #1a1029 !important;
-}
-
-.table tbody tr:hover {
-    background: rgba(155, 77, 255, 0.12) !important;
-}
-
-/* Формы */
-.form-control,
-.custom-select,
-select,
-textarea,
-input {
-    max-width: 100%;
-    color: var(--cyber-text) !important;
-    background-color: #100b1b !important;
-    border: 1px solid rgba(155, 77, 255, 0.65) !important;
-}
-
-.form-control:focus,
-.custom-select:focus,
-select:focus,
-textarea:focus,
-input:focus {
-    border-color: var(--cyber-cyan) !important;
-    box-shadow: 0 0 8px rgba(39, 245, 255, 0.45) !important;
-}
-
-label,
-.help-block,
-.helptext {
-    color: #d8c9f5 !important;
-}
-
-/* Кнопки */
-.btn-primary,
-input[type="submit"],
-.submit-row input {
-    color: #fff !important;
-    background: linear-gradient(100deg, #792ee5, #bd32ff) !important;
-    border: 1px solid var(--cyber-pink) !important;
-    box-shadow: 0 0 10px rgba(255, 43, 214, 0.3);
-}
-
-.btn-primary:hover,
-input[type="submit"]:hover,
-.submit-row input:hover {
-    background: linear-gradient(100deg, #963fff, #e13bff) !important;
-    box-shadow: 0 0 16px rgba(255, 43, 214, 0.6);
-}
-
-.btn-info {
-    color: #fff !important;
-    background: #087f91 !important;
-    border-color: var(--cyber-cyan) !important;
-}
-
-/* Ссылки и пагинация */
-a {
-    color: var(--cyber-cyan);
-}
-
-a:hover {
-    color: var(--cyber-pink);
-    text-shadow: 0 0 6px rgba(255, 43, 214, 0.5);
-}
-
-.page-item.active .page-link {
-    color: #fff !important;
-    background: var(--cyber-purple) !important;
-    border-color: var(--cyber-pink) !important;
-}
-
-/* Сообщения */
-.alert,
-.callout {
-    color: var(--cyber-text) !important;
-    background: #160d25 !important;
-    border-color: var(--cyber-purple) !important;
-}
-
-/* Django Admin / Jazzmin: форма редактирования */
-.change-form form {
-    width: 100%;
-}
-
-.change-form .row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
-
-.change-form .row > .col-md-9,
-.change-form .row > .col-md-8,
-.change-form .row > .col-lg-9,
-.change-form .row > .col-lg-8 {
-    flex: 1 1 100%;
-    width: 100%;
-    max-width: 100%;
-}
-
-/* Панель кнопок формы */
-.change-form form .submit-row {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: stretch;
-    gap: 8px;
-    width: 100% !important;
-    margin: 16px 0 !important;
-    padding: 12px !important;
-    background: var(--cyber-panel) !important;
-    border: 1px solid rgba(155, 77, 255, 0.45) !important;
-    border-radius: 6px;
-}
-
-.change-form form .submit-row input,
-.change-form form .submit-row button,
-.change-form form .submit-row a {
-    float: none !important;
-    flex: 1 1 180px;
-    width: auto !important;
-    min-width: 0;
-    max-width: 100%;
-    margin: 0 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere;
-    text-align: center;
-}
-
-/* Таблицы на узких экранах */
-.table-responsive {
-    overflow-x: auto;
-}
-
-/* Мобильная версия */
-@media (max-width: 767.98px) {
-    .content {
-        padding: 12px !important;
-    }
-
-    .container-fluid {
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-
-    .change-form form .submit-row {
-        flex-direction: column;
-    }
-
-    .change-form form .submit-row input,
-    .change-form form .submit-row button,
-    .change-form form .submit-row a {
-        width: 100% !important;
-        flex-basis: auto;
-    }
-}
-
-@media (max-width: 991.98px) {
-    .content-wrapper,
-    .main-footer {
-        margin-left: 0 !important;
-    }
-}
-
-/* Скрыть панель Customize */
-.control-sidebar,
-.control-sidebar-dark,
-.control-sidebar-light,
-.control-sidebar-bg,
-.control-sidebar-slide-open {
-    display: none !important;
-}
-
-/* Финальная палитра админки — совпадает с основным сайтом SOPHISTICATED. */
-:root {
-    --site-bg: #09060d;
-    --site-surface: rgba(15, 8, 24, 0.94);
-    --site-surface-raised: rgba(30, 13, 44, 0.96);
-    --site-neon: #b84dff;
-    --site-neon-bright: #d49aff;
-    --site-text: #f8f3ff;
-    --site-muted: #c9b9dc;
-    --site-line: rgba(184, 77, 255, 0.3);
-}
-
-html,
-body,
-.wrapper,
-.content-wrapper {
-    color: var(--site-text) !important;
-    background-color: var(--site-bg) !important;
-    background-image:
-        radial-gradient(ellipse at 12% 8%, rgba(112, 24, 166, 0.2), transparent 38rem),
-        radial-gradient(ellipse at 90% 45%, rgba(67, 15, 105, 0.18), transparent 42rem),
-        linear-gradient(145deg, #09060d 0%, #100919 52%, #08060c 100%) !important;
-}
-
-.main-header {
-    background: rgba(7, 5, 11, 0.94) !important;
-    border-bottom: 1px solid var(--site-line) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28) !important;
-}
-
-.main-header .nav-link,
-.main-header .navbar-brand,
-.brand-link,
-.content-header h1,
-.card-title,
-h1,
-h2,
-h3 {
-    color: var(--site-neon-bright) !important;
-    text-shadow: 0 0 18px rgba(184, 77, 255, 0.38) !important;
-}
-
+/* ---------------- Боковая панель ---------------- */
 .main-sidebar,
-.main-sidebar::before,
 .main-sidebar .sidebar,
 .main-sidebar .brand-link,
 .main-sidebar nav,
-.main-sidebar .nav-sidebar {
-    background: rgba(7, 5, 11, 0.96) !important;
-    background-image: none !important;
-    border-color: var(--site-line) !important;
+.main-sidebar .nav-sidebar,
+.main-sidebar::before {
+    background: var(--adm-panel);
+    border-color: var(--adm-line);
 }
 
 .main-sidebar .nav-sidebar .nav-link {
-    color: var(--site-muted) !important;
+    color: var(--adm-muted);
+    font-family: var(--font-head);
+    font-weight: 600;
 }
 
 .main-sidebar .nav-sidebar .nav-link:hover,
 .main-sidebar .nav-sidebar .nav-link.active,
 .main-sidebar .menu-open > .nav-link {
-    color: #fff !important;
-    background: rgba(184, 77, 255, 0.14) !important;
-    box-shadow: inset 3px 0 var(--site-neon), 0 0 16px rgba(184, 77, 255, 0.1) !important;
+    color: var(--adm-bg);
+    background: var(--pearl-mint-solid);
 }
 
-.main-sidebar .nav-header {
-    color: var(--site-neon-bright) !important;
+.main-sidebar .nav-sidebar .nav-header {
+    font-family: var(--font-mono);
+    color: var(--pearl-pink);
+    letter-spacing: 0.16em;
+    font-weight: 600;
 }
 
+/* ---------------- Заголовки ---------------- */
+.content-header,
+.card-title,
+.section__bar b {
+
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--adm-text);
+}
+
+/* Главные разделы лендинга (Оптовый каталог, Команда, Отзывы) — менее яркие. */
+.sheet > .section {
+    border-color: rgba(246, 220, 228, 0.22);
+}
+
+.sheet > .section .section__bar b {
+    color: var(--adm-muted);
+}
+
+.sheet > .section .section__bar {
+    color: var(--adm-muted);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+}
+
+h1, h2, h3 {
+    color: var(--adm-text);
+}
+
+/* Надписи fieldsets в формах товаров и отзывов — менее яркие. */
+.fieldset-heading,
+fieldset legend {
+    color: var(--adm-muted) !important;
+}
+
+/* ---------------- Карточки ---------------- */
 .card,
 .info-box,
 .small-box,
 .modal-content,
 .dropdown-menu,
 .login-box .card {
-    color: var(--site-text) !important;
-    background: var(--site-surface) !important;
-    border: 1px solid var(--site-line) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    color: var(--adm-text);
+    background: var(--adm-panel);
+    border: 2px solid var(--adm-line);
+    border-radius: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .card-header,
 .card-footer {
-    background: var(--site-surface-raised) !important;
-    border-color: var(--site-line) !important;
+    background: var(--adm-deep);
+    border-color: var(--adm-line);
+    color: var(--adm-text);
 }
 
+/* ---------------- Таблицы (документный стиль) ---------------- */
 .table,
 .table td,
 .table th {
-    color: var(--site-text) !important;
-    border-color: var(--site-line) !important;
+    color: var(--adm-text);
+    border-color: var(--adm-line);
 }
 
 .table thead th {
-    color: var(--site-neon-bright) !important;
-    background: rgba(30, 13, 44, 0.9) !important;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--adm-text);
+    background: var(--adm-deep);
+    border-bottom: 2px solid var(--adm-text);
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .table tbody tr:hover {
-    background: rgba(184, 77, 255, 0.1) !important;
+    background: rgba(246, 220, 228, 0.06);
 }
 
-.form-control,
-.custom-select,
+.table tbody tr td {
+    border-bottom-color: var(--adm-line);
+}
+
+.table td.field-name,
+.table th[scope="row"],
+.table .name {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.table td .field-photo img,
+.table td img.admin-thumb {
+    border: 1px solid var(--adm-faint);
+}
+
+/* ---------------- Формы ---------------- */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
 select,
-textarea,
-input {
-    color: var(--site-text) !important;
-    background-color: #100919 !important;
-    border-color: var(--site-line) !important;
+textarea {
+    background: var(--adm-bg);
+    color: var(--adm-text);
+    border: 2px solid var(--adm-line);
+    border-radius: 0;
+    font-family: var(--font-body);
+    font-size: 16px;
+    min-height: 46px;
+    padding: 10px 14px;
 }
 
-.form-control:focus,
-.custom-select:focus,
+input:focus,
 select:focus,
-textarea:focus,
-input:focus {
-    border-color: var(--site-neon) !important;
-    box-shadow: 0 0 10px rgba(184, 77, 255, 0.35) !important;
+textarea:focus {
+    border-color: var(--pearl-mint);
 }
 
-label,
-.help-block,
-.helptext,
-.text-muted {
-    color: var(--site-muted) !important;
+input::placeholder,
+textarea::placeholder {
+    color: var(--adm-faint);
 }
 
-.btn-primary,
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--pearl-mint);
+}
+
+/* ---------------- Кнопки ---------------- */
+/* ---------------- Кнопки: pearl-градиент, текст контрастный ---------------- */
+.btn,
 input[type="submit"],
-.submit-row input {
-    background: linear-gradient(100deg, #792ee5, #b84dff) !important;
-    border-color: var(--site-neon) !important;
-    box-shadow: 0 0 12px rgba(184, 77, 255, 0.3) !important;
+input[type="button"],
+input[type="reset"],
+.submit-row input,
+.add-another,
+.save-buttons a {
+    border-radius: 0;
+    border-width: 2px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--adm-bg);
+    background: var(--pearl);
+    border-color: transparent;
 }
 
-.btn-primary:hover,
+.btn:hover,
 input[type="submit"]:hover,
-.submit-row input:hover {
-    background: linear-gradient(100deg, #963fff, #d49aff) !important;
-    box-shadow: 0 0 18px rgba(184, 77, 255, 0.55) !important;
+input[type="button"]:hover,
+input[type="reset"]:hover,
+.submit-row input:hover,
+.add-another:hover,
+.save-buttons a:hover {
+    filter: brightness(1.08);
 }
 
-a {
-    color: var(--site-neon-bright) !important;
+.btn-primary {
+    color: var(--adm-bg);
+    background: var(--pearl);
 }
 
-a:hover {
-    color: #fff !important;
-    text-shadow: 0 0 8px rgba(184, 77, 255, 0.5);
+.btn-secondary {
+    color: var(--adm-text);
+    background: transparent;
+    border-color: var(--adm-text);
 }
 
-/* Страница входа в админку */
-.login-page {
-    min-height: 100vh;
-    background: transparent !important;
+.btn-secondary:hover {
+    color: var(--adm-bg);
+    background: var(--adm-text);
+    filter: none;
 }
 
-.login-logo a {
-    color: var(--site-neon-bright) !important;
-    text-shadow: 0 0 18px rgba(184, 77, 255, 0.42);
+.btn-warning {
+    color: var(--adm-bg);
+    background: #ffd28a;
+    border-color: #ffd28a;
 }
 
-.login-card-body,
-.login-box .card-body {
-    background: var(--site-surface) !important;
+.btn-danger {
+    color: var(--adm-bg);
+    background: #ff8a8a;
+    border-color: #ff8a8a;
 }
 
-/* Данные в списках: компактные превью и понятные статусы. */
-.admin-thumb {
-    width: 42px;
-    height: 42px;
-    display: block;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid rgba(184, 77, 255, 0.55);
-    box-shadow: 0 0 12px rgba(184, 77, 255, 0.22);
+.btn-success {
+    color: var(--adm-bg);
+    background: var(--pearl-mint-solid);
+    border-color: var(--pearl-mint-solid);
 }
 
-.admin-empty {
-    color: var(--site-muted);
-    font-size: 12px;
-    opacity: 0.75;
+/* ---------------- Ссылки и статусы ---------------- */
+.btn-link,
+.text-muted {
+    color: var(--adm-muted);
 }
 
-.admin-price {
-    color: var(--site-neon-bright);
-    white-space: nowrap;
+.text-muted {
+    font-family: var(--font-mono);
+    font-size: 13px;
 }
 
+/* ---------------- Пагинация ---------------- */
+.paginator,
+.pagination,
+.pagination .page-item,
+.paginator a,
+.pagination a {
+    color: var(--adm-muted);
+    border-color: var(--adm-line);
+    background: transparent;
+}
+
+.pagination .page-item.active .page-link,
+.paginator a.current {
+    color: var(--adm-bg);
+    background: var(--pearl-mint-solid);
+    border-color: var(--pearl-mint-solid);
+}
+
+/* ---------------- Хлебные крошки ---------------- */
+.breadcrumb,
+.breadcrumbs {
+    color: var(--adm-muted);
+    background: var(--adm-deep);
+}
+
+.breadcrumbs a,
+.breadcrumb-item a {
+    color: var(--adm-text);
+    text-decoration: none;
+}
+
+/* ---------------- Сообщения ---------------- */
+.messages li,
+.alert {
+    border-left-width: 8px;
+    background: var(--adm-panel);
+    border-color: var(--adm-line);
+}
+
+.messages li.success,
+.alert.alert-success,
+.callout.callout-success {
+    border-color: var(--pearl-mint-solid);
+}
+
+.messages li.error,
+.alert.alert-error,
+.callout.callout-danger {
+    border-color: #ff8a8a;
+}
+
+.messages li.warning,
+.alert.alert-warning,
+.callout.callout-warning {
+    border-color: #ffd28a;
+}
+
+/* ---------------- Поиск / фильтры ---------------- */
+.search-header,
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-input,
+.search-form input[type="search"] {
+    flex: 0 1 320px;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    color: var(--adm-muted);
+    border-color: var(--adm-line);
+}
+
+.filter-btn:hover {
+    color: var(--adm-text);
+    border-color: var(--adm-text);
+}
+
+/* ---------------- Документные метки (badge) ---------------- */
 .admin-badge {
-    display: inline-block;
-    padding: 4px 9px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    border-radius: 0;
 }
 
 .admin-badge--success {
-    color: #d9ffec;
-    background: rgba(35, 180, 111, 0.18);
-    border: 1px solid rgba(35, 180, 111, 0.42);
+    color: var(--adm-text);
+    background: rgba(246, 220, 228, 0.18);
+    border: 1px solid rgba(246, 220, 228, 0.42);
 }
 
 .admin-badge--warning {
-    color: #ffe9b0;
-    background: rgba(229, 166, 43, 0.18);
-    border: 1px solid rgba(229, 166, 43, 0.42);
+    color: var(--adm-text);
+    background: rgba(255, 210, 138, 0.16);
+    border: 1px solid rgba(255, 210, 138, 0.4);
 }
 
 .admin-badge--danger {
-    color: #ffd0df;
-    background: rgba(220, 54, 98, 0.18);
-    border: 1px solid rgba(220, 54, 98, 0.42);
+    color: var(--adm-text);
+    background: rgba(255, 138, 138, 0.16);
+    border: 1px solid rgba(255, 138, 138, 0.4);
+}
+
+.admin-price {
+    color: var(--pearl-mint-solid);
+    white-space: nowrap;
 }
 
 .admin-rating {
-    color: var(--site-neon-bright);
+    color: var(--pearl-mint-solid);
     letter-spacing: 1px;
     white-space: nowrap;
-    text-shadow: 0 0 8px rgba(184, 77, 255, 0.35);
 }
 
-.results table tbody tr,
-.change-list .results tbody tr {
-    transition: background 0.18s ease, transform 0.18s ease;
-}
-
-.results table tbody tr:hover,
-.change-list .results tbody tr:hover {
-    transform: translateX(2px);
-}
-
-.fieldBox,
-.form-row,
-.form-group {
-    border-radius: 10px;
-}
-
-.fieldset-heading {
-    color: var(--site-neon-bright) !important;
-    letter-spacing: 0.02em;
-}
-
-.object-tools a,
-.add-another,
-.related-widget-wrapper-link {
-    border-radius: 8px !important;
-}
-
-@media (max-width: 767.98px) {
-    .results table {
-        min-width: 760px;
-    }
-
-    .results {
-        overflow-x: auto;
-    }
-}
-
-/* Убрать кнопку открытия панели */
-.nav-item a[data-widget="control-sidebar"],
-.nav-link[data-widget="control-sidebar"],
-[data-widget="control-sidebar"] {
-    display: none !important;
-}
-
-
-
-
-/* Цвет боковой панели */
-.main-sidebar,
-.main-sidebar .sidebar,
-.main-sidebar .brand-link {
-    background-color: #110b1d !important;
-}
-
-.main-sidebar {
-    border-right: 1px solid rgba(155, 77, 255, 0.55) !important;
-}
-
-.sidebar .nav-header {
-    color: var(--cyber-cyan) !important;
-}
-
-.sidebar .nav-link {
-    background-color: transparent !important;
-}
-
-.sidebar .nav-link:hover {
-    background: rgba(155, 77, 255, 0.2) !important;
-}
-
-.sidebar .nav-link.active,
-.sidebar .menu-open > .nav-link {
-    color: #fff !important;
-    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
-}
-
-/* Боковое меню Jazzmin / AdminLTE */
-.main-sidebar,
-.main-sidebar::before,
-.main-sidebar .sidebar,
-.main-sidebar .brand-link,
-.main-sidebar .user-panel {
-    background-color: #110b1d !important;
-    background-image: none !important;
-}
-
-.main-sidebar .nav-sidebar > .nav-item > .nav-link {
-    color: #d8c9f5 !important;
-    background-color: transparent !important;
-}
-
-.main-sidebar .nav-sidebar > .nav-item > .nav-link:hover,
-.main-sidebar .nav-sidebar > .nav-item > .nav-link.active {
-    color: #fff !important;
-    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
-}
-
-.main-sidebar .nav-header {
-    color: var(--cyber-cyan) !important;
-}
-
-
-/* Боковая панель Jazzmin / AdminLTE */
-html body .main-sidebar,
-html body .main-sidebar::before,
-html body .main-sidebar .brand-link,
-html body .main-sidebar .sidebar,
-html body .main-sidebar .user-panel,
-html body .main-sidebar nav,
-html body .main-sidebar .nav-sidebar {
-    background: #110b1d !important;
-    background-image: none !important;
-}
-
-/* Пункты меню */
-html body .main-sidebar .nav-sidebar .nav-link {
-    color: #d8c9f5 !important;
-    background: transparent !important;
-}
-
-html body .main-sidebar .nav-sidebar .nav-link:hover,
-html body .main-sidebar .nav-sidebar .nav-link.active {
-    color: #fff !important;
-    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
-}
-
-/* Рабочий дашборд админки */
-.admin-dashboard-hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin: 0 0 22px;
-    padding: 30px 34px;
-    background: radial-gradient(circle at 90% 10%, rgba(184, 77, 255, .2), transparent 20rem), linear-gradient(135deg, rgba(30, 13, 44, .96), rgba(15, 8, 24, .92));
-    border: 1px solid rgba(184, 77, 255, .35);
-    border-radius: 18px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, .25);
-}
-
-.admin-dashboard-hero h1 {
-    margin: 8px 0 7px;
-    color: #f8f3ff !important;
-    font-size: clamp(26px, 4vw, 38px);
-}
-
-.admin-dashboard-hero p {
-    margin: 0;
-    color: #c9b9dc;
-    font-size: 15px;
-}
-
-.admin-dashboard-kicker {
-    color: #d49aff;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .18em;
-}
-
-.admin-dashboard-mark {
-    display: grid;
-    width: 72px;
-    height: 72px;
-    place-items: center;
-    color: #f8f3ff;
-    font-size: 36px;
-    border: 1px solid rgba(212, 154, 255, .55);
-    border-radius: 50%;
-    background: rgba(184, 77, 255, .13);
-    box-shadow: 0 0 28px rgba(184, 77, 255, .25);
-}
-
-.admin-quick-actions {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
-.admin-quick-action {
-    display: flex;
-    min-height: 82px;
-    align-items: center;
-    gap: 12px;
-    padding: 15px;
-    color: #f8f3ff !important;
-    text-decoration: none !important;
-    background: rgba(15, 8, 24, .82);
-    border: 1px solid rgba(184, 77, 255, .24);
-    border-radius: 13px;
-    transition: transform .18s ease, border-color .18s ease, background .18s ease;
-}
-
-.admin-quick-action:hover {
-    color: #fff !important;
-    background: rgba(40, 17, 58, .94);
-    border-color: rgba(212, 154, 255, .7);
-    transform: translateY(-3px);
-}
-
-.admin-quick-action--primary {
-    background: linear-gradient(135deg, rgba(90, 22, 132, .92), rgba(184, 77, 255, .72));
-    border-color: rgba(212, 154, 255, .55);
-}
-
-.admin-quick-action__icon {
-    display: grid;
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
-    place-items: center;
-    color: #d49aff;
-    font-size: 21px;
-    border: 1px solid rgba(212, 154, 255, .35);
-    border-radius: 9px;
-}
-
-.admin-quick-action strong,
-.admin-quick-action small {
+/* Единые средние цветные фото в таблицах (товары и сотрудники). */
+img.admin-thumb {
     display: block;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border: 1px solid var(--adm-faint);
+    background: var(--adm-deep);
 }
 
-.admin-quick-action strong { font-size: 13px; }
-.admin-quick-action small { margin-top: 4px; color: #c9b9dc; font-size: 11px; }
+.admin-empty {
+    color: var(--adm-muted);
+    font-size: 12px;
+}
 
-.admin-dashboard-section-title {
+/* ---------------- Модальные окна ---------------- */
+.modal-content,
+.modal-backdrop {
+    background: var(--adm-bg);
+}
+
+/* ---------------- Личный кабинет (пользователь в шапке) ---------------- */
+.user-tools {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.user-tools a {
+    color: var(--adm-text);
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link,
+.nav-tabs .nav-item .nav-link {
+    border-radius: 0;
+    border-color: var(--adm-line);
+    color: var(--adm-muted);
+    font-family: var(--font-head);
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+    border-color: var(--pearl-mint-solid) !important;
+    color: var(--adm-text);
+}
+
+/* ---------------- Документные карточки на главной ---------------- */
+.admin-home-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: clamp(44px, 5vw, 56px);
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+}
+
+.admin-home-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.admin-home-sub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--adm-muted);
+}
+
+.admin-home-dot {
+    color: var(--adm-muted);
+}
+
+.admin-home-sub a {
+    color: var(--adm-text);
+}
+
+/* Кнопка «Изменить» в таблице товаров, рядом с датой производства. */
+.btn--edit {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--adm-bg);
+    background: var(--pearl);
+    border-color: transparent;
+    border-radius: 0;
+}
+
+/* Кнопки на лендинге: pearl-градиент, текст контрастный. */
+.btn--pearl,
+.btn--add {
+    color: var(--adm-bg);
+    background: var(--pearl);
+    border-color: transparent;
+}
+
+.btn--pearl:hover,
+.btn--add:hover {
+    filter: brightness(1.08);
+}
+
+.btn--add {
+    min-height: 52px;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+}
+
+/* Документная заглушка-разделитель под разделами на главной. */
+.admin-home-title-2 {
     display: flex;
     align-items: center;
     gap: 14px;
     margin: 0 0 13px;
-    color: #d49aff;
+    color: var(--adm-muted);
+    font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 800;
     letter-spacing: .14em;
     text-transform: uppercase;
 }
 
-.admin-dashboard-line {
+.admin-home-line {
     height: 1px;
     flex: 1;
-    background: linear-gradient(90deg, rgba(184, 77, 255, .45), transparent);
+    background: linear-gradient(90deg, rgba(246, 220, 228, .45), transparent);
 }
 
-/* Панели моделей на главной странице админки. */
-#content-main > .app-hello.module,
-#content-main > .app-auth.module {
-    display: inline-block;
-    vertical-align: top;
-    width: calc(50% - 10px);
-    margin: 0 16px 20px 0;
-    padding: 0;
-    overflow: hidden;
-    background: var(--site-surface);
-    border: 1px solid var(--site-line);
-    border-radius: 16px;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, .22);
+/* ---------------- Подвал и AdminLTE-подобные имена ---------------- */
+.main-footer {
+    background: var(--adm-deep);
+    border-top: 2px solid var(--adm-line);
+    color: var(--adm-muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
 }
 
-#content-main > .app-auth.module {
-    margin-right: 0;
+.app-header {
+    background: rgba(30, 35, 39, 0.97) !important;
+    border-bottom: 2px solid rgba(246, 220, 228, 0.42) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28) !important;
 }
 
-#content-main > .app-hello.module table,
-#content-main > .app-auth.module table {
-    width: 100%;
-    margin: 0;
-    border-collapse: collapse;
+.app-header .nav-link {
+    color: var(--adm-muted);
+    font-weight: 600;
 }
 
-#content-main > .app-hello.module caption,
-#content-main > .app-auth.module caption {
-    padding: 18px 20px;
-    text-align: left;
-    background: linear-gradient(110deg, rgba(90, 22, 132, .72), rgba(30, 13, 44, .94));
-    border-bottom: 1px solid var(--site-line);
+.app-header .nav-link:hover,
+.app-header .nav-link.active {
+    color: var(--adm-text);
 }
 
-#content-main > .app-hello.module caption .section,
-#content-main > .app-auth.module caption .section {
-    color: var(--site-neon-bright) !important;
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: .03em;
-}
-
-#content-main > .app-hello.module tbody tr,
-#content-main > .app-auth.module tbody tr {
-    border-bottom: 1px solid rgba(184, 77, 255, .12);
-}
-
-#content-main > .app-hello.module tbody tr:last-child,
-#content-main > .app-auth.module tbody tr:last-child {
-    border-bottom: 0;
-}
-
-#content-main > .app-hello.module tbody tr:hover,
-#content-main > .app-auth.module tbody tr:hover {
-    background: rgba(184, 77, 255, .09);
-}
-
-#content-main > .app-hello.module tbody th,
-#content-main > .app-auth.module tbody th,
-#content-main > .app-hello.module tbody td,
-#content-main > .app-auth.module tbody td {
-    padding: 15px 20px;
-    border: 0;
-}
-
-#content-main > .app-hello.module tbody th,
-#content-main > .app-auth.module tbody th {
-    width: 50%;
-    text-align: left;
+.app-header .navbar-brand,
+.app-header .brand-link {
+    font-family: var(--font-head);
     font-weight: 700;
+    color: var(--adm-text);
 }
 
-#content-main > .app-hello.module tbody th a,
-#content-main > .app-auth.module tbody th a {
-    color: var(--site-text) !important;
+.app-sidebar,
+.app-sidebar::before {
+    background: var(--adm-panel) !important;
+    border-color: var(--adm-line) !important;
 }
 
-#content-main > .app-hello.module tbody td,
-#content-main > .app-auth.module tbody td {
-    width: 25%;
-    text-align: right;
-    white-space: nowrap;
+.app-sidebar .nav-link {
+    color: var(--adm-muted) !important;
 }
 
-#content-main > .app-hello.module tbody td a,
-#content-main > .app-auth.module tbody td a {
-    display: inline-block;
-    padding: 6px 9px;
-    border: 1px solid rgba(184, 77, 255, .3);
-    border-radius: 7px;
-    font-size: 11px;
-    text-decoration: none;
+.app-sidebar .nav-link:hover,
+.app-sidebar .nav-link.active,
+.app-sidebar .menu-open > .nav-link {
+    color: var(--adm-bg) !important;
+    background: var(--pearl-mint-solid) !important;
 }
 
-#content-main > .app-hello.module tbody td .addlink,
-#content-main > .app-auth.module tbody td .addlink {
-    color: var(--site-neon-bright) !important;
-    background: rgba(184, 77, 255, .1);
+.app-sidebar .nav-header {
+    color: var(--pearl-pink) !important;
 }
 
-#content-main > .app-hello.module tbody td .changelink,
-#content-main > .app-auth.module tbody td .changelink {
-    color: #fff !important;
-    background: rgba(255, 255, 255, .06);
-}
-
-@media (max-width: 900px) {
-    #content-main > .app-hello.module,
-    #content-main > .app-auth.module {
-        display: block;
-        width: 100%;
-        margin-right: 0;
+/* ---------------- Мобильная версия ---------------- */
+@media (max-width: 767.98px) {
+    .content {
+        padding: 12px;
     }
-}
 
-@media (max-width: 1050px) {
-    .admin-quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+    .table-responsive {
+        overflow-x: auto;
+    }
 
-@media (max-width: 600px) {
-    .admin-dashboard-hero { padding: 24px 20px; }
-    .admin-dashboard-mark { display: none; }
-    .admin-quick-actions { grid-template-columns: 1fr; }
-}
+    .table {
+        min-width: 700px;
+    }
 
-/* Заголовки разделов */
-html body .main-sidebar .nav-header {
-    color: var(--cyber-cyan) !important;
-}
-.main-sidebar,
-.main-sidebar::before {
-    background: #110b1d !important;
-}
-
-
-/* Переопределение палитры боковой панели темы Darkly */
-[data-bs-theme="dark"] .app-sidebar,
-[data-bs-theme="dark"] .app-sidebar::before {
-    --lte-sidebar-bg: #110b1d;
-    --lte-sidebar-color: #d8c9f5;
-    --lte-sidebar-hover-bg: rgba(155, 77, 255, 0.2);
-    --lte-sidebar-active-bg: linear-gradient(90deg, #7028c9, #a33cff);
-    --lte-sidebar-menu-active-bg: rgba(155, 77, 255, 0.2);
-    --lte-sidebar-header-color: #27f5ff;
-
-    background: #110b1d !important;
-    background-image: none !important;
-}
-
-[data-bs-theme="dark"] .app-sidebar .nav-link {
-    color: #d8c9f5 !important;
-}
-
-[data-bs-theme="dark"] .app-sidebar .nav-link:hover,
-[data-bs-theme="dark"] .app-sidebar .nav-link.active {
-    color: #fff !important;
-    background: linear-gradient(90deg, #7028c9, #a33cff) !important;
-}
-
-[data-bs-theme="dark"] .app-sidebar .nav-header {
-    color: #27f5ff !important;
-}
-
-/* Верхняя панель AdminLTE / Jazzmin */
-[data-bs-theme="dark"] .app-header {
-    --lte-navbar-bg: rgba(16, 9, 27, 0.96);
-    --lte-navbar-color: #27f5ff;
-
-    background: rgba(16, 9, 27, 0.96) !important;
-    background-image: none !important;
-    border-bottom: 1px solid #9b4dff !important;
-    box-shadow: 0 0 14px rgba(155, 77, 255, 0.45);
-}
-
-[data-bs-theme="dark"] .app-header .nav-link,
-[data-bs-theme="dark"] .app-header .navbar-brand {
-    color: #27f5ff !important;
-}
-
-/* Хлебные крошки */
-[data-bs-theme="dark"] .app-content-header,
-[data-bs-theme="dark"] .breadcrumb {
-    background: #110b1d !important;
-    color: #d8c9f5 !important;
-}
-
-[data-bs-theme="dark"] .breadcrumb-item,
-[data-bs-theme="dark"] .breadcrumb-item a {
-    color: #27f5ff !important;
-}
-
-[data-bs-theme="dark"] .breadcrumb-item.active {
-    color: #d8c9f5 !important;
-}
-
-[data-bs-theme="dark"] .breadcrumb-item + .breadcrumb-item::before {
-    color: #9b4dff !important;
-}
-
-/* Только кнопки-вкладки формы */
-.change-form .nav-tabs .nav-link {
-    color: var(--cyber-text) !important;
-    background: #1a1029 !important;
-    border: 1px solid #9b4dff !important;
-}
-
-.change-form .nav-tabs .nav-link:hover,
-.change-form .nav-tabs .nav-link.active {
-    color: #fff !important;
-    background: #35145c !important;
-    border-color: var(--cyber-cyan) !important;
-}
-
-
-html body .change-form .submit-row input,
-html body .change-form .submit-row button,
-html body .change-form .submit-row a,
-html body .change-form .nav-tabs .nav-link {
-    border: 0 !important;
-    outline: 0 !important;
-    box-shadow: none !important;
-}
-/* Синяя обводка только у кнопок */
-button,
-.btn,
-input[type="submit"],
-input[type="button"],
-input[type="reset"],
-.submit-row a {
-    border: 1px solid #100b1b !important;
-}
-
-
-.btn-group>.btn-group:not(:first-child), .btn-group>:not(.btn-check:first-child)+.btn {
-    margin-left: calc(-1 * var(--bs-border-width));
-    background-color: #43a1ff !important;
-}
-
-
-.btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn.dropdown-toggle-split:first-child, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
-    border-top-right-radius: 0;
-    background-color: #9b4dff  !important;
+    .admin-home-sub,
+    .admin-home-tools {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

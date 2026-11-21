@@ -16,6 +16,7 @@
    10. Формы: вход, регистрация, личный кабинет
    11. Сообщения Django
    12. Подвал
+   13. Анимации (@keyframes)
 */
 
 
@@ -1441,4 +1442,785 @@ select option {
 .site-footer small {
     flex: 1 1 100%;
     color: var(--muted);
+}
+
+
+/* ==========================================================================
+   13. Анимации (@keyframes)
+   ========================================================================== */
+@keyframes page-enter {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes soft-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes pearl-breathe {
+    0%, 100% { opacity: 0.75; transform: scale(1); }
+    50%      { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes docbar-stamp {
+    from { opacity: 0; transform: scale(0.96) rotate(-0.6deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes underline-center {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+@keyframes pearl-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+@keyframes header-scan {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(100%); }
+}
+
+@keyframes section-print {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0); }
+}
+
+@keyframes bar-draw {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+@keyframes stamp-tilt {
+    from { opacity: 0; transform: rotate(-2deg) scale(0.97); }
+    to   { opacity: 1; transform: rotate(0) scale(1); }
+}
+
+@keyframes journal-stamp {
+    from { opacity: 0; transform: rotate(-8deg) scale(1.2); }
+    to   { opacity: 1; transform: rotate(0) scale(1); }
+}
+
+@keyframes message-in {
+    from { opacity: 0; transform: translateX(14px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes message-success {
+    from {
+        opacity: 0;
+        transform: translateX(14px);
+        background: rgba(134, 205, 184, 0.06);
+        border-left-color: #86cdb8;
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        background: var(--panel);
+        border-left-color: #86cdb8;
+    }
+}
+
+@keyframes focus-pulse {
+    from { box-shadow: 0 0 0 0 rgba(191, 230, 220, 0.55); }
+    to   { box-shadow: 0 0 0 8px rgba(191, 230, 220, 0); }
+}
+
+@keyframes footer-rule {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+@keyframes logo-shine {
+    from { background-position: 100% 50%; }
+    to   { background-position: 0% 50%; }
+}
+
+@keyframes bar-fill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+@keyframes low-pulse {
+    0%, 100% { opacity: 0.75; box-shadow: 0 0 0 0 rgba(255, 138, 138, 0.35); }
+    50%      { opacity: 1; box-shadow: 0 0 0 4px rgba(255, 138, 138, 0); }
+}
+
+@keyframes row-slide {
+    from { opacity: 0; transform: translateX(-4px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes row-sweep {
+    0%   { transform: scaleX(0); opacity: 1; }
+    60%  { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 0; }
+}
+
+@keyframes thumb-reveal {
+    from { opacity: 0; transform: scale(0.94); filter: blur(3px); }
+    to   { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes portrait-reveal {
+    from { opacity: 0; clip-path: circle(0% at 50% 50%); }
+    to   { opacity: 1; clip-path: circle(75% at 50% 50%); }
+}
+
+@keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(100%); }
+}
+
+@keyframes chip-pop {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes input-glow {
+    from { box-shadow: 0 0 0 0 rgba(191, 230, 220, 0.45); }
+    to   { box-shadow: 0 0 0 5px rgba(191, 230, 220, 0); }
+}
+
+@keyframes select-arrow {
+    0%   { transform: translateY(-50%) rotate(0); }
+    50%  { transform: translateY(-50%) rotate(180deg); }
+    100% { transform: translateY(-50%) rotate(0); }
+}
+
+@keyframes modal-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes backdrop-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes image-focus {
+    from { opacity: 0; transform: scale(1.03); filter: blur(4px); }
+    to   { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes detail-line {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes close-spin {
+    from { transform: rotate(0); }
+    to   { transform: rotate(90deg); }
+}
+
+@keyframes price-flash {
+    0%   { background: transparent; color: var(--text); }
+    35%  { background: var(--pearl-mint); color: var(--bg); }
+    100% { background: transparent; color: var(--text); }
+}
+
+@keyframes empty-breathe {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(2px); }
+}
+
+@keyframes person-slide {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes contact-slide {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes monogram-pop {
+    from { opacity: 0; transform: scale(0.6) rotate(-6deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes post-slide {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes text-reveal {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0); }
+}
+
+@keyframes star-pop {
+    from { opacity: 0; transform: scale(0.4); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes form-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes field-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes error-shake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-3px); }
+    75%      { transform: translateX(3px); }
+}
+
+@keyframes shine {
+    from { transform: translateX(-120%); }
+    to   { transform: translateX(120%); }
+}
+
+@keyframes avatar-ring {
+    from { opacity: 0.7; transform: scale(0.9); }
+    to   { opacity: 0; transform: scale(1.18); }
+}
+
+@keyframes card-rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes placeholder-sigh {
+    0%, 100% { opacity: 0.65; }
+    50%      { opacity: 1; }
+}
+
+@keyframes approval-stamp {
+    from { opacity: 0; transform: rotate(-18deg) scale(1.35); }
+    to   { opacity: 0.9; transform: rotate(-8deg) scale(1); }
+}
+
+/* --- Общие элементы и шапка --- */
+:root {
+    --scroll-progress: 0;
+}
+
+.scroll-progress {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 3px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.scroll-progress span {
+    display: block;
+    height: 100%;
+    background: var(--pearl);
+    background-size: 200% 100%;
+    transform: scaleX(var(--scroll-progress));
+    transform-origin: left center;
+    will-change: transform;
+}
+
+body[data-page] main {
+    animation: page-enter 260ms ease-out both;
+}
+
+body[data-page] .logo__pearl {
+    animation: pearl-breathe 1800ms ease-in-out 1 both;
+}
+
+.logo__text {
+    color: var(--text);
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .logo__text {
+        color: transparent;
+        background: linear-gradient(100deg, var(--text) 34%, #fff 47%, var(--pearl-mint) 51%, var(--text) 64%);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: logo-shine 3200ms ease-in-out 1 both;
+    }
+}
+
+.header {
+    position: relative;
+    overflow: hidden;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pearl-mint), transparent);
+    pointer-events: none;
+    animation: header-scan 2600ms ease-in-out 1 both;
+}
+
+.menu a.active {
+    position: relative;
+    border-bottom-color: transparent;
+}
+
+.menu a.active::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: -3px;
+    height: 3px;
+    background: var(--pearl-mint);
+    transform-origin: center;
+    animation: underline-center 420ms ease-out both;
+}
+
+.docbar {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+}
+
+.docbar__inner {
+    animation: docbar-stamp 420ms cubic-bezier(.2, .9, .2, 1) both;
+    transition: padding 180ms ease-out, font-size 180ms ease-out;
+}
+
+body.docbar--compact .docbar__inner {
+    padding: 4px 0;
+    font-size: 12px;
+}
+
+body.docbar--compact .docbar {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.pearl-rule,
+.home-callout,
+.menu__login,
+.btn {
+    background-size: 200% 100%;
+    animation: pearl-shift 9000ms ease-in-out infinite;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    pointer-events: none;
+    animation: shine 900ms ease-in-out 400ms both;
+}
+
+:focus-visible {
+    animation: focus-pulse 700ms ease-out both;
+}
+
+.site-footer {
+    position: relative;
+}
+
+.site-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: var(--pearl);
+    transform-origin: left;
+    animation: footer-rule 700ms ease-out both;
+}
+
+/* --- Сообщения Django --- */
+.messages li {
+    animation: message-in 380ms cubic-bezier(.2, 1.25, .3, 1) both;
+}
+
+.messages li.success {
+    animation-name: message-success;
+}
+
+/* --- Разделы накладной --- */
+.section__bar {
+    position: relative;
+    overflow: hidden;
+    animation: section-print 460ms ease-out both;
+}
+
+.section__bar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--pearl);
+    transform-origin: left;
+    animation: bar-draw 560ms ease-out 180ms both;
+}
+
+.section__bar b {
+    display: inline-block;
+    animation: stamp-tilt 380ms ease-out 120ms both;
+}
+
+body[data-page="blog"] .section__bar b {
+    animation: journal-stamp 560ms cubic-bezier(.2, 1.2, .3, 1) 120ms both;
+}
+
+/* --- Главная: остатки и штамп --- */
+body[data-page="index"] .home-hero__text {
+    animation: page-enter 320ms ease-out 60ms both;
+}
+
+.stock-panel {
+    position: relative;
+}
+
+.stock-row__fill {
+    transform-origin: left;
+    animation: bar-fill 700ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.stock-row--low .stock-row__fill {
+    background: linear-gradient(90deg, #ff8a8a, var(--pearl-mint));
+    animation: bar-fill 700ms cubic-bezier(.2, .8, .2, 1) both,
+               low-pulse 1600ms ease-in-out 800ms infinite;
+}
+
+.stock-row--low .stock-row__qty {
+    color: #ffb3b3;
+}
+
+.approval-stamp {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 2;
+    padding: 2px 7px;
+    color: #ffb3b3;
+    background: rgba(14, 17, 19, 0.8);
+    border: 2px solid #ff8a8a;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    pointer-events: none;
+    animation: approval-stamp 520ms cubic-bezier(.2, 1.2, .3, 1) 260ms both;
+}
+
+/* --- Таблицы позиций --- */
+body[data-page="products"] .catalog-tools,
+body[data-page="news"] .table-wrap {
+    animation: soft-fade 260ms ease-out both;
+}
+
+.doc-table tbody tr {
+    animation: row-slide 300ms ease-out both;
+}
+
+.doc-table tbody tr:nth-child(2) { animation-delay: 40ms; }
+.doc-table tbody tr:nth-child(3) { animation-delay: 80ms; }
+.doc-table tbody tr:nth-child(4) { animation-delay: 120ms; }
+.doc-table tbody tr:nth-child(5) { animation-delay: 160ms; }
+.doc-table tbody tr:nth-child(6) { animation-delay: 200ms; }
+.doc-table tbody tr:nth-child(7) { animation-delay: 240ms; }
+.doc-table tbody tr:nth-child(8) { animation-delay: 280ms; }
+
+.doc-table tbody td {
+    position: relative;
+}
+
+.doc-table tbody td::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(191, 230, 220, 0.18), transparent 70%);
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+}
+
+.doc-table tbody tr:hover td::before {
+    animation: row-sweep 420ms ease-out both;
+}
+
+.thumb {
+    animation: thumb-reveal 380ms ease-out both;
+}
+
+body[data-page="news"] .doc-table tbody .thumb {
+    animation: portrait-reveal 480ms ease-out both;
+}
+
+.thumb--empty {
+    position: relative;
+    overflow: hidden;
+}
+
+.thumb--empty::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.22) 50%, transparent 80%);
+    transform: translateX(-100%);
+    animation: shimmer 1800ms ease-in-out 500ms infinite;
+}
+
+.filter-btn {
+    animation: chip-pop 280ms ease-out both;
+}
+
+.filter-btn:nth-child(2) { animation-delay: 40ms; }
+.filter-btn:nth-child(3) { animation-delay: 80ms; }
+.filter-btn:nth-child(4) { animation-delay: 120ms; }
+.filter-btn:nth-child(5) { animation-delay: 160ms; }
+.filter-btn:nth-child(6) { animation-delay: 200ms; }
+
+.catalog-tools input:focus,
+.catalog-tools select:focus {
+    animation: input-glow 520ms ease-out both;
+}
+
+.select-wrap {
+    position: relative;
+    display: block;
+    flex: 1 1 180px;
+    min-width: 0;
+}
+
+.select-wrap select {
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 42px;
+}
+
+.select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    color: var(--pearl-mint);
+    font-size: 14px;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.select-wrap:focus-within::after {
+    animation: select-arrow 340ms ease-out both;
+}
+
+.doc-table .price.price--tick {
+    animation: price-flash 600ms ease-out both;
+}
+
+.empty-message {
+    animation: empty-breathe 3200ms ease-in-out 700ms infinite;
+}
+
+body[data-page="news"] .empty-message {
+    animation: soft-fade 500ms ease-out both,
+               empty-breathe 3200ms ease-in-out 700ms infinite;
+}
+
+/* --- Команда --- */
+.person-name {
+    animation: person-slide 320ms ease-out both;
+}
+
+.person-description {
+    animation: soft-fade 300ms ease-out 80ms both;
+}
+
+.person-position {
+    animation: person-slide 320ms ease-out 120ms both;
+}
+
+.person-contacts {
+    animation: contact-slide 340ms ease-out 200ms both;
+}
+
+.person-monogram {
+    width: 56px;
+    height: 56px;
+    margin: 18px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg);
+    background: var(--pearl);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.person-monogram.is-popping {
+    animation: monogram-pop 380ms cubic-bezier(.2, 1.2, .3, 1) both;
+}
+
+/* --- Блог --- */
+body[data-page="blog"] .post-row {
+    position: relative;
+    border-bottom: 0;
+    animation: post-slide 320ms ease-out both;
+}
+
+body[data-page="blog"] .post-row::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--line);
+    transform-origin: left;
+    animation: bar-draw 480ms ease-out both;
+}
+
+body[data-page="blog"] .post-row:nth-child(2) { animation-delay: 60ms; }
+body[data-page="blog"] .post-row:nth-child(3) { animation-delay: 120ms; }
+
+body[data-page="blog"] .post-row__body h2 {
+    animation: text-reveal 420ms ease-out 100ms both;
+}
+
+/* --- Отзывы --- */
+body[data-page="reviews"] .review-form,
+body[data-page="reg"] .content_form form,
+body[data-page="vhod"] .content_form form {
+    animation: form-rise 340ms ease-out both;
+}
+
+body[data-page="reviews"] .review-card {
+    animation: card-rise 300ms ease-out both;
+}
+
+body[data-page="reviews"] .review-card:nth-child(2) { animation-delay: 60ms; }
+body[data-page="reviews"] .review-card:nth-child(3) { animation-delay: 120ms; }
+
+.review-card__rating .star {
+    display: inline-block;
+    animation: star-pop 260ms cubic-bezier(.2, 1.2, .3, 1) both;
+}
+
+.review-card__rating .star:nth-child(2) { animation-delay: 60ms; }
+.review-card__rating .star:nth-child(3) { animation-delay: 120ms; }
+.review-card__rating .star:nth-child(4) { animation-delay: 180ms; }
+.review-card__rating .star:nth-child(5) { animation-delay: 240ms; }
+
+/* --- Формы и аккаунт --- */
+.content_form form > div,
+.review-form .form-group,
+.account-form-field {
+    animation: field-in 280ms ease-out both;
+}
+
+.content_form form > div:nth-child(2),
+.review-form .form-group:nth-child(2) { animation-delay: 60ms; }
+.content_form form > div:nth-child(3),
+.review-form .form-group:nth-child(3) { animation-delay: 120ms; }
+.content_form form > div:nth-child(4) { animation-delay: 180ms; }
+.content_form form > div:nth-child(5) { animation-delay: 240ms; }
+
+.errorlist {
+    animation: error-shake 320ms ease-out both;
+}
+
+body[data-page="account"] .account-header {
+    animation: page-enter 320ms ease-out 60ms both;
+}
+
+body[data-page="account"] .account-edit-card {
+    animation: card-rise 300ms ease-out both;
+}
+
+body[data-page="account"] .account-edit-card:nth-child(2) { animation-delay: 80ms; }
+body[data-page="account"] .account-edit-card:nth-child(3) { animation-delay: 160ms; }
+
+.account-avatar {
+    position: relative;
+}
+
+.account-avatar::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 2px solid var(--pearl-mint);
+    pointer-events: none;
+    animation: avatar-ring 900ms ease-out 200ms both;
+}
+
+.account-photo-placeholder {
+    animation: placeholder-sigh 2200ms ease-in-out 500ms both;
+}
+
+.password-strength {
+    height: 4px;
+    margin-top: 8px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+}
+
+.password-strength span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #ff8a8a;
+    transition: width 220ms ease-out, background-color 220ms ease-out;
+}
+
+.password-strength[data-score="1"] span { width: 25%; background: #ff8a8a; }
+.password-strength[data-score="2"] span { width: 50%; background: #ffd28a; }
+.password-strength[data-score="3"] span { width: 75%; background: var(--pearl-blue); }
+.password-strength[data-score="4"] span { width: 100%; background: var(--pearl-mint); }
+
+/* --- Модальные окна --- */
+dialog[open] .product-modal__panel {
+    animation: modal-in 260ms ease-out both;
+}
+
+.product-modal::backdrop {
+    animation: backdrop-in 240ms ease-out both;
+}
+
+dialog[open] .product-modal__image-wrap:not([hidden]) .product-modal__image {
+    animation: image-focus 360ms ease-out both;
+}
+
+dialog[open] .product-modal__details > div {
+    animation: detail-line 280ms ease-out both;
+}
+
+dialog[open] .product-modal__details > div:nth-child(2) { animation-delay: 60ms; }
+dialog[open] .product-modal__details > div:nth-child(3) { animation-delay: 120ms; }
+dialog[open] .product-modal__details > div:nth-child(4) { animation-delay: 180ms; }
+
+.product-modal__close:hover {
+    animation: close-spin 220ms ease-out both;
+}
+
+/* --- Прочие страницы --- */
+body[data-page="weo"] .terms__row {
+    animation: soft-fade 240ms ease-out both;
+}
+
+body[data-page="weo"] .terms__row:nth-child(2) { animation-delay: 60ms; }
+body[data-page="weo"] .terms__row:nth-child(3) { animation-delay: 120ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    body[data-page] *,
+    body[data-page] *::before,
+    body[data-page] *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .scroll-progress {
+        display: none;
+    }
 }

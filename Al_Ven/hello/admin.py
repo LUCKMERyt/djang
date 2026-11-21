@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
+from django.urls import reverse
+from django.utils.formats import date_format
 from django.utils.html import format_html
 from .models import Person, Category, Products, Review
 
@@ -21,12 +23,22 @@ class EmptyAdminAuthenticationForm(AuthenticationForm):
 admin.site.login_form = EmptyAdminAuthenticationForm
 
 
+def admin_change_link(obj, view_name):
+    """Кнопка «Изменить» на странице списка — быстрый переход в форму модели."""
+    url = reverse(view_name, args=(obj.pk,))
+    return format_html('<a class="btn btn--edit" href="{}">Изменить</a>', url)
+
+
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     # NOTE: Эти поля позволяют быстро просматривать команду и редактировать
     # контакты сотрудника без открытия дополнительных разделов.
-    list_display = ('photo_preview', 'full_name', 'position', 'age', 'email', 'phone')
+    list_display = ('photo_preview', 'full_name', 'edit_link', 'position', 'age', 'email', 'phone')
     list_display_links = ('full_name',)
+
+    @admin.display(description='Изменить')
+    def edit_link(self, obj):
+        return admin_change_link(obj, 'admin:hello_person_change')
     fields = ('image', 'name', 'fam', 'oth', 'position', 'age', 'description', 'email', 'phone')
     search_fields = ('fam', 'name', 'oth', 'position', 'email', 'phone')
     list_filter = ('position', 'age')
@@ -51,7 +63,7 @@ class PersonAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'product_count', 'description_preview')
+    list_display = ('name', 'product_count', 'description_preview', 'edit_link')
     list_display_links = ('name',)
     search_fields = ('name', 'coment')
     ordering = ('name',)
@@ -67,11 +79,15 @@ class CategoryAdmin(admin.ModelAdmin):
     def description_preview(self, obj):
         return obj.coment if len(obj.coment) <= 80 else f'{obj.coment[:80]}…'
 
+    @admin.display(description='Изменить')
+    def edit_link(self, obj):
+        return admin_change_link(obj, 'admin:hello_category_change')
+
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
     # NOTE: Описание и изображение доступны редактору прямо в форме товара.
-    list_display = ('product_preview', 'name', 'category_name', 'price_display', 'material', 'stock_status', 'date_prod')
+    list_display = ('product_preview', 'name', 'category_name', 'price_display', 'material', 'stock_status', 'date_prod_with_edit')
     list_display_links = ('name',)
     search_fields = ('name', 'material', 'cat_id__name')
     list_filter = ('cat_id', 'material', 'date_prod')
@@ -124,6 +140,17 @@ class ProductsAdmin(admin.ModelAdmin):
             return format_html('<span class="admin-badge admin-badge--warning">Осталось {}</span>', obj.conter)
         return format_html('<span class="admin-badge admin-badge--success">В наличии: {}</span>', obj.conter)
 
+    @admin.display(description='Дата производства', ordering='date_prod')
+    def date_prod_with_edit(self, obj):
+        # NOTE: Кнопка «Изменить» рядом с датой производства — быстрый переход
+        # в форму товара.
+        url = reverse('admin:hello_products_change', args=(obj.pk,))
+        return format_html(
+            '<span>{}</span> <a class="btn btn--edit" href="{}">Изменить</a>',
+            date_format(obj.date_prod, 'j.n.Y'),
+            url,
+        )
+
 
 # ==========================================
 # Админка для отзывов
@@ -132,7 +159,7 @@ class ProductsAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     # ! Перед публикацией сайта отзывы желательно модерировать в этой панели.
     # Поля, которые будут отображаться в таблице списка
-    list_display = ('name', 'rating_display', 'text_preview', 'created_at')
+    list_display = ('name', 'rating_display', 'text_preview', 'created_at', 'edit_link')
     
     # Фильтры в правой колонке
     list_filter = ('rating', 'created_at')
@@ -171,3 +198,7 @@ class ReviewAdmin(admin.ModelAdmin):
     def rating_display(self, obj):
         stars = '★' * obj.rating + '☆' * (5 - obj.rating)
         return format_html('<span class="admin-rating">{}</span>', stars)
+
+    @admin.display(description='Изменить')
+    def edit_link(self, obj):
+        return admin_change_link(obj, 'admin:hello_review_change')

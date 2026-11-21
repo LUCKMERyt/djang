@@ -34,6 +34,16 @@
                 }
                 imageWrap.hidden = !src;
 
+                const monogram = modal.querySelector(".person-monogram");
+                if (monogram && prefix === "person") {
+                    const fullName = read(button, prefix, "name");
+                    monogram.textContent = fullName ? fullName.charAt(0).toUpperCase() : "С";
+                    monogram.classList.remove("is-popping");
+                    // Перезапуск анимации при каждом открытии карточки сотрудника.
+                    void monogram.offsetWidth;
+                    monogram.classList.add("is-popping");
+                }
+
                 // ! showModal() сохраняет фокус и делает окно доступным для клавиатуры.
                 modal.showModal();
             });
