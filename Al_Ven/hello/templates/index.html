@@ -1,90 +1,117 @@
 {% extends 'base.html' %}
 
 {% block title %}Главная{% endblock %}
+{% block doc_name %}Накладная на поставку{% endblock %}
 
 {% block content %}
 <section class="home-hero">
-    <p class="home-kicker">SOPHISTICATED / ОПТОВЫЙ СКЛАД</p>
-    <h1>Товары оптом<br><span>для вашего бизнеса</span></h1>
-    <p class="home-lead">Надёжный склад украшений, аксессуаров и подарков для магазинов, маркетплейсов и корпоративных закупок.</p>
-    <p>Выбирайте товары из наличия, оформляйте оптовые закупки и пополняйте ассортимент без лишних посредников.</p>
-
-    <div class="home-links">
-        <a class="home-btn" href="{% url 'products' %}">Перейти в оптовый каталог</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">Условия поставки</a>
-        <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы партнёров</a>
-    </div>
-</section>
-
-<section class="home-section home-section--categories">
-    <div class="home-section__heading">
-        <div>
-            <p class="home-kicker">ОПТОВЫЙ АССОРТИМЕНТ</p>
-            <h2>Выберите категорию для закупки</h2>
+    <div class="home-hero__text">
+        <h1>Товары оптом для вашего бизнеса</h1>
+        <p class="home-lead">Надёжный склад украшений, аксессуаров и подарков для магазинов, маркетплейсов и корпоративных закупок.</p>
+        <p>Выбирайте товары из наличия, оформляйте оптовые закупки и пополняйте ассортимент без лишних посредников.</p>
+        <div class="home-links">
+            <a class="home-btn" href="{% url 'products' %}">Перейти в оптовый каталог</a>
+            <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">Условия поставки</a>
+            <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы партнёров</a>
         </div>
-        <a class="home-section__link" href="{% url 'products' %}">Весь каталог →</a>
     </div>
-    <div class="home-category-grid">
-        {% for cat in featured_categories %}
-            <a class="home-category-card" href="{% url 'products' %}?category_id={{ cat.id }}">
-                <span>0{{ forloop.counter }}</span>
-                <strong>{{ cat.name }}</strong>
-                <small>{{ cat.coment|truncatechars:75 }}</small>
-            </a>
-        {% empty %}
-            <p>Категории скоро появятся.</p>
-        {% endfor %}
+
+    <!-- NOTE: Полоса показывает остаток до 100 шт.; данные приходят из views.index. -->
+    <div class="stock-panel">
+        <div class="stock-panel__bar">Остаток на складе, шт.</div>
+        <div class="stock-panel__rows">
+            {% for p in stock_products %}
+                <div class="stock-row">
+                    <div class="stock-row__top">
+                        <span class="stock-row__name">{{ p.name }}</span>
+                        <span class="stock-row__qty">{{ p.conter }}</span>
+                    </div>
+                    <div class="stock-row__track"><div class="stock-row__fill" style="width: {{ p.bar }}%"></div></div>
+                </div>
+            {% empty %}
+                <p class="stock-panel__note">Товары скоро появятся на складе.</p>
+            {% endfor %}
+        </div>
+        <div class="stock-panel__note">Шкала полосы: до 100 шт.</div>
     </div>
 </section>
 
-<section class="home-features" aria-label="Преимущества">
-    <article class="home-feature-card">
-        <span class="home-feature-card__number">01</span>
-        <h2>Кураторский отбор</h2>
-        <p>В витрину попадают вещи, в которых есть польза, характер и честная история.</p>
-    </article>
-    <article class="home-feature-card">
-        <span class="home-feature-card__number">02</span>
-        <h2>Выбор без шума</h2>
-        <p>Материалы, дата создания, наличие и описание собраны в одной понятной карточке.</p>
-    </article>
-    <article class="home-feature-card">
-        <span class="home-feature-card__number">03</span>
-        <h2>Люди за витриной</h2>
-        <p>Познакомьтесь с командой, которая ищет, проверяет и рассказывает о каждой находке.</p>
-    </article>
-</section>
+<div class="pearl-rule"></div>
+
+<div class="sheet">
+    <section class="section" aria-labelledby="cat-title">
+        <div class="section__bar">
+            <b>Раздел 1. Ассортимент</b>
+            <a class="link-underline" href="{% url 'products' %}">Весь каталог</a>
+        </div>
+        <div class="section__body">
+            <h2 id="cat-title">Выберите категорию для закупки</h2>
+        </div>
+        <div class="home-category-grid">
+            {% for cat in featured_categories %}
+                <a class="home-category-card" href="{% url 'products' %}?category_id={{ cat.id }}">
+                    <span class="home-category-card__top">
+                        <span>Секция {{ forloop.counter }}</span>
+                        <span class="pearl-dot{% if forloop.counter0|divisibleby:3 %}{% elif forloop.counter0|add:'-1'|divisibleby:3 %} pearl-dot--blue{% else %} pearl-dot--mint{% endif %}"></span>
+                    </span>
+                    <strong>{{ cat.name }}</strong>
+                    <small>{{ cat.coment|truncatechars:75 }}</small>
+                    <span class="home-category-card__go"><span>Смотреть товары</span></span>
+                </a>
+            {% empty %}
+                <p class="stock-panel__note">Категории скоро появятся.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="section" aria-label="Условия поставки">
+        <div class="section__bar"><b>Раздел 2. Условия поставки</b></div>
+        <div class="section__body">
+            <div class="terms">
+                <div class="terms__row">
+                    <h3>Кураторский отбор</h3>
+                    <p>В витрину попадают вещи, в которых есть польза, характер и честная история.</p>
+                </div>
+                <div class="terms__row">
+                    <h3>Выбор без шума</h3>
+                    <p>Материалы, дата создания, наличие и описание собраны в одной понятной строке.</p>
+                </div>
+                <div class="terms__row">
+                    <h3>Люди за витриной</h3>
+                    <p>Познакомьтесь с командой, которая ищет, проверяет и рассказывает о каждой находке.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" aria-labelledby="rev-title">
+        <div class="section__bar">
+            <b>Раздел 3. Отзывы партнёров</b>
+            <a class="link-underline" href="{% url 'reviews' %}">Все отзывы</a>
+        </div>
+        <div class="section__body">
+            <h2 id="rev-title">Нас выбирают для оптовых закупок</h2>
+            <div class="home-review-grid">
+                {% for review in latest_reviews %}
+                    <article class="home-review-card">
+                        <p>«{{ review.text|truncatechars:150 }}»</p>
+                        <div class="home-review-card__foot">
+                            <strong>{{ review.name }}</strong>
+                            <span class="rating-badge">{{ review.rating }}/5</span>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p>Отзывы клиентов скоро появятся.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
 
 <section class="home-callout">
-    <div>
-        <p class="home-kicker">ПОСТАВКИ ИЗ НАЛИЧИЯ</p>
+    <div class="home-callout__inner">
         <h2>Пополняйте ассортимент выгодно</h2>
-    </div>
-        <a class="home-btn" href="{% url 'products' %}">Смотреть товары →</a>
-</section>
-
-<section class="home-section home-reviews-preview">
-    <div class="home-section__heading">
-        <div>
-            <p class="home-kicker">ОПЫТ ПАРТНЁРОВ</p>
-            <h2>Нас выбирают для оптовых закупок</h2>
-        </div>
-        <a class="home-section__link" href="{% url 'reviews' %}">Все отзывы →</a>
-    </div>
-    <div class="home-review-grid">
-        {% for review in latest_reviews %}
-            <article class="home-review-card">
-                <div class="home-review-card__rating">{% for star in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
-                <p>«{{ review.text|truncatechars:150 }}»</p>
-                <strong>{{ review.name }}</strong>
-            </article>
-        {% empty %}
-            <p>Отзывы клиентов скоро появятся.</p>
-        {% endfor %}
+        <a class="home-btn" href="{% url 'products' %}">Смотреть товары</a>
     </div>
 </section>
-{% endblock %}
-
-{% block footer %}
-<p>Главная</p>
 {% endblock %}

@@ -2,49 +2,56 @@
 {# NOTE: Отзывы добавляются через POST с CSRF-защитой и сохраняются в hello_reviews. #}
 
 {% block title %}Отзывы клиентов{% endblock %}
+{% block doc_name %}Журнал отзывов партнёров{% endblock %}
 
 {% block content %}
-<main class="page page--reviews" aria-labelledby="reviews-title">
-    <header class="page__header">
+<div class="sheet" aria-labelledby="reviews-title">
+    <header class="sheet__head">
         <h1 id="reviews-title">Отзывы наших клиентов</h1>
-        <p class="page__lead">Нам важно ваше мнение! Поделитесь своим опытом использования нашей продукции.</p>
+        <p class="sheet__lead">Нам важно ваше мнение! Поделитесь своим опытом использования нашей продукции.</p>
     </header>
 
     <!-- Форма добавления отзыва -->
-    <section class="review-form-section" aria-label="Форма отзыва">
-        <h2>Оставить отзыв</h2>
-        <form method="post" class="review-form" autocomplete="off">
-            {% csrf_token %}
-            
-            <div class="form-group">
-                {{ form.name.label_tag }}
-                {{ form.name }}
-            </div>
+    <section class="section" aria-label="Форма отзыва">
+        <div class="section__bar"><b>Раздел 1. Оставить отзыв</b></div>
+        <div class="section__body">
+            <form method="post" class="review-form" autocomplete="off">
+                {% csrf_token %}
 
-            <div class="form-group">
-                {{ form.rating.label_tag }}
-                {{ form.rating }}
-            </div>
+                <div class="form-group">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                </div>
 
-            <div class="form-group">
-                {{ form.text.label_tag }}
-                {{ form.text }}
-            </div>
+                <div class="form-group">
+                    {{ form.rating.label_tag }}
+                    {{ form.rating }}
+                    {{ form.rating.errors }}
+                </div>
 
-            <button type="submit" class="review-submit-btn">Отправить отзыв</button>
-        </form>
+                <div class="form-group">
+                    {{ form.text.label_tag }}
+                    {{ form.text }}
+                    {{ form.text.errors }}
+                </div>
+
+                <div>
+                    <button type="submit" class="review-submit-btn">Отправить отзыв</button>
+                </div>
+            </form>
+        </div>
     </section>
 
     <!-- Список отзывов -->
-    <section class="reviews-list-section" aria-label="Список отзывов">
-        <h2>Последние отзывы</h2>
-        
-        <div class="reviews-grid">
+    <section class="section" aria-label="Список отзывов">
+        <div class="section__bar"><b>Раздел 2. Последние отзывы</b><span>Всего: {{ reviews_list|length }}</span></div>
+        <div>
             {% for review in reviews_list %}
                 <article class="review-card">
                     <div class="review-card__header">
                         <div class="review-card__author">
-                            <div class="review-card__avatar">{{ review.name|first|upper }}</div>
+                            <div class="review-card__avatar" aria-hidden="true">{{ review.name|first|upper }}</div>
                             <div>
                                 <h3>{{ review.name }}</h3>
                                 <time class="review-card__date" datetime="{{ review.created_at|date:'c' }}">
@@ -52,7 +59,7 @@
                                 </time>
                             </div>
                         </div>
-                        <div class="review-card__rating">
+                        <div class="review-card__rating" role="img" aria-label="Оценка {{ review.rating }} из 5">
                             {% for i in "12345" %}
                                 {% if forloop.counter <= review.rating %}
                                     <span class="star filled">★</span>
@@ -62,7 +69,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <p class="review-card__text">{{ review.text|linebreaks }}</p>
+                    <div class="review-card__text">{{ review.text|linebreaks }}</div>
                 </article>
             {% empty %}
                 <div class="empty-message">
@@ -71,9 +78,5 @@
             {% endfor %}
         </div>
     </section>
-</main>
-{% endblock %}
-
-{% block footer %}
-<p>Отзывы клиентов</p>
+</div>
 {% endblock %}

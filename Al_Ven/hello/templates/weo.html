@@ -1,51 +1,51 @@
 {% extends "base.html" %}
 
 {% block title %}О нас{% endblock %}
+{% block doc_name %}Реквизиты и условия работы склада{% endblock %}
 
 {% block content %}
-<main class="about-page" aria-labelledby="about-title">
-    <header class="about-hero">
+<div class="sheet" aria-labelledby="about-title">
+    <header class="sheet__head">
         <h1 id="about-title">Оптовый склад SOPHISTICATED</h1>
-        <p class="about-lead">Поставляем товары для магазинов, маркетплейсов, салонов и корпоративных клиентов по оптовым условиям.</p>
+        <p class="sheet__lead">Поставляем товары для магазинов, маркетплейсов, салонов и корпоративных клиентов по оптовым условиям.</p>
     </header>
 
-    <section class="about-section">
-        <h2>Что мы предлагаем</h2>
-        <p>SOPHISTICATED — это оптовый склад украшений, аксессуаров и подарков. Мы собираем востребованный ассортимент, поддерживаем наличие и помогаем бизнесу регулярно пополнять товары для продажи.</p>
+    <section class="section">
+        <div class="section__bar"><b>Раздел 1. Что мы предлагаем</b></div>
+        <div class="section__body">
+            <p class="about-text">SOPHISTICATED — это оптовый склад украшений, аксессуаров и подарков. Мы собираем востребованный ассортимент, поддерживаем наличие и помогаем бизнесу регулярно пополнять товары для продажи.</p>
+        </div>
     </section>
 
-    <section class="about-values">
-            <h2>Почему с нами удобно работать</h2>
-        <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon">💎</div>
-                <h3>Наличие на складе</h3>
-                <p>Актуальные остатки помогают быстро подобрать партию и не ждать долгого производства.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-icon">🤝</div>
-                <h3>Понятный каталог</h3>
-                <p>В карточках товаров указаны цена, материал, категория, описание и количество на складе.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-icon">🚀</div>
-                <h3>Для перепродажи</h3>
-                <p>Ассортимент подходит розничным магазинам, онлайн-площадкам, шоурумам и подарочным проектам.</p>
+    <section class="section">
+        <div class="section__bar"><b>Раздел 2. Почему с нами удобно работать</b></div>
+        <div class="section__body">
+            <div class="terms">
+                <div class="terms__row">
+                    <h3>Наличие на складе</h3>
+                    <p>Актуальные остатки помогают быстро подобрать партию и не ждать долгого производства.</p>
+                </div>
+                <div class="terms__row">
+                    <h3>Понятный каталог</h3>
+                    <p>В строках каталога указаны цена, материал, категория, описание и количество на складе.</p>
+                </div>
+                <div class="terms__row">
+                    <h3>Для перепродажи</h3>
+                    <p>Ассортимент подходит розничным магазинам, онлайн-площадкам, шоурумам и подарочным проектам.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="about-section">
-        <h2>Что получает партнёр</h2>
-        <ul class="about-list">
-            <li>Оптовый ассортимент с актуальным наличием</li>
-            <li>Информацию о товаре для быстрой оценки закупки</li>
-            <li>Товары для дальнейшей продажи в вашем бизнесе</li>
-        </ul>
+    <section class="section">
+        <div class="section__bar"><b>Раздел 3. Что получает партнёр</b></div>
+        <div class="section__body">
+            <ul class="about-list">
+                <li>Оптовый ассортимент с актуальным наличием</li>
+                <li>Информацию о товаре для быстрой оценки закупки</li>
+                <li>Товары для дальнейшей продажи в вашем бизнесе</li>
+            </ul>
+        </div>
     </section>
-</main>
-{% endblock %}
-
-{% block footer %}
-<p>О компании</p>
+</div>
 {% endblock %}

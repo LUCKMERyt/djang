@@ -1,55 +1,77 @@
 {% extends 'base.html' %}
-{# NOTE: Карточки сотрудников используют ту же визуальную систему, что и каталог. #}
+{# NOTE: Команда оформлена как список сотрудников в той же таблице позиций, что и каталог. #}
 
 {% block title %}Персонал{% endblock %}
+{% block doc_name %}Список сотрудников склада{% endblock %}
 
 {% block content %}
-<div class="catalog-page people-page">
-    <h1>Люди за выбором</h1>
-    <!-- NOTE: Персонал представлен карточками без дополнительного поиска. -->
-    <section class="catalog-grid">
-        {% for person in people %}
-            <article class="product-card person-card">
-                <div class="product-card__image-wrapper">
-                    {% if person.image %}
-                        <img src="{{ person.image.url }}" alt="{{ person }}" class="product-card__image" loading="lazy">
-                    {% else %}
-                        <div class="product-card__no-image"><span>👤</span><p>Нет фото</p></div>
-                    {% endif %}
-                </div>
-                <div class="product-card__header">
-                    <h3>{{ person.name }} {{ person.fam }}</h3>
-                    <span class="product-card__badge">Сотрудник</span>
-                </div>
-                <div class="product-card__body">
-                    <p class="product-card__material">Возраст: {{ person.age }} лет</p>
-                    <p class="product-card__material">{{ person.position|default:'Сотрудник команды' }}</p>
-                    <p>{{ person.description|truncatechars:110 }}</p>
-                </div>
-                <div class="product-card__footer">
-                    <button class="product-card__btn" type="button"
-                            data-person-name="{{ person.name }} {{ person.fam }}"
-                            data-person-patronymic="{{ person.oth }}"
-                            data-person-age="{{ person.age }}"
-                            data-person-position="{{ person.position }}"
-                            data-person-email="{{ person.email }}"
-                            data-person-phone="{{ person.phone }}"
-                            data-person-description="{{ person.description|escape }}"
-                            {% if person.image %}data-person-image="{{ person.image.url }}"{% endif %}
-                            aria-haspopup="dialog" aria-controls="person-modal">Подробнее</button>
-                </div>
-            </article>
-        {% empty %}
-            <p class="empty-message">Сотрудники не найдены.</p>
-        {% endfor %}
-    </section>
+<div class="sheet">
+    <header class="sheet__head">
+        <h1>Люди за выбором</h1>
+        <p class="sheet__lead">Команда, которая ищет, проверяет и рассказывает о каждой находке.</p>
+    </header>
+
+    <!-- NOTE: Персонал представлен таблицей без дополнительного поиска. -->
+    {% if people %}
+    <div class="table-wrap">
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Фото</th>
+                    <th scope="col">Сотрудник</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col" class="right">Возраст</th>
+                    <th scope="col"><span class="visually-hidden">Действие</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in people %}
+                <tr>
+                    <td class="num">{{ forloop.counter }}</td>
+                    <td>
+                        {% if person.image %}
+                            <img src="{{ person.image.url }}" alt="{{ person }}" class="thumb" loading="lazy">
+                        {% else %}
+                            <div class="thumb thumb--empty">Нет фото</div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="name">{{ person.name }} {{ person.fam }}</span>
+                        {% if person.description %}<span class="sub">{{ person.description|truncatechars:110 }}</span>{% endif %}
+                    </td>
+                    <td><span class="tag">{{ person.position|default:'Сотрудник команды' }}</span></td>
+                    <td class="qty right">{{ person.age }} лет</td>
+                    <td>
+                        <button class="product-card__btn" type="button"
+                                data-person-name="{{ person.name }} {{ person.fam }}"
+                                data-person-patronymic="{{ person.oth }}"
+                                data-person-age="{{ person.age }}"
+                                data-person-position="{{ person.position }}"
+                                data-person-email="{{ person.email }}"
+                                data-person-phone="{{ person.phone }}"
+                                data-person-description="{{ person.description|escape }}"
+                                {% if person.image %}data-person-image="{{ person.image.url }}"{% endif %}
+                                aria-haspopup="dialog" aria-controls="person-modal">Подробнее</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr><td colspan="6">Всего сотрудников: <b>{{ people|length }}</b></td></tr>
+            </tfoot>
+        </table>
+    </div>
+    {% else %}
+    <p class="empty-message">Сотрудники не найдены.</p>
+    {% endif %}
 </div>
 
 <dialog class="product-modal" id="person-modal" aria-labelledby="person-modal-title">
     <div class="product-modal__panel">
+        <p class="product-modal__eyebrow">Карточка сотрудника</p>
         <button class="product-modal__close" type="button" aria-label="Закрыть окно">×</button>
         <div class="product-modal__image-wrap" hidden><img class="product-modal__image" alt=""></div>
-        <p class="product-modal__eyebrow">ИНФОРМАЦИЯ О СОТРУДНИКЕ</p>
         <h2 id="person-modal-title"></h2>
         <p class="product-modal__category">Сотрудник команды</p>
         <p class="product-modal__description"></p>
@@ -63,8 +85,6 @@
     </div>
 </dialog>
 {% endblock %}
-
-{% block footer %}<p>Наша команда</p>{% endblock %}
 
 {% block scripts %}
 <script>

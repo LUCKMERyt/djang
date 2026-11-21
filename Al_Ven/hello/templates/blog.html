@@ -1,65 +1,51 @@
 {% extends "base.html" %}
 
 {% block title %}Блог и новости{% endblock %}
+{% block doc_name %}Журнал публикаций для бизнеса{% endblock %}
 
 {% block content %}
-<main class="page page--blog" aria-labelledby="page-title">
-    <header class="page__header">
+<div class="sheet">
+    <header class="sheet__head">
         <h1 id="page-title">Для бизнеса</h1>
-        <p class="page__lead">Материалы о закупках, ассортименте, продажах и работе с товарами из наличия.</p>
+        <p class="sheet__lead">Материалы о закупках, ассортименте, продажах и работе с товарами из наличия.</p>
     </header>
 
-    <section class="blog-feed" aria-label="Публикации">
-        
-        <!-- Статья 1 -->
-        <article class="post">
-            <div class="post__header">
-                <span class="post__tag">Закупки</span>
-                <h2>Как собрать сильный оптовый ассортимент</h2>
-            </div>
-            <p class="post__excerpt">
-                Как подобрать товары для магазина или маркетплейса, оценить спрос и начать закупку без лишнего риска.
-            </p>
-            <div class="post__footer">
-                <time class="post__date" datetime="2026-10-25">📅 25 октября 2026</time>
-                <a href="#" class="post__read-more">Читать далее <span aria-hidden="true">→</span></a>
-            </div>
-        </article>
+    <section class="section" aria-label="Публикации">
+        <div class="section__bar"><b>Журнал</b><span>Записей: 3</span></div>
+        <div class="section__body">
+            <!-- Публикация 1 -->
+            <article class="post-row">
+                <time class="post-row__date" datetime="2026-10-25">25.10.2026</time>
+                <div class="post-row__body">
+                    <span class="tag">Закупки</span>
+                    <h2>Как собрать сильный оптовый ассортимент</h2>
+                    <p>Как подобрать товары для магазина или маркетплейса, оценить спрос и начать закупку без лишнего риска.</p>
+                </div>
+                <a href="#" class="link-underline post-row__more">Читать далее</a>
+            </article>
 
-        <!-- Статья 2 -->
-        <article class="post">
-            <div class="post__header">
-                <span class="post__tag">Продажи</span>
-                <h2>Что важно знать о товаре перед перепродажей</h2>
-            </div>
-            <p class="post__excerpt">
-                Какие характеристики помогают правильно описать товар, подготовить карточку и повысить доверие покупателя.
-            </p>
-            <div class="post__footer">
-                <time class="post__date" datetime="2026-10-18">📅 18 октября 2026</time>
-                <a href="#" class="post__read-more">Читать далее <span aria-hidden="true">→</span></a>
-            </div>
-        </article>
+            <!-- Публикация 2 -->
+            <article class="post-row">
+                <time class="post-row__date" datetime="2026-10-18">18.10.2026</time>
+                <div class="post-row__body">
+                    <span class="tag">Продажи</span>
+                    <h2>Что важно знать о товаре перед перепродажей</h2>
+                    <p>Какие характеристики помогают правильно описать товар, подготовить карточку и повысить доверие покупателя.</p>
+                </div>
+                <a href="#" class="link-underline post-row__more">Читать далее</a>
+            </article>
 
-        <!-- Статья 3 -->
-        <article class="post">
-            <div class="post__header">
-                <span class="post__tag">Партнёрам</span>
-                <h2>Почему выгодно закупать товары со склада</h2>
-            </div>
-            <p class="post__excerpt">
-                Преимущества готового наличия, быстрого пополнения и работы с оптовым поставщиком.
-            </p>
-            <div class="post__footer">
-                <time class="post__date" datetime="2026-10-10">📅 10 октября 2026</time>
-                <a href="#" class="post__read-more">Читать далее <span aria-hidden="true">→</span></a>
-            </div>
-        </article>
-
+            <!-- Публикация 3 -->
+            <article class="post-row">
+                <time class="post-row__date" datetime="2026-10-10">10.10.2026</time>
+                <div class="post-row__body">
+                    <span class="tag">Партнёрам</span>
+                    <h2>Почему выгодно закупать товары со склада</h2>
+                    <p>Преимущества готового наличия, быстрого пополнения и работы с оптовым поставщиком.</p>
+                </div>
+                <a href="#" class="link-underline post-row__more">Читать далее</a>
+            </article>
+        </div>
     </section>
-</main>
-{% endblock %}
-
-{% block footer %}
-<p>Блог и новости</p>
+</div>
 {% endblock %}
