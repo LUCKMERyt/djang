@@ -1,179 +1,141 @@
 {% extends 'base.html' %}
-{# NOTE: Каталог поддерживает фильтрацию на сервере и модальное окно товара. #}
+{% load static %}
+{# NOTE: Каталог — таблица позиций накладной; поддерживает фильтрацию на сервере и модальное окно товара. #}
 
 {% block title %}Оптовый каталог{% endblock %}
+{% block doc_name %}Оптовая накладная, позиции из наличия{% endblock %}
 
 {% block content %}
-<div class="catalog-page">
-<h1>Оптовый каталог со склада</h1>
-    <p class="catalog-lead">Товары в наличии для магазинов, маркетплейсов и корпоративных закупок.</p>
-    <!-- NOTE: GET-параметры сохраняют состояние поиска после отправки формы. -->
-    <form method="get" class="catalog-tools">
-        <input type="search" name="q" value="{{ query }}" placeholder="Найти товар для закупки">
-        <input type="text" name="material" value="{{ material }}" placeholder="Материал">
-        <select name="sort" aria-label="Сортировка">
-            <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию</option>
-            <option value="sale" {% if sort == 'sale' %}selected{% endif %}>Сначала дешевле</option>
-            <option value="-sale" {% if sort == '-sale' %}selected{% endif %}>Сначала дороже</option>
-            <option value="date_prod" {% if sort == 'date_prod' %}selected{% endif %}>По дате</option>
-        </select>
-        <label class="stock-filter"><input type="checkbox" name="stock" value="available" {% if stock == 'available' %}checked{% endif %}> В наличии</label>
-            <button class="product-card__btn" type="submit">Найти</button>
-    </form>
+<div class="sheet">
+    <header class="sheet__head">
+        <h1>Оптовый каталог со склада</h1>
+        <p class="sheet__lead">Товары в наличии для магазинов, маркетплейсов и корпоративных закупок.</p>
+    </header>
 
-    <!-- Фильтры сверху -->
-    <section class="catalog-filters">
-        <a href="{% url 'products' %}" class="filter-btn {% if not selected_category %}active{% endif %}">
-            Все товары
-        </a>
-        {% for cat in category %}
-            <a href="?category_id={{ cat.id }}" class="filter-btn {% if selected_category.id == cat.id %}active{% endif %}">
-                {{ cat.name }}
-            </a>
-        {% endfor %}
-    </section>
+    <section class="section" aria-label="Поиск и фильтры">
+        <div class="section__bar"><b>Отбор позиций</b></div>
+        <div class="section__body">
+            <!-- NOTE: GET-параметры сохраняют состояние поиска после отправки формы. -->
+            <form method="get" class="catalog-tools">
+                <input type="search" name="q" value="{{ query }}" placeholder="Найти товар для закупки" aria-label="Поиск по названию и описанию">
+                <input type="text" name="material" value="{{ material }}" placeholder="Материал" aria-label="Материал">
+                <select name="sort" aria-label="Сортировка">
+                    <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию</option>
+                    <option value="sale" {% if sort == 'sale' %}selected{% endif %}>Сначала дешевле</option>
+                    <option value="-sale" {% if sort == '-sale' %}selected{% endif %}>Сначала дороже</option>
+                    <option value="date_prod" {% if sort == 'date_prod' %}selected{% endif %}>По дате</option>
+                </select>
+                <label class="stock-filter"><input type="checkbox" name="stock" value="available" {% if stock == 'available' %}checked{% endif %}> В наличии</label>
+                <button class="btn" type="submit">Найти</button>
+            </form>
 
-    <!-- Каталог снизу -->
-    <!-- ! loading=lazy уменьшает первоначальную нагрузку на страницу. -->
-    <section class="catalog-grid">
-        {% for p in product %}
-            <article class="product-card">
-                <!-- Блок с изображением -->
-                <div class="product-card__image-wrapper">
-                    {% if p.image %}
-                        <img src="{{ p.image.url }}" alt="{{ p.name }}" class="product-card__image" loading="lazy">
-                    {% else %}
-                        <div class="product-card__no-image">
-                            <span>📷</span>
-                            <p>Нет фото</p>
-                        </div>
-                    {% endif %}
-                </div>
-
-                <div class="product-card__header">
-                    <h3>{{ p.name }}</h3>
-                    <span class="product-card__badge">{{ p.cat_id.name }}</span>
-                </div>
-                
-                <div class="product-card__body">
-                    <p class="product-card__material">Материал: {{ p.material }}</p>
-                    <div class="product-card__details">
-                        <span>📅 {{ p.date_prod }}</span>
-                        <span>📦 В наличии: {{ p.conter }} шт.</span>
-                    </div>
-                </div>
-
-                <div class="product-card__footer">
-                    <span class="product-card__price">{{ p.sale }} ₽</span>
-                    <button
-                        class="product-card__btn"
-                        type="button"
-                        data-product-name="{{ p.name }}"
-                        data-product-category="{{ p.cat_id.name }}"
-                        data-product-material="{{ p.material }}"
-                        data-product-date="{{ p.date_prod|date:'d.m.Y' }}"
-                        data-product-quantity="{{ p.conter }}"
-                         data-product-price="{{ p.sale }}"
-                         data-product-description="{{ p.description|escape }}"
-                        {% if p.image %}data-product-image="{{ p.image.url }}"{% endif %}
-                        aria-haspopup="dialog"
-                        aria-controls="product-modal"
-                    >Подробнее</button>
-                </div>
-            </article>
-        {% empty %}
-            <div class="empty-message">
-                {% if selected_category %}
-                    В категории "{{ selected_category.name }}" товаров пока нет.
-                    <a href="{% url 'products' %}" class="empty-link">Показать все товары</a>
-                {% else %}
-                    На складе пока нет подходящих товаров.
-                {% endif %}
+            <!-- Фильтры по категориям -->
+            <div class="catalog-filters">
+                <a href="{% url 'products' %}" class="filter-btn {% if not selected_category %}active{% endif %}">Все товары</a>
+                {% for cat in category %}
+                    <a href="?category_id={{ cat.id }}" class="filter-btn {% if selected_category.id == cat.id %}active{% endif %}">{{ cat.name }}</a>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     </section>
+
+    <!-- ! loading=lazy уменьшает первоначальную нагрузку на страницу. -->
+    {% if product %}
+    <div class="table-wrap">
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Фото</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Категория</th>
+                    <th scope="col">Дата производства</th>
+                    <th scope="col" class="right">Кол-во</th>
+                    <th scope="col" class="right">Цена за шт.</th>
+                    <th scope="col"><span class="visually-hidden">Действие</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in product %}
+                <tr>
+                    <td class="num">{{ forloop.counter }}</td>
+                    <td>
+                        {% if p.image %}
+                            <img src="{{ p.image.url }}" alt="{{ p.name }}" class="thumb" width="64" height="64" loading="lazy">
+                        {% else %}
+                            <div class="thumb thumb--empty">Не загрузилось</div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="name">{{ p.name }}</span>
+                        <span class="sub">{{ p.material }}</span>
+                    </td>
+                    <td><span class="tag">{{ p.cat_id.name }}</span></td>
+                    <td class="date">{{ p.date_prod|date:'d.m.Y' }}</td>
+                    <td class="qty right">{{ p.conter }} шт.</td>
+                    <td class="price right">{{ p.sale }} ₽</td>
+                    <td>
+                        <button
+                            class="btn btn--ghost"
+                            type="button"
+                            data-product-name="{{ p.name }}"
+                            data-product-category="{{ p.cat_id.name }}"
+                            data-product-material="{{ p.material }}"
+                            data-product-date="{{ p.date_prod|date:'d.m.Y' }}"
+                            data-product-quantity="{{ p.conter }}"
+                            data-product-price="{{ p.sale }}"
+                            data-product-description="{{ p.description|escape }}"
+                            {% if p.image %}data-product-image="{{ p.image.url }}"{% endif %}
+                            aria-haspopup="dialog"
+                            aria-controls="product-modal"
+                        >Подробнее</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="8">Всего позиций: <b>{{ product|length }}</b></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-message">
+        {% if selected_category %}
+            В категории "{{ selected_category.name }}" товаров пока нет.
+            <a href="{% url 'products' %}" class="empty-link">Показать все товары</a>
+        {% else %}
+            На складе пока нет подходящих товаров.
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
 
-<!-- NOTE: Одно общее модальное окно заполняется данными выбранной карточки через data-атрибуты. -->
-<dialog class="product-modal" id="product-modal" aria-labelledby="product-modal-title">
+<!-- NOTE: Одно общее модальное окно заполняется данными выбранной строки; логика в static/js/modal.js. -->
+<dialog class="product-modal" id="product-modal" data-prefix="product" aria-labelledby="product-modal-title">
     <div class="product-modal__panel">
+        <p class="product-modal__eyebrow">Карточка позиции</p>
         <button class="product-modal__close" type="button" aria-label="Закрыть окно">×</button>
         <div class="product-modal__image-wrap" hidden>
             <img class="product-modal__image" alt="">
         </div>
-        <p class="product-modal__eyebrow">ИНФОРМАЦИЯ О ТОВАРЕ</p>
-        <h2 id="product-modal-title"></h2>
-        <p class="product-modal__category"></p>
-        <p class="product-modal__description"></p>
+        <h2 id="product-modal-title" data-field="name" data-empty="Товар"></h2>
+        <p class="product-modal__category" data-field="category" data-empty=""></p>
+        <p class="product-modal__description" data-field="description" data-empty="Описание товара пока не добавлено."></p>
         <dl class="product-modal__details">
-            <div><dt>Материал</dt><dd data-product-field="material"></dd></div>
-            <div><dt>Дата производства</dt><dd data-product-field="date"></dd></div>
-            <div><dt>Наличие</dt><dd data-product-field="quantity"></dd></div>
+            <div><dt>Материал</dt><dd data-field="material"></dd></div>
+            <div><dt>Дата производства</dt><dd data-field="date"></dd></div>
+            <div><dt>Наличие</dt><dd data-field="quantity" data-suffix=" шт."></dd></div>
         </dl>
         <div class="product-modal__footer">
-            <strong class="product-modal__price"></strong>
-            <button class="product-card__btn product-modal__done" type="button">Понятно</button>
+            <strong class="product-modal__price" data-field="price" data-suffix=" ₽"></strong>
+            <button class="btn btn--ghost product-modal__done" type="button">Понятно</button>
         </div>
     </div>
 </dialog>
 {% endblock %}
 
-{% block footer %}
-<p>Оптовый каталог со склада · Поставки для бизнеса</p>
-{% endblock %}
-
 {% block scripts %}
-<script>
-// NOTE: JavaScript отвечает только за интерфейс; данные товара приходят из Django-шаблона.
-(() => {
-    const modal = document.getElementById("product-modal");
-    if (!modal) return;
-
-    const title = modal.querySelector("#product-modal-title");
-    const category = modal.querySelector(".product-modal__category");
-    const imageWrap = modal.querySelector(".product-modal__image-wrap");
-    const image = modal.querySelector(".product-modal__image");
-    const price = modal.querySelector(".product-modal__price");
-    const description = modal.querySelector(".product-modal__description");
-    const closeButtons = modal.querySelectorAll(".product-modal__close, .product-modal__done");
-    let opener = null;
-
-    document.querySelectorAll(".product-card__btn[aria-controls='product-modal']").forEach((button) => {
-        button.addEventListener("click", () => {
-            opener = button;
-            title.textContent = button.dataset.productName || "Товар";
-            category.textContent = button.dataset.productCategory || "";
-            modal.querySelector("[data-product-field='material']").textContent = button.dataset.productMaterial || "—";
-            modal.querySelector("[data-product-field='date']").textContent = button.dataset.productDate || "—";
-            modal.querySelector("[data-product-field='quantity']").textContent = `${button.dataset.productQuantity || 0} шт.`;
-            price.textContent = `${button.dataset.productPrice || "—"} ₽`;
-            description.textContent = button.dataset.productDescription || "Описание товара пока не добавлено.";
-
-            if (button.dataset.productImage) {
-                image.src = button.dataset.productImage;
-                image.alt = button.dataset.productName || "Фото товара";
-                imageWrap.hidden = false;
-            } else {
-                image.removeAttribute("src");
-                image.alt = "";
-                imageWrap.hidden = true;
-            }
-
-            // ! showModal() сохраняет фокус и делает окно доступным для клавиатуры.
-            modal.showModal();
-        });
-    });
-
-    const closeModal = () => modal.close();
-    closeButtons.forEach((button) => button.addEventListener("click", closeModal));
-
-    modal.addEventListener("click", (event) => {
-        if (event.target === modal) closeModal();
-    });
-
-    modal.addEventListener("close", () => {
-        if (opener) opener.focus();
-    });
-})();
-</script>
+<script src="{% static 'js/modal.js' %}"></script>
 {% endblock %}

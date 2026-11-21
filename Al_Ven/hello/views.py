@@ -21,27 +21,20 @@ from .forms import (
 from .authentication import username_for_email
 
 
-# def index(request):
-#     host = request.META["HTTP_HOST"] # получаем адрес сервера
-#     user_agent = request.META["HTTP_USER_AGENT"]    # получаем данные бразера
-#     path = request.path     # получаем запрошенный путь
-
-#     return HttpResponse(f"""
-#         <h2>Hello</h2>
-#         <p>Host: {host}</p>
-#         <p>Path: {path}</p>
-#         <p>User-agent: {user_agent}</p>
-#         <img src="https://avatars.mds.yandex.net/i?id=6d3e505aa14911c3f6f7b1184358c6f8dc18168a-4055226-images-thumbs&n=13">
-#     """)
-
 def index(request):
     # NOTE: На главной показываем короткую витрину, чтобы пользователь сразу
     # видел товары, категории и отзывы, а не только приветственный текст.
     featured_categories = Category.objects.order_by('name')[:6]
     latest_reviews = Review.objects.all()[:3]
+    # NOTE: Панель остатков: 4 случайных товара в наличии, при каждом заходе разные.
+    # Ширина полосы ограничена 100 (шкала до 100 шт.).
+    stock_products = list(Products.objects.filter(conter__gt=0).order_by('?')[:4])
+    for product in stock_products:
+        product.bar = min(product.conter, 100)
     return render(request, "index.html", {
         'featured_categories': featured_categories,
         'latest_reviews': latest_reviews,
+        'stock_products': stock_products,
     })
 
 
@@ -94,8 +87,8 @@ def products(request):
     return render(request, 'products.html', {
         'category': categories,
         'product': products,
-            'selected_category': selected_category,
-            'query': query, 'material': material, 'sort': sort, 'stock': stock,
+        'selected_category': selected_category,
+        'query': query, 'material': material, 'sort': sort, 'stock': stock,
     })
 
 def blog(request):
