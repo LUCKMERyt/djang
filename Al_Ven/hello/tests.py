@@ -96,8 +96,8 @@ class AccountPageTests(TestCase):
         self.assertContains(response, "Выйти из аккаунта")
 
 
-class ProductModalTests(TestCase):
-    def test_catalog_renders_product_modal_data(self):
+class ProductCatalogLinkTests(TestCase):
+    def test_catalog_links_to_product_page(self):
         category = Category.objects.create(name="Украшения", coment="Описание категории")
         product = Products.objects.create(
             name="Тестовое украшение",
@@ -111,12 +111,7 @@ class ProductModalTests(TestCase):
         response = self.client.get(reverse("products"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'id="product-modal"')
-        self.assertContains(response, f'data-product-name="{product.name}"')
-        self.assertContains(response, 'data-product-material="Серебро"')
-        self.assertContains(response, 'data-product-price="2500"')
-        self.assertContains(response, 'data-product-description=""')
-        self.assertContains(response, "js/modal.js")
+        self.assertContains(response, f'href="/products/{product.slug}/"')
 
     def test_catalog_renders_product_image(self):
         category = Category.objects.create(name="Украшения", coment="Описание категории")
@@ -134,7 +129,7 @@ class ProductModalTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, f'src="{product.image.url}"')
-        self.assertContains(response, f'data-product-image="{product.image.url}"')
+        self.assertContains(response, f'href="/products/{product.slug}/"')
 
 
 class ProductDetailTests(TestCase):
@@ -156,7 +151,7 @@ class ProductDetailTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.product.name)
         self.assertContains(response, self.product.cat_id.name)
-        self.assertContains(response, f'href="/products/{self.product.slug}/"', count=1)
+        self.assertContains(response, f'rel="canonical" href="/products/{self.product.slug}/"')
 
     def test_product_detail_has_jsonld_and_canonical(self):
         response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
@@ -175,15 +170,6 @@ class ProductDetailTests(TestCase):
     def test_product_detail_404(self):
         response = self.client.get("/products/no-such-slug/")
         self.assertEqual(response.status_code, 404)
-
-    def test_catalog_links_to_product_pages(self):
-        response = self.client.get(reverse("products"))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(
-            response,
-            f'href="/products/{self.product.slug}/"',
-        )
 
     def test_slug_generated_on_create(self):
         product = Products.objects.create(
