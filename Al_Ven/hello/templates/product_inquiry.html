@@ -21,6 +21,8 @@
         <div class="section__body">
             <form method="post" class="product-inquiry-form" novalidate>
                 {% csrf_token %}
+                <!-- Honeypot (секретное поле) — защита от ботов. -->
+                <input type="hidden" name="spam_field" value="">
                 {% for field in form %}
                     <div class="product-inquiry-field">
                         {{ field.label_tag }}

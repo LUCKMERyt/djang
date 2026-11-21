@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
@@ -24,6 +26,31 @@ from .forms import (
 )
 from .models import ProductInquiry
 from .authentication import username_for_email
+
+
+# NOTE: Rate limiting и honeypot для B2B/отзывов — защита от спама и взрыва частоты отправки.
+SPAM_FIELD = 'spam_field'
+MIN_INTERVAL = 60  # секунд
+
+
+def _spam_attempt(request):
+    """Honeypot: если скрытое поле заполнено — это бот, сохранение блокируется."""
+    return bool(request.POST.get(SPAM_FIELD))
+
+
+def _rate_limit_error(request, session_key):
+    """Возвращает True и показывает сообщение, если слишком часто (частота ниже 1/мин)."""
+    now = time.time()
+    last = request.session.get(session_key)
+    if last and now - last < MIN_INTERVAL:
+        remaining = max(1, int(MIN_INTERVAL - (now - last)) + 1)
+        messages.error(request, f'Слишком часто: пробуйте через {remaining} сек.')
+        return True
+    return False
+
+
+def _mark_sent(request, session_key):
+    request.session[session_key] = time.time()
 
 
 def index(request):
@@ -74,10 +101,15 @@ def product_inquiry_form(request, slug):
     product = get_object_or_404(Products, slug=slug)
     if request.method == 'POST':
         form = ProductInquiryForm(request.POST)
-        if form.is_valid():
+        if _spam_attempt(request):
+            messages.error(request, 'Попробуйте снова — форма не отправлена.')
+        elif _rate_limit_error(request, 'last_inquiry_at'):
+            pass
+        elif form.is_valid():
             inquiry = form.save(commit=False)
             inquiry.product = product
             inquiry.save()
+            _mark_sent(request, 'last_inquiry_at')
             admins_emails = [a[1] for a in settings.ADMINS if a[1]]
             if admins_emails:
                 subject = f'Заявка на товар: {product.name}'
@@ -164,8 +196,12 @@ def news(request):
 def reg(request):
     # ! Пароль передаётся в create_user, поэтому Django сохраняет его хеш.
     if request.method == "POST":
+        if _rate_limit_error(request, 'last_reg_at'):
+            form = UserForm()
+            return render(request, "reg.html", {"form": form})
         form = UserForm(request.POST)
         if form.is_valid():
+            _mark_sent(request, 'last_reg_at')
             user_model = get_user_model()
             email = form.cleaned_data["email"]
             user = user_model.objects.create_user(
@@ -186,10 +222,14 @@ def vhod(request):
     if request.user.is_authenticated:
         return redirect("account")
     form = EmailAuthenticationForm(request, data=request.POST or None)
-    if request.method == "POST" and form.is_valid():
-        login(request, form.get_user())
-        messages.success(request, "Вы вошли в аккаунт.")
-        return redirect("account")
+    if request.method == "POST":
+        if _rate_limit_error(request, 'last_login_at'):
+            return render(request, "vhod.html", {"form": form})
+        if form.is_valid():
+            _mark_sent(request, 'last_login_at')
+            login(request, form.get_user())
+            messages.success(request, "Вы вошли в аккаунт.")
+            return redirect("account")
     return render(request, "vhod.html", {"form": form})
 
 
@@ -243,8 +283,13 @@ def vyhod(request):
 def reviews_page(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
-        if form.is_valid():
+        if _spam_attempt(request):
+            messages.error(request, 'Попробуйте снова — форма не отправлена.')
+        elif _rate_limit_error(request, 'last_review_at'):
+            pass
+        elif form.is_valid():
             form.save()
+            _mark_sent(request, 'last_review_at')
             messages.success(request, 'Спасибо! Ваш отзыв успешно добавлен.')
             return redirect('reviews') # Перенаправляем, чтобы избежать повторной отправки
     else:

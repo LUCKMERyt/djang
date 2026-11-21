@@ -111,7 +111,8 @@ class ProductCatalogLinkTests(TestCase):
         response = self.client.get(reverse("products"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, f'href="/products/{product.slug}/"')
+        detail_url = reverse("product_detail", kwargs={"slug": product.slug})
+        self.assertContains(response, f'href="{detail_url}"')
 
     def test_catalog_renders_product_image(self):
         category = Category.objects.create(name="Украшения", coment="Описание категории")
@@ -128,8 +129,9 @@ class ProductCatalogLinkTests(TestCase):
         response = self.client.get(reverse("products"))
 
         self.assertEqual(response.status_code, 200)
+        detail_url = reverse("product_detail", kwargs={"slug": product.slug})
         self.assertContains(response, f'src="{product.image.url}"')
-        self.assertContains(response, f'href="/products/{product.slug}/"')
+        self.assertContains(response, f'href="{detail_url}"')
 
 
 class ProductDetailTests(TestCase):
@@ -149,16 +151,18 @@ class ProductDetailTests(TestCase):
         response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
 
         self.assertEqual(response.status_code, 200)
+        detail_url = reverse("product_detail", kwargs={"slug": self.product.slug})
         self.assertContains(response, self.product.name)
         self.assertContains(response, self.product.cat_id.name)
-        self.assertContains(response, f'rel="canonical" href="/products/{self.product.slug}/"')
+        self.assertContains(response, f'rel="canonical" href="{detail_url}"')
 
     def test_product_detail_has_jsonld_and_canonical(self):
         response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
 
+        detail_url = reverse("product_detail", kwargs={"slug": self.product.slug})
         self.assertContains(response, '"@type": "Product"')
         self.assertContains(response, "https://schema.org/InStock")
-        self.assertContains(response, f'rel="canonical" href="/products/{self.product.slug}/"')
+        self.assertContains(response, f'rel="canonical" href="{detail_url}"')
 
     def test_product_detail_out_of_stock(self):
         Products.objects.filter(pk=self.product.pk).update(conter=0)

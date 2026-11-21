@@ -1,8 +1,4 @@
-UX (Приоритет 5) и индексы (Приоритет 4):
+Безопасность (Приоритет 6):
 
-- Кнопка «Наверх» — появляется при скролле (>300px), smooth-scroll наверх
-  (motion.js + base.html + style.css)
-- Плавные переходы hover на интерактивных элементах (filter: brightness)
-- Индексы на Products: sale, conter, date_prod (migration 0011_products_indexes)
-- Кэширование каталога: cache_page(300) на views.products
-- Инвалидация кэша при сохранении/удалении товаров (signals.py, apps.ready)
+- Rate limiting (1 отправка/60 сек) на формах: отзывы, заявка на товар, регистрация, вход
+- Honeypot на формах отзывов и заявки (скрытое поле spam_field) — защита от ботов

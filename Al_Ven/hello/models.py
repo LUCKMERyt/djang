@@ -58,7 +58,8 @@ class Products(models.Model):
     def save(self, *args, **kwargs):
         # NOTE: Генерируем уникальный slug из названия, если не задан.
         if not self.slug:
-            base = slugify(self.name)
+            # NOTE: allow_unicode=True сохраняет кириллицу в URL (встроенный slug-конвертер ASCII-only).
+            base = slugify(self.name, allow_unicode=True) or 'product'
             slug = base
             n = 1
             while Products.objects.filter(slug=slug).exists():
