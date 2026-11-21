@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Вход{% endblock %}
+{% block doc_name %}Вход получателя{% endblock %}
 
 {% block content %}
 <div class="content_form">
@@ -14,10 +15,8 @@
                 {{ field.errors }}
             </div>
         {% endfor %}
-        <p>Нет аккаунта? ➡ <a class="reg_but" href="{% url 'reg' %}">Зарегистрируйтесь</a></p>
-        <button type="submit">Войти</button>
+        <p>Нет аккаунта? <a class="reg_but" href="{% url 'reg' %}">Зарегистрируйтесь</a></p>
+        <button class="btn" type="submit">Войти</button>
     </form>
 </div>
 {% endblock %}
-
-{% block footer %}<p>Вход в аккаунт</p>{% endblock %}

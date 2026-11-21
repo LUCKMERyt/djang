@@ -1,17 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}РЕГИСТРАЦИЯ{% endblock %}
+{% block doc_name %}Регистрация получателя{% endblock %}
 
 {% block content %}
 <div class="content_form">
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
     <form method="post" autocomplete="off">
         {% csrf_token %}
 
@@ -27,14 +20,10 @@
 
         <p>
             Есть аккаунт?
-            <a class="reg_but" href="{% url 'vhod' %}">Заходи!</a>
+            <a class="reg_but" href="{% url 'vhod' %}">Войти</a>
         </p>
 
-        <button type="submit">Отправить</button>
+        <button class="btn" type="submit">Зарегистрироваться</button>
     </form>
 </div>
-{% endblock %}
-
-{% block footer %}
-<p>reg</p>
 {% endblock %}
