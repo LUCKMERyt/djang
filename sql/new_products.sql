@@ -1,4 +1,6 @@
 -- Новые товары для SOPHISTICATED (60 шт.). Работает в SQLite и MySQL.
+-- Файл создан командой: python manage.py seed_products --sql ../sql/new_products.sql
+-- Не правьте его вручную: меняйте список PRODUCTS в seed_products.py.
 -- Файл можно запускать повторно: уже существующие товары пропускаются.
 -- Запуск SQLite:  sqlite3 Al_Ven/db.sqlite3 < sql/new_products.sql
 -- Запуск MySQL:   mysql -u USER -p DB_NAME < sql/new_products.sql

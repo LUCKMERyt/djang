@@ -1,12 +1,17 @@
 """Добавляет в каталог демонстрационные товары.
 
 Запуск (из папки Al_Ven):
-    python manage.py seed_products
+    python manage.py seed_products                          # добавить товары в базу
+    python manage.py seed_products --sql ../sql/new_products.sql   # собрать SQL-файл
+
+Список PRODUCTS ниже — единственный источник данных: SQL-файл не правится
+вручную, а создаётся этой же командой.
 
 Команду можно запускать повторно: товар с тем же названием в той же категории
 не создаётся второй раз, существующие данные не меняются.
 """
 from datetime import date
+from pathlib import Path
 
 from django.core.management.base import BaseCommand
 
@@ -89,11 +94,76 @@ PRODUCTS = {
     ],
 }
 
+# Фото новых товаров лежат в media/products/photo_N.jpg, N начинается с 16
+# (в исходной базе уже было 15 товаров) и идёт в порядке списка PRODUCTS.
+FIRST_PHOTO_NUMBER = 16
+
+
+def sql_text(value):
+    return "'" + str(value).replace("'", "''") + "'"
+
+
+def build_sql():
+    """Собирает SQL (SQLite и MySQL) с теми же данными, что и PRODUCTS."""
+    total = sum(len(items) for items in PRODUCTS.values())
+    lines = [
+        f'-- Новые товары для SOPHISTICATED ({total} шт.). Работает в SQLite и MySQL.',
+        '-- Файл создан командой: python manage.py seed_products --sql ../sql/new_products.sql',
+        '-- Не правьте его вручную: меняйте список PRODUCTS в seed_products.py.',
+        '-- Файл можно запускать повторно: уже существующие товары пропускаются.',
+        '-- Запуск SQLite:  sqlite3 Al_Ven/db.sqlite3 < sql/new_products.sql',
+        '-- Запуск MySQL:   mysql -u USER -p DB_NAME < sql/new_products.sql',
+        '',
+        '-- 1. Категории (если ещё нет)',
+    ]
+    for name, description in CATEGORY_DESCRIPTIONS.items():
+        lines.append(
+            f'INSERT INTO hello_category (name, coment)\n'
+            f'SELECT {sql_text(name)}, {sql_text(description)}\n'
+            f'FROM (SELECT 1 AS x) AS t\n'
+            f'WHERE NOT EXISTS (SELECT 1 FROM hello_category WHERE name = {sql_text(name)});'
+        )
+
+    lines += ['', '-- 2. Товары']
+    photos = []
+    for category_name, items in PRODUCTS.items():
+        lines.append(f'\n-- {category_name}')
+        category_id = f'(SELECT id FROM hello_category WHERE name = {sql_text(category_name)} LIMIT 1)'
+        for name, sale, material, date_prod, conter, description in items:
+            lines.append(
+                'INSERT INTO hello_products (name, sale, material, date_prod, conter, cat_id_id, image, description)\n'
+                f"SELECT {sql_text(name)}, {sale}, {sql_text(material)}, '{date_prod.isoformat()}', {conter}, {category_id}, '', {sql_text(description)}\n"
+                'FROM (SELECT 1 AS x) AS t\n'
+                f'WHERE NOT EXISTS (SELECT 1 FROM hello_products WHERE name = {sql_text(name)} AND cat_id_id = {category_id});'
+            )
+            photos.append(name)
+
+    last = FIRST_PHOTO_NUMBER + len(photos) - 1
+    lines += ['', f'-- 3. Фотографии (файлы photo_{FIRST_PHOTO_NUMBER}.jpg … photo_{last}.jpg лежат в Al_Ven/media/products/)']
+    for number, name in enumerate(photos, start=FIRST_PHOTO_NUMBER):
+        lines.append(
+            f"UPDATE hello_products SET image = 'products/photo_{number}.jpg' "
+            f"WHERE name = {sql_text(name)} AND (image IS NULL OR image = '');"
+        )
+    return '\n'.join(lines) + '\n'
+
 
 class Command(BaseCommand):
     help = 'Добавляет в каталог демонстрационные товары (повторный запуск безопасен).'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--sql', metavar='ФАЙЛ',
+            help='Не трогать базу, а записать те же товары в SQL-файл.',
+        )
+
     def handle(self, *args, **options):
+        if options['sql']:
+            path = Path(options['sql'])
+            path.write_text(build_sql(), encoding='utf-8')
+            self.stdout.write(self.style.SUCCESS(f'SQL записан: {path}'))
+            return
+
         created_total = 0
         for category_name, items in PRODUCTS.items():
             category, _ = Category.objects.get_or_create(
