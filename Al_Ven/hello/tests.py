@@ -225,3 +225,32 @@ class ProductInquiryTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Заявка на товар: ")
         self.assertContains(response, self.product.name)
+
+
+class ReviewFixTests(TestCase):
+    """Проверки исправлений: кэш каталога, неверный фильтр, настройки в шаблонах."""
+
+    def test_invalid_category_id_does_not_crash(self):
+        response = self.client.get(reverse('products'), {'category_id': 'abc'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_catalog_cache_is_separate_for_logged_in_user(self):
+        get_user_model().objects.create_user(
+            username='u1', email='u1@example.com', password='Str0ng-pass-91')
+        self.client.get(reverse('products'))  # анонимная страница попадает в кэш
+        self.client.login(username='u1@example.com', password='Str0ng-pass-91')
+        page = self.client.get(reverse('products')).content.decode()
+        self.assertIn('Аккаунт', page)
+
+    def test_templates_do_not_expose_secret_key(self):
+        from django.template import engines
+        from django.test import RequestFactory
+        template = engines['django'].from_string('{{ settings.SECRET_KEY }}|{{ settings.YMETRICA_ID }}')
+        self.assertEqual(template.render({}, RequestFactory().get('/')), '|')
+
+    def test_sitemap_skips_products_without_slug(self):
+        category = Category.objects.create(name='K', coment='c')
+        product = Products.objects.create(
+            name='Без слага', sale=1, material='m', date_prod=date(2026, 1, 1), conter=1, cat_id=category)
+        Products.objects.filter(pk=product.pk).update(slug=None)
+        self.assertNotContains(self.client.get(reverse('sitemap_xml')), '/products/None/')

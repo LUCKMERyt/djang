@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 
 # ИМПОРТ МОДЕЛЕЙ (добавлен Review)
 from .models import Person, Category, Products, Review
@@ -80,7 +81,7 @@ def robots_txt(request):
 
 def sitemap_xml(request):
     # NOTE: Статические URL плюс детальные страницы товаров (/products/<slug>/).
-    products = Products.objects.all().order_by('-date_prod')
+    products = Products.objects.exclude(slug__isnull=True).order_by('-date_prod')
     urls = [
         '/',
         '/products/',
@@ -147,7 +148,10 @@ def product_detail(request, slug):
     })
 
 
+# NOTE: vary_on_cookie хранит у каталога отдельный кэш для каждой сессии: иначе вошедший
+# пользователь видел бы чужую страницу («Вход» вместо «Аккаунт») и чужие сообщения.
 @cache_page(300, key_prefix="products")
+@vary_on_cookie
 def products(request):
     # NOTE: select_related уменьшает количество запросов к таблице категорий.
     categories = Category.objects.all()
@@ -160,7 +164,8 @@ def products(request):
     stock = request.GET.get('stock', '')
     selected_category = None
 
-    if category_id:
+    # NOTE: Неверный category_id (например, «abc») игнорируем, а не роняем страницу ошибкой 500.
+    if category_id and category_id.isdigit():
         products = products.filter(cat_id_id=category_id)
         selected_category = Category.objects.filter(id=category_id).first()
 

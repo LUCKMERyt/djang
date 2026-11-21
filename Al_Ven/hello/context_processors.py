@@ -2,9 +2,12 @@ from django.conf import settings as _settings
 
 
 def settings(request):
-    # NOTE: Собственный context_processor, который пробрасывает все
-    # настройки Django в шаблоны (название `settings`, как в ожиданиях).
-    return {'settings': _settings}
+    # NOTE: В шаблоны передаются только ID счётчиков аналитики, а не все настройки Django:
+    # иначе любой шаблон мог бы прочитать SECRET_KEY и пароли.
+    return {'settings': {
+        'YMETRICA_ID': _settings.YMETRICA_ID,
+        'GA_MEASUREMENT_ID': _settings.GA_MEASUREMENT_ID,
+    }}
 
 
 def site_contacts(request):
