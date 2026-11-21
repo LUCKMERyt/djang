@@ -44,6 +44,7 @@
                         <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}"
                            target="_blank" rel="noopener noreferrer">Telegram</a>
                     </div>
+                    <a class="btn btn--add" href="{% url 'product_inquiry_form' slug=product.slug %}">Заявка на закупку</a>
                 </div>
             </div>
         </div>

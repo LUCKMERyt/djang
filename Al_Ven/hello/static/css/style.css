@@ -1524,6 +1524,42 @@ select option {
     border-bottom: 2px solid var(--pearl-mint);
 }
 
+/* Заявка на закупку (B2B) — страница товара и отдельная страница формы. */
+.product-inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-inquiry-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.product-inquiry-form .inquiry-input {
+    border: 2px solid var(--line);
+}
+
+.product-inquiry-form .inquiry-input:focus {
+    border-color: var(--pearl-mint);
+}
+
+.product-inquiry-form label {
+    font-family: var(--font-head);
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.product-inquiry-error {
+    color: #ffb3b3;
+    font-size: 13px;
+}
+
+.product-inquiry-back {
+    margin-top: 16px;
+}
+
 
 /* ==========================================================================
    14. Анимации (@keyframes)

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.conf import settings
+from django.core.mail import send_mail
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -17,7 +19,9 @@ from .forms import (
     AccountNameForm,
     AccountUsernameForm,
     AccountPasswordForm,
+    ProductInquiryForm,
 )
+from .models import ProductInquiry
 from .authentication import username_for_email
 
 
@@ -63,6 +67,33 @@ def sitemap_xml(request):
         f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>',
         content_type='application/xml',
     )
+
+def product_inquiry_form(request, slug):
+    """Страница заявки на товар — B2B: отправка заявки на почту админов."""
+    product = get_object_or_404(Products, slug=slug)
+    if request.method == 'POST':
+        form = ProductInquiryForm(request.POST)
+        if form.is_valid():
+            inquiry = form.save(commit=False)
+            inquiry.product = product
+            inquiry.save()
+            admins_emails = [a[1] for a in settings.ADMINS if a[1]]
+            if admins_emails:
+                subject = f'Заявка на товар: {product.name}'
+                body = (
+                    f'Товар: {product.name}\n'
+                    f'Ссылка: {request.build_absolute_uri()}\n\n'
+                    f'Заявитель: {form.cleaned_data["name"]} — {form.cleaned_data["email"]}\n\n'
+                    f'Сообщение:\n{form.cleaned_data["message"]}\n\n'
+                    f'Заявка #{inquiry.pk}'
+                )
+                send_mail(subject, body, settings.SITE_EMAIL, admins_emails)
+            messages.success(request, f'Заявка на «{product.name}» отправлена.')
+            return redirect('product_detail', slug=slug)
+    else:
+        form = ProductInquiryForm()
+    return render(request, 'product_inquiry.html', {'product': product, 'form': form})
+
 
 def product_detail(request, slug):
     # NOTE: select_related для категории — один запрос к базе вместо двух.

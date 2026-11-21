@@ -2,14 +2,7 @@ Products: 100, Person: 5
 GET /products/ -> 200
 Product image URLs present on /products/: 100 of 100
 GET /news/ -> 200; person images present: 5 of 5
-Media files served OK: 98 of 105
+Media files served OK: 105 of 105
 GET / -> 200
 
-ERRORS: 7
-  media problem: ('/media/products/photo_20.jpg', 404, 'text/html; charset=utf-8')
-  media problem: ('/media/products/photo_46.jpg', 404, 'text/html; charset=utf-8')
-  media problem: ('/media/products/photo_56.jpg', 404, 'text/html; charset=utf-8')
-  media problem: ('/media/products/photo_57.jpg', 404, 'text/html; charset=utf-8')
-  media problem: ('/media/products/photo_59.jpg', 404, 'text/html; charset=utf-8')
-  media problem: ('/media/products/photo_72.jpg', 404, 'text/html; charset=utf-8')
-  media problem: ('/media/products/photo_84.jpg', 404, 'text/html; charset=utf-8')
+ERRORS: 0

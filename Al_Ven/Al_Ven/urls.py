@@ -19,6 +19,7 @@ urlpatterns = [
     path('blog/', views.blog, name='blog'),
     path('products/', views.products, name='products'),
     path('products/<slug:slug>/', views.product_detail, name='product_detail'),
+    path('products/<slug:slug>/inquiry/', views.product_inquiry_form, name='product_inquiry_form'),
     path('news/', views.news, name='news'),
     path('vhod/', views.vhod, name='vhod'),
     path('account/', views.account, name='account'),

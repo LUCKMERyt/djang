@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Заявка на закупку — {{ product.name }}{% endblock %}
+{% block doc_name %}Оптовая заявка{% endblock %}
+
+{% block canonical %}<link rel="canonical" href="{% url 'product_inquiry_form' slug=product.slug %}">{% endblock %}
+
+{% block content %}
+<div class="sheet">
+    <header class="sheet__head">
+        <h1>Заявка на товар: {{ product.name }}</h1>
+        <p class="sheet__lead">
+            Напишите свои условия — пришлите ссылку на изделие и требуемую цену.
+            Мы рассмотрим заказ и предложим варианты.
+        </p>
+    </header>
+
+    <section class="section" aria-label="Заполните форму заявки">
+        <div class="section__bar"><b>Отправить заявку</b></div>
+        <div class="section__body">
+            <form method="post" class="product-inquiry-form" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="product-inquiry-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <p class="product-inquiry-error">{{ field.errors|join:", " }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button class="btn btn--add" type="submit">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="product-inquiry-back">
+        <a class="btn btn--ghost" href="{% url 'product_detail' slug=product.slug %}">← Назад к товару</a>
+    </div>
+</div>
+{% endblock %}

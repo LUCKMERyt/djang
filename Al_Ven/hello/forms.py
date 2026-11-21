@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
-from .models import Review
+from .models import Review, ProductInquiry
 
 
 class UserForm(forms.Form):
@@ -131,4 +131,35 @@ class ReviewForm(forms.ModelForm):
             'name': 'Ваше имя',
             'rating': 'Оценка',
             'text': 'Ваш отзыв',
+        }
+
+
+class ProductInquiryForm(forms.ModelForm):
+    """Заявка на товар/цену для B2B («напишите свои условия, пришлите ссылку на изделие»)."""
+
+    class Meta:
+        model = ProductInquiry
+        fields = ['name', 'email', 'message']
+        labels = {
+            'name': 'Ваше имя',
+            'email': 'Email',
+            'message': 'Сообщение (что и в какой цене нужно?)',
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'placeholder': 'Как вас зовут?',
+                'class': 'inquiry-input',
+                'autocomplete': 'off',
+            }),
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Почта для связи',
+                'class': 'inquiry-input',
+                'autocomplete': 'off',
+            }),
+            'message': forms.Textarea(attrs={
+                'rows': 5,
+                'placeholder': 'Какой товар или ссылка на изделие? В какой цене нужно? Сроки и объёмы...',
+                'class': 'inquiry-input',
+                'autocomplete': 'off',
+            }),
         }

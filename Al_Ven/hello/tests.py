@@ -3,7 +3,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from datetime import date
-from .models import Category, Products, Review
+from .models import Category, Products, Review, ProductInquiry
 
 
 class AuthenticationTests(TestCase):
@@ -182,3 +182,42 @@ class ProductDetailTests(TestCase):
         )
         self.assertTrue(product.slug)
         self.assertIn("новый-товар", product.slug)
+
+
+class ProductInquiryTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name="Украшения", coment="Описание категории")
+        self.product = Products.objects.create(
+            name="Товар для заявки",
+            sale=1000,
+            material="Серебро",
+            date_prod=date(2026, 1, 1),
+            conter=5,
+            cat_id=self.category,
+        )
+
+    def test_inquiry_form_creates_and_redirects(self):
+        url = reverse("product_inquiry_form", kwargs={"slug": self.product.slug})
+        response = self.client.post(url, {
+            "name": "Оптовик",
+            "email": "opt@example.com",
+            "message": "Нужно 10 шт. оптом.",
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("product_detail", kwargs={"slug": self.product.slug}))
+        inquiry = ProductInquiry.objects.get()
+        self.assertEqual(inquiry.product, self.product)
+        self.assertEqual(inquiry.name, "Оптовик")
+        self.assertEqual(inquiry.status, "new")
+
+    def test_inquiry_form_invalid_shows_errors(self):
+        url = reverse("product_inquiry_form", kwargs={"slug": self.product.slug})
+        response = self.client.post(url, {"name": "", "email": "", "message": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ProductInquiry.objects.count(), 0)
+
+    def test_inquiry_form_page_renders(self):
+        response = self.client.get(reverse("product_inquiry_form", kwargs={"slug": self.product.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Заявка на товар: ")
+        self.assertContains(response, self.product.name)

@@ -1,10 +1,11 @@
-Детальные страницы товаров (/products/<slug>/) — SEO:
+B2B-заявка на товар (Приоритет 3, вручную выбранный):
 
-- Модель Products: slug + авто-генерация из названия (unique)
-- View product_detail + URL /products/<slug>/, canonical URL
-- Шаблон product_detail.html (фото, характеристики, описание, похожие товары, Share: VK/Telegram)
-- JSON-LD разметка Product (цена, наличие InStock/OutOfStock, категория)
-- Ссылки «Подробнее» в каталоге ведут на страницы товаров
-- Динамический sitemap — все детальные URL товаров
-- Стили карточки (документный стиль, pearl-полоса)
-- Тесты: отрисовка страницы, JSON-LD, canonical, 404, ссылки из каталога, автогенерация slug
+- Модель ProductInquiry (товар, имя, email, сообщение, статус new/handled)
+- Миграции 0009_products_slug (поля slug, созданная вручную, чистая), 0010_productinquiry
+- Форма ProductInquiryForm — поля name, email, message
+- View + URL /products/<slug>/inquiry/, отправка заявки на почту админов (django.core.mail.send_mail, EMAIL_BACKEND=console)
+- Страница product_inquiry.html (документный стиль) + кнопка «Заявка на закупку» на странице товара
+- Админка: ProductInquiry в список (список/фильтры/поиск/изменение/создание)
+- Тесты: создание заявки + редирект, валидация, отрисовка страницы формы
+- settings: ADMINS (SOPHISTICATED и Danila Shish)
+- seed_products: build_sql() добавляет slug-колонку

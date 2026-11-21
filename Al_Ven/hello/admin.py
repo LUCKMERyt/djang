@@ -4,7 +4,7 @@ from django import forms
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.html import format_html
-from .models import Person, Category, Products, Review
+from .models import Person, Category, Products, Review, ProductInquiry
 
 
 class EmptyAdminAuthenticationForm(AuthenticationForm):
@@ -202,3 +202,13 @@ class ReviewAdmin(admin.ModelAdmin):
     @admin.display(description='Изменить')
     def edit_link(self, obj):
         return admin_change_link(obj, 'admin:hello_review_change')
+
+
+@admin.register(ProductInquiry)
+class ProductInquiryAdmin(admin.ModelAdmin):
+    list_display = ('product', 'name', 'email', 'status', 'created_at')
+    list_filter = ('status', 'created_at', 'product__cat_id')
+    search_fields = ('name', 'email', 'message', 'product__name')
+    ordering = ('-created_at',)
+    readonly_fields = ('created_at',)
+    empty_value_display = '—'

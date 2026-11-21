@@ -92,3 +92,31 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Отзыв от {self.name} ({self.rating}⭐)"
+
+
+class ProductInquiry(models.Model):
+    """Отправка заявки на товар/цену — B2B-поток: заявка уходит на почту админов."""
+
+    STATUS_CHOICES = [('new', 'Новая'), ('handled', 'Обработана')]
+
+    product = models.ForeignKey(
+        Products,
+        on_delete=models.CASCADE,
+        related_name='inquiries',
+        verbose_name='Товар',
+    )
+    name = models.CharField('Ваше имя', max_length=150)
+    email = models.EmailField('Email')
+    message = models.TextField('Сообщение (что и в какой цене нужно?)', max_length=2000)
+    status = models.CharField(
+        'Статус', choices=STATUS_CHOICES, default='new',
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Заявка на товар'
+        verbose_name_plural = 'Заявки на товар'
+
+    def __str__(self):
+        return f'Заявка на «{self.product.name}» от {self.name}'

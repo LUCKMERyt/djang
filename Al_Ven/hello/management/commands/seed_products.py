@@ -156,8 +156,8 @@ def build_sql():
         category_id = f'(SELECT id FROM hello_category WHERE name = {sql_text(category_name)} LIMIT 1)'
         for name, sale, material, date_prod, conter, description in items:
             lines.append(
-                'INSERT INTO hello_products (name, sale, material, date_prod, conter, cat_id_id, image, description)\n'
-                f"SELECT {sql_text(name)}, {sale}, {sql_text(material)}, '{date_prod.isoformat()}', {conter}, {category_id}, '', {sql_text(description)}\n"
+                'INSERT INTO hello_products (name, sale, material, date_prod, conter, cat_id_id, image, description, slug)\n'
+                f"SELECT {sql_text(name)}, {sale}, {sql_text(material)}, '{date_prod.isoformat()}', {conter}, {category_id}, '', {sql_text(description)}, ''\n"
                 'FROM (SELECT 1 AS x) AS t\n'
                 f'WHERE NOT EXISTS (SELECT 1 FROM hello_products WHERE name = {sql_text(name)} AND cat_id_id = {category_id});'
             )
