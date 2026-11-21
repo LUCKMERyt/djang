@@ -39,11 +39,11 @@
             </dl>
 
             <div class="account-actions">
-                <a class="account-action account-action--primary" href="{% url 'products' %}">Перейти в каталог</a>
-                <a class="account-action" href="{% url 'reviews' %}">Читать отзывы</a>
+                <a class="btn" href="{% url 'products' %}">Перейти в каталог</a>
+                <a class="btn btn--ghost" href="{% url 'reviews' %}">Читать отзывы</a>
                 <form method="post" action="{% url 'vyhod' %}">
                     {% csrf_token %}
-                    <button class="account-action account-action--logout" type="submit">Выйти из аккаунта</button>
+                    <button class="btn btn--danger" type="submit">Выйти из аккаунта</button>
                 </form>
             </div>
         </div>
@@ -59,7 +59,7 @@
                     {{ name_form.name.label_tag }}
                     {{ name_form.name }}
                     {{ name_form.name.errors }}
-                    <button class="account-action account-action--primary" type="submit">Сохранить имя</button>
+                    <button class="btn" type="submit">Сохранить имя</button>
                 </form>
             </div>
         </section>
@@ -73,7 +73,7 @@
                     {{ username_form.username.label_tag }}
                     {{ username_form.username }}
                     {{ username_form.username.errors }}
-                    <button class="account-action account-action--primary" type="submit">Сохранить логин</button>
+                    <button class="btn" type="submit">Сохранить логин</button>
                 </form>
             </div>
         </section>
@@ -91,7 +91,7 @@
                             {{ field.errors }}
                         </div>
                     {% endfor %}
-                    <button class="account-action account-action--primary" type="submit">Сохранить пароль</button>
+                    <button class="btn" type="submit">Сохранить пароль</button>
                 </form>
             </div>
         </section>

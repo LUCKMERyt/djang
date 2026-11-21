@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {# NOTE: Команда оформлена как список сотрудников в той же таблице позиций, что и каталог. #}
 
 {% block title %}Персонал{% endblock %}
@@ -43,13 +44,12 @@
                     <td><span class="tag">{{ person.position|default:'Сотрудник команды' }}</span></td>
                     <td class="qty right">{{ person.age }} лет</td>
                     <td>
-                        <button class="product-card__btn" type="button"
+                        <button class="btn btn--ghost" type="button"
                                 data-person-name="{{ person.name }} {{ person.fam }}"
                                 data-person-patronymic="{{ person.oth }}"
                                 data-person-age="{{ person.age }}"
                                 data-person-position="{{ person.position }}"
-                                data-person-email="{{ person.email }}"
-                                data-person-phone="{{ person.phone }}"
+                                data-person-contacts="{{ person.email }}{% if person.email and person.phone %} · {% endif %}{{ person.phone }}"
                                 data-person-description="{{ person.description|escape }}"
                                 {% if person.image %}data-person-image="{{ person.image.url }}"{% endif %}
                                 aria-haspopup="dialog" aria-controls="person-modal">Подробнее</button>
@@ -67,51 +67,25 @@
     {% endif %}
 </div>
 
-<dialog class="product-modal" id="person-modal" aria-labelledby="person-modal-title">
+<dialog class="product-modal" id="person-modal" data-prefix="person" aria-labelledby="person-modal-title">
     <div class="product-modal__panel">
         <p class="product-modal__eyebrow">Карточка сотрудника</p>
         <button class="product-modal__close" type="button" aria-label="Закрыть окно">×</button>
         <div class="product-modal__image-wrap" hidden><img class="product-modal__image" alt=""></div>
-        <h2 id="person-modal-title"></h2>
+        <h2 id="person-modal-title" data-field="name" data-empty="Сотрудник"></h2>
         <p class="product-modal__category">Сотрудник команды</p>
-        <p class="product-modal__description"></p>
+        <p class="product-modal__description" data-field="description" data-empty="Описание пока не добавлено."></p>
         <dl class="product-modal__details">
-            <div><dt>Отчество</dt><dd data-person-field="patronymic"></dd></div>
-            <div><dt>Возраст</dt><dd data-person-field="age"></dd></div>
-            <div><dt>Должность</dt><dd data-person-field="position"></dd></div>
-            <div><dt>Контакты</dt><dd data-person-field="contacts"></dd></div>
+            <div><dt>Отчество</dt><dd data-field="patronymic"></dd></div>
+            <div><dt>Возраст</dt><dd data-field="age" data-suffix=" лет"></dd></div>
+            <div><dt>Должность</dt><dd data-field="position" data-empty="Сотрудник команды"></dd></div>
+            <div><dt>Контакты</dt><dd data-field="contacts"></dd></div>
         </dl>
-        <button class="product-card__btn product-modal__done" type="button">Понятно</button>
+        <button class="btn btn--ghost product-modal__done" type="button">Понятно</button>
     </div>
 </dialog>
 {% endblock %}
 
 {% block scripts %}
-<script>
-// NOTE: Данные сотрудника передаются через data-person-* и безопасно вставляются textContent.
-(() => {
-    const modal = document.getElementById('person-modal');
-    if (!modal) return;
-    const imageWrap = modal.querySelector('.product-modal__image-wrap');
-    const image = modal.querySelector('.product-modal__image');
-    let opener;
-    document.querySelectorAll('[aria-controls="person-modal"]').forEach((button) => {
-        button.addEventListener('click', () => {
-            opener = button;
-            modal.querySelector('#person-modal-title').textContent = button.dataset.personName || 'Сотрудник';
-            modal.querySelector('[data-person-field="patronymic"]').textContent = button.dataset.personPatronymic || '—';
-            modal.querySelector('[data-person-field="age"]').textContent = `${button.dataset.personAge || '—'} лет`;
-            modal.querySelector('[data-person-field="position"]').textContent = button.dataset.personPosition || 'Сотрудник команды';
-            modal.querySelector('[data-person-field="contacts"]').textContent = [button.dataset.personEmail, button.dataset.personPhone].filter(Boolean).join(' · ') || '—';
-            modal.querySelector('.product-modal__description').textContent = button.dataset.personDescription || 'Описание пока не добавлено.';
-            if (button.dataset.personImage) { image.src = button.dataset.personImage; image.alt = button.dataset.personName; imageWrap.hidden = false; }
-            else { image.removeAttribute('src'); imageWrap.hidden = true; }
-            modal.showModal();
-        });
-    });
-    modal.querySelectorAll('.product-modal__close, .product-modal__done').forEach((button) => button.addEventListener('click', () => modal.close()));
-    modal.addEventListener('click', (event) => { if (event.target === modal) modal.close(); });
-    modal.addEventListener('close', () => opener && opener.focus());
-})();
-</script>
+<script src="{% static 'js/modal.js' %}"></script>
 {% endblock %}

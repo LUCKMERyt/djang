@@ -259,38 +259,6 @@ summary:focus-visible {
     color: var(--text);
 }
 
-/* Поля шапки накладной: поставщик, получатель, основание. */
-.fields {
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px solid var(--line);
-    background: var(--panel);
-}
-
-.fields__item {
-    flex: 1 1 220px;
-    min-width: 0;
-    padding: 12px 18px;
-    border-right: 1px solid var(--line);
-}
-
-.fields__item:last-child {
-    border-right: 0;
-}
-
-.fields__label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-}
-
-.fields__value {
-    display: block;
-    font-weight: 600;
-    overflow-wrap: anywhere;
-}
-
 /* Раздел накладной: тёмная полоса с названием и рамка вокруг содержимого. */
 .section {
     border: 2px solid var(--line);
@@ -353,12 +321,7 @@ summary:focus-visible {
 /* ==========================================================================
    4. Кнопки и ссылки
    ========================================================================== */
-.btn,
-.home-btn,
-.product-card__btn,
-.review-submit-btn,
-.account-action,
-.content_form button {
+.btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -375,53 +338,34 @@ summary:focus-visible {
     cursor: pointer;
 }
 
-.btn:hover,
-.home-btn:hover,
-.review-submit-btn:hover,
-.account-action:hover,
-.content_form button:hover {
+.btn:hover {
     filter: brightness(1.08);
 }
 
 /* Вторичная кнопка: контур без заливки. */
-.btn--ghost,
-.home-btn--ghost,
-.product-card__btn,
-.account-action {
+.btn--ghost {
     color: var(--text);
     background: transparent;
     border-color: var(--text);
 }
 
-.btn--ghost:hover,
-.home-btn--ghost:hover,
-.product-card__btn:hover,
-.account-action:hover {
+.btn--ghost:hover {
     color: var(--bg);
     background: var(--text);
     filter: none;
 }
 
-.account-action--primary {
-    color: var(--bg);
-    background: var(--pearl);
-    border-color: transparent;
-}
-
-.account-action--primary:hover {
-    color: var(--bg);
-    background: var(--pearl);
-    filter: brightness(1.08);
-}
-
-.account-action--logout {
+/* Опасное действие, например выход из аккаунта. */
+.btn--danger {
     color: #ffb3b3;
+    background: transparent;
     border-color: #ff8a8a;
 }
 
-.account-action--logout:hover {
+.btn--danger:hover {
     color: var(--bg);
     background: #ff8a8a;
+    filter: none;
 }
 
 .link-underline {
@@ -712,7 +656,7 @@ summary:focus-visible {
     color: var(--bg);
 }
 
-.home-callout .home-btn {
+.home-callout .btn {
     color: var(--text);
     background: var(--bg);
 }
@@ -1376,7 +1320,7 @@ select option {
     gap: 7px;
 }
 
-.account-edit-form .account-action {
+.account-edit-form .btn {
     margin-top: 8px;
 }
 

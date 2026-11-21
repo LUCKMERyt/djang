@@ -43,9 +43,10 @@
     │   ├── tests.py           # тесты приложения
     │   ├── migrations/
     │   ├── templates/
-    │   └── static/css/
-    │       ├── style.css      # основной сайт
-    │       └── admin.css      # админка; не менять без необходимости
+    │   └── static/
+    │       ├── css/style.css  # основной сайт
+    │       ├── css/admin.css  # админка; не менять без необходимости
+    │       └── js/modal.js    # общее модальное окно каталога и команды
     └── islands_app/           # заготовка; не включена в INSTALLED_APPS
 ```
 

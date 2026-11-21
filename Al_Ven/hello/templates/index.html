@@ -10,9 +10,9 @@
         <p class="home-lead">Надёжный склад украшений, аксессуаров и подарков для магазинов, маркетплейсов и корпоративных закупок.</p>
         <p>Выбирайте товары из наличия, оформляйте оптовые закупки и пополняйте ассортимент без лишних посредников.</p>
         <div class="home-links">
-            <a class="home-btn" href="{% url 'products' %}">Перейти в оптовый каталог</a>
-            <a class="home-btn home-btn--ghost" href="{% url 'weo' %}">Условия поставки</a>
-            <a class="home-btn home-btn--ghost" href="{% url 'reviews' %}">Отзывы партнёров</a>
+            <a class="btn" href="{% url 'products' %}">Перейти в оптовый каталог</a>
+            <a class="btn btn--ghost" href="{% url 'weo' %}">Условия поставки</a>
+            <a class="btn btn--ghost" href="{% url 'reviews' %}">Отзывы партнёров</a>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
                 <a class="home-category-card" href="{% url 'products' %}?category_id={{ cat.id }}">
                     <span class="home-category-card__top">
                         <span>Секция {{ forloop.counter }}</span>
-                        <span class="pearl-dot{% if forloop.counter0|divisibleby:3 %}{% elif forloop.counter0|add:'-1'|divisibleby:3 %} pearl-dot--blue{% else %} pearl-dot--mint{% endif %}"></span>
+                        <span class="pearl-dot {% cycle '' 'pearl-dot--blue' 'pearl-dot--mint' %}"></span>
                     </span>
                     <strong>{{ cat.name }}</strong>
                     <small>{{ cat.coment|truncatechars:75 }}</small>
@@ -111,7 +111,7 @@
 <section class="home-callout">
     <div class="home-callout__inner">
         <h2>Пополняйте ассортимент выгодно</h2>
-        <a class="home-btn" href="{% url 'products' %}">Смотреть товары</a>
+        <a class="btn" href="{% url 'products' %}">Смотреть товары</a>
     </div>
 </section>
 {% endblock %}

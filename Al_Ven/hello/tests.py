@@ -116,7 +116,7 @@ class ProductModalTests(TestCase):
         self.assertContains(response, 'data-product-material="Серебро"')
         self.assertContains(response, 'data-product-price="2500"')
         self.assertContains(response, 'data-product-description=""')
-        self.assertContains(response, "modal.showModal()")
+        self.assertContains(response, "js/modal.js")
 
     def test_catalog_renders_product_image(self):
         category = Category.objects.create(name="Украшения", coment="Описание категории")
