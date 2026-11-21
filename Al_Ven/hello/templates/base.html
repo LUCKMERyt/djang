@@ -9,6 +9,37 @@
   <meta name="description" content="SOPHISTICATED — оптовый склад товаров для закупки и продажи бизнесом.">
   <title>{% block title %}SOPHISTICATED{% endblock %} | SOPHISTICATED</title>
   {% block canonical %}{% endblock %}
+  {% if settings.YMETRICA_ID %}
+  <!-- Счётчик Яндекс.Метрики — аналитика каталога (ID: {{ settings.YMETRICA_ID }}) -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = { 'modules': ['counter.js'] };
+      w[i] = 1;
+      w[i + '_hc'] = i;
+      var h = d.querySelector('script[src="' + s + '"]:first-child');
+      if (!h) {
+        h = d.createElement('script');
+        h.setAttribute('async', true);
+        h.src = s;
+      }
+      d.head.appendChild(h);
+      h.innerHTML = '';
+      h.onload = function () {
+        w._ymRetarget('init');
+      };
+    })(window, document, 'https://mc.yandex.ru/metrics.js', 'yandex_metric', {{ settings.YMETRICA_ID }});
+  </script>
+  {% endif %}
+  {% if settings.GA_MEASUREMENT_ID %}
+  <!-- Google Analytics (gtag.js) — аналитика каталога -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.GA_MEASUREMENT_ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ settings.GA_MEASUREMENT_ID }}');
+  </script>
+  {% endif %}
   <!-- NOTE: Шрифты Google Fonts; без сети страница использует запасные системные шрифты. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
