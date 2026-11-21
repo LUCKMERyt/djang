@@ -1,8 +1,0 @@
-Products: 100, Person: 5
-GET /products/ -> 200
-Product image URLs present on /products/: 100 of 100
-GET /news/ -> 200; person images present: 5 of 5
-Media files served OK: 105 of 105
-GET / -> 200
-
-ERRORS: 0

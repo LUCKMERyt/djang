@@ -1,2 +1,9 @@
 __pycache__/
 *.pyc
+.venv/
+*.log
+# Временные файлы проверок и тестов
+Al_Ven/media/products/product_*.jpg
+Al_Ven/media/people/person_*.jpg
+*_out.txt
+*_report.txt
