@@ -26,8 +26,9 @@ def index(request):
     # видел товары, категории и отзывы, а не только приветственный текст.
     featured_categories = Category.objects.order_by('name')[:6]
     latest_reviews = Review.objects.all()[:3]
-    # NOTE: Панель остатков на главной: ширина полосы ограничена 100 (шкала до 100 шт.).
-    stock_products = list(Products.objects.filter(conter__gt=0).order_by('-conter', 'name')[:4])
+    # NOTE: Панель остатков: 4 случайных товара в наличии, при каждом заходе разные.
+    # Ширина полосы ограничена 100 (шкала до 100 шт.).
+    stock_products = list(Products.objects.filter(conter__gt=0).order_by('?')[:4])
     for product in stock_products:
         product.bar = min(product.conter, 100)
     return render(request, "index.html", {

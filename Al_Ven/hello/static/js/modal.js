@@ -48,3 +48,25 @@
         modal.addEventListener("close", () => opener && opener.focus());
     });
 })();
+
+// Если файл картинки в таблице не загрузился, показываем ту же заглушку, что и для товаров без фото.
+document.querySelectorAll("img.thumb").forEach((img) => {
+    const showPlaceholder = () => {
+        const stub = document.createElement("div");
+        stub.className = "thumb thumb--empty";
+        stub.textContent = "Не загрузилось";
+        img.replaceWith(stub);
+    };
+    if (img.complete && img.naturalWidth === 0) {
+        showPlaceholder();
+    } else {
+        img.addEventListener("error", showPlaceholder);
+    }
+});
+
+// В окне товара при ошибке загрузки просто скрываем блок картинки.
+document.querySelectorAll(".product-modal__image").forEach((img) => {
+    img.addEventListener("error", () => {
+        img.closest(".product-modal__image-wrap").hidden = true;
+    });
+});

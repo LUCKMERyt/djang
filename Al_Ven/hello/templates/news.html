@@ -32,9 +32,9 @@
                     <td class="num">{{ forloop.counter }}</td>
                     <td>
                         {% if person.image %}
-                            <img src="{{ person.image.url }}" alt="{{ person }}" class="thumb" loading="lazy">
+                            <img src="{{ person.image.url }}" alt="{{ person }}" class="thumb" width="64" height="64" loading="lazy">
                         {% else %}
-                            <div class="thumb thumb--empty">Нет фото</div>
+                            <div class="thumb thumb--empty">Не загрузилось</div>
                         {% endif %}
                     </td>
                     <td>
