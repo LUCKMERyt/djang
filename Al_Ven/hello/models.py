@@ -71,6 +71,11 @@ class Products(models.Model):
         return self.name
 
     class Meta:
+        indexes = [
+            models.Index(fields=['sale'], name='products_sale_idx'),
+            models.Index(fields=['conter'], name='products_conter_idx'),
+            models.Index(fields=['date_prod'], name='products_date_prod_idx'),
+        ]
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
@@ -109,7 +114,7 @@ class ProductInquiry(models.Model):
     email = models.EmailField('Email')
     message = models.TextField('Сообщение (что и в какой цене нужно?)', max_length=2000)
     status = models.CharField(
-        'Статус', choices=STATUS_CHOICES, default='new',
+        'Статус', choices=STATUS_CHOICES, default='new', max_length=10,
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
 

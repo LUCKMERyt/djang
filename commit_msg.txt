@@ -1,11 +1,8 @@
-B2B-заявка на товар (Приоритет 3, вручную выбранный):
+UX (Приоритет 5) и индексы (Приоритет 4):
 
-- Модель ProductInquiry (товар, имя, email, сообщение, статус new/handled)
-- Миграции 0009_products_slug (поля slug, созданная вручную, чистая), 0010_productinquiry
-- Форма ProductInquiryForm — поля name, email, message
-- View + URL /products/<slug>/inquiry/, отправка заявки на почту админов (django.core.mail.send_mail, EMAIL_BACKEND=console)
-- Страница product_inquiry.html (документный стиль) + кнопка «Заявка на закупку» на странице товара
-- Админка: ProductInquiry в список (список/фильтры/поиск/изменение/создание)
-- Тесты: создание заявки + редирект, валидация, отрисовка страницы формы
-- settings: ADMINS (SOPHISTICATED и Danila Shish)
-- seed_products: build_sql() добавляет slug-колонку
+- Кнопка «Наверх» — появляется при скролле (>300px), smooth-scroll наверх
+  (motion.js + base.html + style.css)
+- Плавные переходы hover на интерактивных элементах (filter: brightness)
+- Индексы на Products: sale, conter, date_prod (migration 0011_products_indexes)
+- Кэширование каталога: cache_page(300) на views.products
+- Инвалидация кэша при сохранении/удалении товаров (signals.py, apps.ready)

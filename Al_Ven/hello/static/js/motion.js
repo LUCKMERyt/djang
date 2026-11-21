@@ -100,4 +100,30 @@
         input.addEventListener("input", update);
         update();
     });
+
+    // 6. Кнопка «Наверх» — появляется при скролле на 300 пикселей и возвращает
+    //    в начало плавно. Уважает prefers-reduced-motion и состояние «hidden».
+    const backToTop = document.getElementById("back-to-top");
+    if (backToTop) {
+        let ticking = false;
+        const toggle = () => {
+            const shouldShow = window.scrollY > 300 && !reduceMotion;
+            if (shouldShow && backToTop.hidden) {
+                backToTop.hidden = false;
+            } else if (!shouldShow && !backToTop.hidden) {
+                backToTop.hidden = true;
+            }
+            ticking = false;
+        };
+        window.addEventListener("scroll", () => {
+            if (!ticking) {
+                ticking = true;
+                window.requestAnimationFrame(toggle);
+            }
+        }, { passive: true });
+        toggle();
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        });
+    }
 })();

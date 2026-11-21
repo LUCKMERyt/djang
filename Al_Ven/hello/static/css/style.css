@@ -1560,9 +1560,33 @@ select option {
     margin-top: 16px;
 }
 
+/* Кнопка «Наверх» — появляется при прокрутке; плавный переход при hover. */
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    background: var(--pearl);
+    color: var(--bg);
+    border: 2px solid transparent;
+    font-family: var(--font-head);
+    font-size: 20px;
+    cursor: pointer;
+    transition: filter 0.08s ease;
+}
+
+.back-to-top:hover {
+    filter: brightness(1.08);
+}
+
 
 /* ==========================================================================
-   14. Анимации (@keyframes)
+   15. Анимации (@keyframes)
    ========================================================================== */
 @keyframes page-enter {
     from { opacity: 0; transform: translateY(6px); }

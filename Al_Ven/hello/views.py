@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.views.decorators.cache import cache_page
 
 # ИМПОРТ МОДЕЛЕЙ (добавлен Review)
 from .models import Person, Category, Products, Review
@@ -114,6 +115,7 @@ def product_detail(request, slug):
     })
 
 
+@cache_page(300, key_prefix="products")
 def products(request):
     # NOTE: select_related уменьшает количество запросов к таблице категорий.
     categories = Category.objects.all()
