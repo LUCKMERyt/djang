@@ -243,7 +243,7 @@ def account(request):
     name_form = AccountNameForm(initial={"name": request.user.first_name})
     username_form = AccountUsernameForm(
         request.user,
-        initial={"username": request.user.username},
+        initial={"username": request.user.email},
     )
     password_form = AccountPasswordForm(request.user)
 
@@ -258,9 +258,11 @@ def account(request):
         elif request.POST.get("action") == "username":
             username_form = AccountUsernameForm(request.user, request.POST)
             if username_form.is_valid():
-                request.user.username = username_form.cleaned_data["username"]
-                request.user.save(update_fields=["username"])
-                messages.success(request, "Логин успешно изменён.")
+                email = username_form.cleaned_data["username"]
+                request.user.email = email
+                request.user.username = username_for_email(email)
+                request.user.save(update_fields=["email", "username"])
+                messages.success(request, "Логин электронной почты успешно изменён.")
                 return redirect("account")
         elif request.POST.get("action") == "password":
             password_form = AccountPasswordForm(request.user, request.POST)

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 import os
 from django.core.exceptions import ImproperlyConfigured
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
     if not DEBUG:
         raise ImproperlyConfigured("Set DJANGO_SECRET_KEY when DJANGO_DEBUG is False.")
-    SECRET_KEY = "local-development-key-only-7f3c9a2e8b4d6f1a0c5e3b9d2a6f8c1e"
+    SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = [host.strip() for host in os.environ.get(
@@ -92,11 +93,15 @@ WSGI_APPLICATION = 'Al_Ven.wsgi.application'
 # NOTE: Локальная разработка может использовать SQLite, production — MySQL.
 DB_ENGINE = os.environ.get("DB_ENGINE", "mysql").lower()
 if DB_ENGINE == "mysql":
+    if any(not os.environ.get(setting) for setting in ("DB_NAME", "DB_USER", "DB_PASSWORD")):
+        raise ImproperlyConfigured(
+            "Set DB_NAME, DB_USER, and DB_PASSWORD environment variables for MySQL."
+        )
     DATABASES = {"default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("DB_NAME", "djangoo"),
-        "USER": os.environ.get("DB_USER", "myuser"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "1234"),
+        "NAME": os.environ["DB_NAME"],
+        "USER": os.environ["DB_USER"],
+        "PASSWORD": os.environ["DB_PASSWORD"],
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "3306"),
         "CONN_MAX_AGE": int(os.environ.get("DB_CONN_MAX_AGE", "60")),
@@ -181,6 +186,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 SECURE_SSL_REDIRECT = os.environ.get("DJANGO_SSL_REDIRECT", str(not DEBUG)).lower() in {"1", "true", "yes"}
 SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_HSTS_SECONDS", "0"))
+if os.environ.get("DJANGO_TRUST_PROXY_SSL_HEADER", "").lower() in {"1", "true", "yes"}:
+    # Enable only behind a trusted proxy that overwrites X-Forwarded-Proto.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 

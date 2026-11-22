@@ -68,13 +68,13 @@ class AccountNameForm(forms.Form):
 
 
 class AccountUsernameForm(forms.Form):
-    username = forms.CharField(
-        label="Логин",
-        max_length=150,
+    username = forms.EmailField(
+        label="Логин (электронная почта)",
+        max_length=254,
         required=True,
-        widget=forms.TextInput(attrs={
+        widget=forms.EmailInput(attrs={
             "autocomplete": "username",
-            "placeholder": "Введите новый логин",
+            "placeholder": "Введите электронную почту",
         }),
     )
 
@@ -83,10 +83,10 @@ class AccountUsernameForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_username(self):
-        username = self.cleaned_data["username"].strip()
+        username = self.cleaned_data["username"].strip().lower()
         user_model = get_user_model()
-        if user_model.objects.filter(username__iexact=username).exclude(pk=self.user.pk).exists():
-            raise ValidationError("Пользователь с таким логином уже существует.")
+        if user_model.objects.filter(email__iexact=username).exclude(pk=self.user.pk).exists():
+            raise ValidationError("Аккаунт с такой электронной почтой уже существует.")
         return username
 
 

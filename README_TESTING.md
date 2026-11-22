@@ -6,7 +6,7 @@
 
 ## Автоматические проверки
 
-Из каталога `D:\djang\Al_Ven`:
+Из каталога `D:\kod\djang-main\Al_Ven`:
 
 ```powershell
 $env:DB_ENGINE = "sqlite"
@@ -18,14 +18,14 @@ $env:DB_ENGINE = "sqlite"
 Ожидаемо:
 
 - `System check identified no issues (0 silenced).`
-- `Ran 9 tests ... OK`
+- `Ran 23 tests ... OK`
 - `No changes detected`
 
 Проверка JavaScript:
 
 ```powershell
-node --check D:\djang\Al_Ven\hello\static\js\modal.js
-node --check D:\djang\Al_Ven\hello\static\js\motion.js
+node --check D:\kod\djang-main\Al_Ven\hello\static\js\modal.js
+node --check D:\kod\djang-main\Al_Ven\hello\static\js\motion.js
 ```
 
 Обе команды должны завершиться без вывода.

@@ -60,9 +60,9 @@
     │   ├── authentication.py  # EmailBackend, username_for_email
     │   ├── context_processors.py # SITE_CONTACTS
     │   ├── admin.py           # Django Admin + Jazzmin
-    │   ├── tests.py           # 9 тестов
+    │   ├── tests.py           # 23 теста
     │   ├── management/commands/seed_products.py # загрузка товаров
-    │   ├── migrations/        # 0001–0008
+    │   ├── migrations/        # 0001–0012
     │   ├── templates/         # 10 шаблонов: base.html + 9 страниц
     │   └── static/
     │       ├── css/style.css  # основной сайт: 2226 строк, 47 @keyframes
@@ -82,8 +82,9 @@ Python 3.14.4) установлены Django 6.1.1, django-jazzmin 3.0.5, mysqlc
 `git status` не светится.
 
 Рабочие настройки и маршруты находятся только в `Al_Ven/Al_Ven/`. Файлы
-`Al_Ven/settings.py`, `Al_Ven/urls.py`, `django-admin` и `dsdsd.txt` удалены как
-дубли или источник утекших учётных данных; не восстанавливать без запроса. В
+`Al_Ven/settings.py`, `Al_Ven/urls.py`, `django-admin` и credential-bearing
+`dsdsd.txt` удалены как дубли или источник утекших учётных данных; не
+восстанавливать без запроса. В
 корне репозитория (`download_photos*.ps1`, `gen_plan*.py`, `update_db.py` и др.)
 и в `Al_Ven/hello/stele.md` лежат пользовательские скрипты и заметки — не
 удалять их и не описывать как стабильный интерфейс проекта.
@@ -221,7 +222,8 @@ IBM Plex Mono, перламутровый градиент как акцент. 
 | Переменная | По умолчанию | Комментарий |
 | --- | --- | --- |
 | `DB_ENGINE` | `mysql` | принимает `mysql` или `sqlite`, иначе `ImproperlyConfigured` |
-| `DB_NAME/USER/PASSWORD/HOST/PORT` | `djangoo`, `myuser`, `1234`, `127.0.0.1`, `3306` | демо-значения, переопределять через окружение |
+| `DB_NAME/USER/PASSWORD` | не заданы по умолчанию | обязательны для MySQL; задавать только через переменные среды |
+| `DB_HOST/PORT` | `127.0.0.1`, `3306` | подключение к MySQL |
 | `DJANGO_DEBUG` | `True` | при `False` нужен свой `DJANGO_SECRET_KEY` |
 | `DJANGO_ALLOWED_HOSTS` | `localhost,127.0.0.1,[::1]` | список через запятую |
 | `DJANGO_SECURE_COOKIES` | `not DEBUG` | `SESSION_COOKIE_SECURE` и `CSRF_COOKIE_SECURE` |
@@ -239,7 +241,7 @@ SQLite — `Al_Ven/db.sqlite3`, MySQL использует `utf8mb4`. Язык `
 
 ## Тесты
 
-В `hello/tests.py` 9 тестов:
+В `hello/tests.py` 23 теста:
 
 - `AuthenticationTests` — хеширование пароля, расхождение паролей, вход по
   email и выход;

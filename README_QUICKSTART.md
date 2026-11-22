@@ -8,12 +8,12 @@
 
 - Windows + PowerShell.
 - Python **3.14.4**.
-- Виртуальное окружение `D:\djang\.venv` (будет создано, если его нет).
+- Виртуальное окружение `D:\kod\djang-main\.venv` (будет создано, если его нет).
 
 ## Команды
 
 ```powershell
-cd D:\djang
+cd D:\kod\djang-main
 if (-not (Test-Path .venv)) { python -m venv .venv }
 .\.venv\Scripts\python.exe -m pip install Django==6.1.1 django-jazzmin==3.0.5 mysqlclient==2.3.0 Pillow==13.0.0
 
@@ -39,7 +39,7 @@ $env:DB_ENGINE = "sqlite"
 ..\.venv\Scripts\python.exe manage.py test hello.tests
 ```
 
-Ожидаемо: `System check identified no issues` и `Ran 9 tests ... OK`.
+Ожидаемо: `System check identified no issues` и `Ran 23 tests ... OK`.
 
 ## Частые проблемы
 
