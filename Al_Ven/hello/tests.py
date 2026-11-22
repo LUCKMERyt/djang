@@ -4,7 +4,6 @@ from types import SimpleNamespace
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
 from django.test import TestCase
 from django.urls import reverse
@@ -166,7 +165,7 @@ class ProductCatalogLinkTests(TestCase):
             date_prod=date(2026, 2, 1),
             conter=1,
             cat_id=category,
-            image=SimpleUploadedFile("product.jpg", b"test image", content_type="image/jpeg"),
+            image="products/test.jpg",
         )
 
         response = self.client.get(reverse("products"))
@@ -175,6 +174,8 @@ class ProductCatalogLinkTests(TestCase):
         detail_url = reverse("product_detail", kwargs={"slug": product.slug})
         self.assertContains(response, f'src="{product.image.url}"')
         self.assertContains(response, f'href="{detail_url}"')
+        self.assertContains(response, "Фотографии приведены для примера")
+        self.assertContains(response, 'href="/media/products/PHOTO_CREDITS.txt"')
 
 
 class ProductDetailTests(TestCase):
@@ -191,12 +192,14 @@ class ProductDetailTests(TestCase):
         )
 
     def test_product_detail_renders(self):
+        Products.objects.filter(pk=self.product.pk).update(image="products/test.jpg")
         response = self.client.get(reverse("product_detail", kwargs={"slug": self.product.slug}))
 
         self.assertEqual(response.status_code, 200)
         detail_url = reverse("product_detail", kwargs={"slug": self.product.slug})
         self.assertContains(response, self.product.name)
         self.assertContains(response, self.product.cat_id.name)
+        self.assertContains(response, "Фото приведено для примера")
         self.assertContains(response, f'rel="canonical" href="{detail_url}"')
 
     def test_product_detail_has_jsonld_and_canonical(self):

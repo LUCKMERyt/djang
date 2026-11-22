@@ -21,6 +21,7 @@
                     {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.name }}"
                              class="product-page__image" width="400" loading="eager">
+                        <small>Фото приведено для примера; фактический вид товара может отличаться.</small>
                     {% else %}
                         <div class="empty-message">Фото товара недоступно</div>
                     {% endif %}
