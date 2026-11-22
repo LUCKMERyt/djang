@@ -1,7 +1,11 @@
+import os
 import pymysql
 
-conn = pymysql.connect(host='127.0.0.1', port=3306, user='myuser',
-                       password='1234', database='djangoo', charset='utf8mb4',
+conn = pymysql.connect(host=os.environ.get('DB_HOST', '127.0.0.1'),
+                       port=int(os.environ.get('DB_PORT', '3306')),
+                       user=os.environ['DB_USER'],
+                       password=os.environ['DB_PASSWORD'],
+                       database=os.environ['DB_NAME'], charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
 cur = conn.cursor()
 cur.execute("SELECT COUNT(*) AS total FROM hello_products")

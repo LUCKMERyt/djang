@@ -13,7 +13,7 @@
 | Админка | Django Admin + `django-jazzmin` |
 | Вход | по email через собственный `EmailBackend` |
 | Анимации | 47 `@keyframes` в `style.css` + небольшой `motion.js` |
-| Тесты | 9 тестов в `hello.tests` |
+| Тесты | 23 теста в `hello.tests` |
 | Запуск | PowerShell, команды из каталога `Al_Ven` |
 
 ## Содержание
@@ -56,8 +56,8 @@
 
 ## Быстрый старт
 
-Команды выполняются из `D:\djang\Al_Ven`. Виртуальное окружение уже находится
-в `D:\djang\.venv`.
+Команды выполняются из `D:\kod\djang-main\Al_Ven`. Виртуальное окружение уже
+находится в `D:\kod\djang-main\.venv`.
 
 Если окружение нужно восстановить с нуля:
 
@@ -74,14 +74,14 @@ $env:DB_ENGINE = "sqlite"
 ..\.venv\Scripts\python.exe manage.py runserver
 ```
 
-Работа на MySQL. Значения в `Al_Ven/Al_Ven/settings.py` демонстрационные
-(`djangoo` / `myuser` / `1234` на `127.0.0.1:3306`), поэтому задайте свои:
+Работа на MySQL. Создайте базу и отдельного пользователя MySQL с правами только
+на эту базу. Имя базы, пользователя и пароль задайте переменными среды; пароля
+по умолчанию в исходниках нет:
 
 ```powershell
 $env:DB_ENGINE = "mysql"
-$env:DB_NAME = "djangoo"
-$env:DB_USER = "root"
-$env:DB_PASSWORD = Read-Host "Пароль MySQL"
+# DB_NAME, DB_USER и DB_PASSWORD должны быть заранее заданы
+# в переменных среды Windows, а не сохранены в файле проекта.
 $env:DB_HOST = "127.0.0.1"
 $env:DB_PORT = "3306"
 ..\.venv\Scripts\python.exe manage.py migrate
@@ -96,13 +96,14 @@ $env:DB_PORT = "3306"
 | Переменная | По умолчанию | Назначение |
 | --- | --- | --- |
 | `DB_ENGINE` | `mysql` | `mysql` или `sqlite` |
-| `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` | `djangoo`, `myuser`, `1234`, `127.0.0.1`, `3306` | подключение к MySQL |
+| `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` | имя/пользователь/пароль обязательны для MySQL; `127.0.0.1`, `3306` | подключение к MySQL |
 | `DJANGO_DEBUG` | `True` | режим отладки; в production — `False` |
-| `DJANGO_SECRET_KEY` | локальный ключ только при `DEBUG=True` | секретный ключ Django |
+| `DJANGO_SECRET_KEY` | генерируется случайно только при `DEBUG=True` | production требует ключ из переменной среды |
 | `DJANGO_ALLOWED_HOSTS` | `localhost,127.0.0.1,[::1]` | список хостов через запятую |
 | `DJANGO_SECURE_COOKIES` | `not DEBUG` | флаги `Secure` для session/CSRF-кук |
 | `DJANGO_SSL_REDIRECT` | `not DEBUG` | принудительный HTTPS |
 | `DJANGO_HSTS_SECONDS` | `0` | время HSTS в секундах |
+| `DJANGO_TRUST_PROXY_SSL_HEADER` | `False` | включать только за доверенным HTTPS-прокси/туннелем |
 | `SITE_EMAIL`, `SITE_PHONE`, `SITE_ADDRESS` | демонстрационные | контакты в футере |
 | `SITE_VK`, `SITE_TELEGRAM`, `SITE_YOUTUBE` | заглушки | ссылки на соцсети |
 
@@ -115,7 +116,7 @@ $env:DB_ENGINE = "sqlite"
 ..\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
 ```
 
-Ожидаемый результат: `System check identified no issues`, `Ran 9 tests ... OK`,
+Ожидаемый результат: `System check identified no issues`, `Ran 23 tests ... OK`,
 `No changes detected`. Тест модалки создаёт временный файл в
 `media/products/` — после прогона его нужно удалить, если он появился в
 `git status`.
@@ -200,9 +201,9 @@ $env:DB_ENGINE = "sqlite"
     │   ├── authentication.py  # EmailBackend и username_for_email
     │   ├── context_processors.py # SITE_CONTACTS
     │   ├── admin.py           # Django Admin + Jazzmin
-    │   ├── tests.py           # 9 тестов
+    │   ├── tests.py           # 23 теста
     │   ├── management/commands/seed_products.py # загрузка товаров
-    │   ├── migrations/        # 0001–0008
+    │   ├── migrations/        # 0001–0012
     │   ├── templates/         # 10 шаблонов: base + 9 страниц
     │   └── static/
     │       ├── css/style.css  # основной сайт: 2226 строк, 47 @keyframes

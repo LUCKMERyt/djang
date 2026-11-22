@@ -1,9 +1,15 @@
-from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.contrib.auth import get_user_model
-from django.urls import reverse
 from datetime import date
-from .models import Category, Products, Review, ProductInquiry
+from importlib import import_module
+from types import SimpleNamespace
+
+from django.apps import apps
+from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import connection
+from django.test import TestCase
+from django.urls import reverse
+
+from .models import Category, Person, Products, Review, ProductInquiry
 
 
 class AuthenticationTests(TestCase):
@@ -94,6 +100,43 @@ class AccountPageTests(TestCase):
         self.assertContains(response, "Анна")
         self.assertContains(response, "account@example.com")
         self.assertContains(response, "Выйти из аккаунта")
+
+    def test_legacy_employee_photo_path_is_updated(self):
+        person = Person.objects.create(
+            name="Анна",
+            fam="Тестовая",
+            age=28,
+            image="people/2-portrait.jpg",
+        )
+        migration = import_module("hello.migrations.0012_update_person_images")
+
+        migration.update_person_image_paths(
+            apps, SimpleNamespace(connection=connection)
+        )
+
+        person.refresh_from_db()
+        self.assertEqual(person.image.name, "people/2-sulki.jpg")
+
+    def test_account_login_field_shows_email_and_updates_it(self):
+        user = get_user_model().objects.create_user(
+            username="account@example.com-0123456789abcdefabcd",
+            email="account@example.com",
+            first_name="Test User",
+            password="A-strong-test-password-481!",
+        )
+        self.client.force_login(user)
+
+        page = self.client.get(reverse("account"))
+        self.assertContains(page, 'value="account@example.com"')
+
+        response = self.client.post(reverse("account"), {
+            "action": "username",
+            "username": "new-login@example.com",
+        })
+        self.assertRedirects(response, reverse("account"))
+        user.refresh_from_db()
+        self.assertEqual(user.email, "new-login@example.com")
+        self.assertNotIn("0123456789abcdefabcd", user.username)
 
 
 class ProductCatalogLinkTests(TestCase):
