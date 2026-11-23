@@ -1,12 +1,14 @@
 from datetime import date
 from importlib import import_module
 from types import SimpleNamespace
+from urllib.parse import parse_qs
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.db import connection
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 from .models import Category, Person, Products, Review, ProductInquiry
 
@@ -300,3 +302,88 @@ class ReviewFixTests(TestCase):
             name='Без слага', sale=1, material='m', date_prod=date(2026, 1, 1), conter=1, cat_id=category)
         Products.objects.filter(pk=product.pk).update(slug=None)
         self.assertNotContains(self.client.get(reverse('sitemap_xml')), '/products/None/')
+
+
+class PaginationAndValidationTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Категория', coment='Описание')
+
+    def test_catalog_shows_all_fifty_products_and_reports_total(self):
+        for number in range(50):
+            Products.objects.create(
+                name=f'Товар {number}',
+                sale=100 + number,
+                material='Серебро',
+                date_prod=date(2026, 1, 1),
+                conter=number,
+                cat_id=self.category,
+            )
+        response = self.client.get(reverse('products'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['product']), 50)
+        self.assertContains(response, 'Всего позиций: <b>50</b>')
+
+    def test_catalog_pagination_preserves_filters_after_fifty_products(self):
+        for number in range(51):
+            Products.objects.create(
+                name=f'Товар {number}',
+                sale=100 + number,
+                material='Серебро',
+                date_prod=date(2026, 1, 1),
+                conter=1,
+                cat_id=self.category,
+            )
+        response = self.client.get(reverse('products'), {
+            'q': 'Товар',
+            'category_id': self.category.pk,
+            'material': 'Серебро',
+            'stock': 'available',
+            'sort': '-sale',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Всего позиций: <b>51</b>')
+        preserved_filters = parse_qs(response.context['query_string'])
+        self.assertEqual(preserved_filters['q'], ['Товар'])
+        self.assertEqual(preserved_filters['category_id'], [str(self.category.pk)])
+        self.assertEqual(preserved_filters['material'], ['Серебро'])
+        self.assertEqual(preserved_filters['stock'], ['available'])
+        self.assertEqual(preserved_filters['sort'], ['-sale'])
+        escaped_query = response.context['query_string'].replace('&', '&amp;')
+        self.assertContains(
+            response,
+            f'{escaped_query}&amp;page=2',
+        )
+
+    def test_negative_product_values_are_invalid(self):
+        product = Products(
+            name='Некорректный товар',
+            sale=-1,
+            material='Металл',
+            date_prod=date(2026, 1, 1),
+            conter=-1,
+            cat_id=self.category,
+        )
+        with self.assertRaises(ValidationError):
+            product.full_clean()
+
+    def test_reviews_are_paginated(self):
+        for number in range(11):
+            Review.objects.create(name=f'Клиент {number}', rating=5, text='Отлично')
+        response = self.client.get(reverse('reviews'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="pagination"', 1)
+
+
+class FooterContactTests(TestCase):
+    @override_settings(
+        SITE_ADDRESS=(
+            "\u0420\u0452\u0420\u0491\u0421\u0402\u0420\xb5\u0421\u0403 "
+            "\u0420\u0405\u0420\xb5 \u0421\u0453\u0420\u0454\u0420\xb0"
+            "\u0420\xb7\u0420\xb0\u0420\u0405"
+        )
+    )
+    def test_footer_repairs_mojibaked_address(self):
+        response = self.client.get(reverse("index"))
+
+        self.assertContains(response, "Адрес не указан")
+        self.assertNotContains(response, "\u0420\u0452")

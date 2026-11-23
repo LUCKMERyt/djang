@@ -18,7 +18,7 @@ $env:DB_ENGINE = "sqlite"
 Ожидаемо:
 
 - `System check identified no issues (0 silenced).`
-- `Ran 23 tests ... OK`
+- `Ran 28 tests ... OK`
 - `No changes detected`
 
 Проверка JavaScript:

@@ -1,0 +1,31 @@
+name: Django CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install Django==6.1.1 django-jazzmin==3.0.5 mysqlclient==2.3.0 Pillow==13.0.0
+      - name: Run Django tests
+        shell: pwsh
+        env:
+          DB_ENGINE: sqlite
+          DJANGO_DEBUG: "True"
+          DJANGO_SSL_REDIRECT: "False"
+          DJANGO_SECURE_COOKIES: "False"
+        run: |
+          cd Al_Ven
+          python manage.py check
+          python manage.py test hello.tests
+          python manage.py makemigrations --check --dry-run

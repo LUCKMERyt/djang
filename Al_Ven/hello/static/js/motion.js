@@ -126,4 +126,25 @@
             window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
         });
     }
+
+    // 7. Мобильная навигация: синхронизация aria-expanded и закрытие по ссылке/Escape.
+    const menuToggle = document.querySelector(".menu-toggle");
+    const menu = document.getElementById("main-menu");
+    if (menuToggle && menu) {
+        const setMenuOpen = (open) => {
+            menuToggle.setAttribute("aria-expanded", String(open));
+            menuToggle.querySelector(".visually-hidden").textContent =
+                open ? "Закрыть меню" : "Открыть меню";
+            document.body.classList.toggle("menu-open", open);
+        };
+        menuToggle.addEventListener("click", () => {
+            setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
+        });
+        menu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => setMenuOpen(false));
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") setMenuOpen(false);
+        });
+    }
 })();

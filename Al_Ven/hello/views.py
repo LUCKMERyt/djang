@@ -9,8 +9,8 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie
+from django.core.paginator import Paginator
+from django.urls import reverse
 
 # ИМПОРТ МОДЕЛЕЙ (добавлен Review)
 from .models import Person, Category, Products, Review
@@ -59,9 +59,9 @@ def index(request):
     # видел товары, категории и отзывы, а не только приветственный текст.
     featured_categories = Category.objects.order_by('name')[:6]
     latest_reviews = Review.objects.all()[:3]
-    # NOTE: Панель остатков: 4 случайных товара в наличии, при каждом заходе разные.
+    # NOTE: Панель остатков: четыре стабильных товара в наличии.
     # Ширина полосы ограничена 100 (шкала до 100 шт.).
-    stock_products = list(Products.objects.filter(conter__gt=0).order_by('?')[:4])
+    stock_products = list(Products.objects.filter(conter__gt=0).order_by('-date_prod', '-id')[:4])
     for product in stock_products:
         product.bar = min(product.conter, 100)
     return render(request, "index.html", {
@@ -72,9 +72,9 @@ def index(request):
 
 
 def robots_txt(request):
-    # NOTE: В production замените домен на фактический адрес сайта.
+    sitemap = f'{settings.SITE_DOMAIN}{reverse("sitemap_xml")}' if settings.SITE_DOMAIN else request.build_absolute_uri(reverse("sitemap_xml"))
     return HttpResponse(
-        'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: /sitemap.xml\n',
+        f'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {sitemap}\n',
         content_type='text/plain',
     )
 
@@ -90,7 +90,8 @@ def sitemap_xml(request):
         '/blog/',
         '/weo/',
     ] + [f'/products/{p.slug}/' for p in products]
-    entries = ''.join(f'<url><loc>{u}</loc></url>' for u in urls)
+    origin = settings.SITE_DOMAIN or request.build_absolute_uri('/').rstrip('/')
+    entries = ''.join(f'<url><loc>{origin}{u}</loc></url>' for u in urls)
     return HttpResponse(
         '<?xml version="1.0" encoding="UTF-8"?>'
         f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>',
@@ -148,10 +149,6 @@ def product_detail(request, slug):
     })
 
 
-# NOTE: vary_on_cookie хранит у каталога отдельный кэш для каждой сессии: иначе вошедший
-# пользователь видел бы чужую страницу («Вход» вместо «Аккаунт») и чужие сообщения.
-@cache_page(300, key_prefix="products")
-@vary_on_cookie
 def products(request):
     # NOTE: select_related уменьшает количество запросов к таблице категорий.
     categories = Category.objects.all()
@@ -178,10 +175,15 @@ def products(request):
         products = products.filter(conter__gt=0)
     if sort in {'name', 'sale', '-sale', 'date_prod', '-date_prod'}:
         products = products.order_by(sort)
+    product_page = Paginator(products, 50).get_page(request.GET.get('page'))
+    query_params = request.GET.copy()
+    query_params.pop('page', None)
 
     return render(request, 'products.html', {
         'category': categories,
-        'product': products,
+        'product': product_page,
+        'page_obj': product_page,
+        'query_string': query_params.urlencode(),
         'selected_category': selected_category,
         'query': query, 'material': material, 'sort': sort, 'stock': stock,
     })
@@ -303,10 +305,11 @@ def reviews_page(request):
         form = ReviewForm()
 
     # Получаем все отзывы, отсортированные по дате (новые первые)
-    reviews_list = Review.objects.all()
+    reviews_list = Paginator(Review.objects.all(), 10).get_page(request.GET.get('page'))
 
     context = {
         'form': form,
-        'reviews_list': reviews_list
+        'reviews_list': reviews_list,
+        'page_obj': reviews_list,
     }
     return render(request, 'reviews.html', context)

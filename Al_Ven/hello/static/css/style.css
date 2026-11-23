@@ -181,6 +181,45 @@ summary:focus-visible {
     gap: 4px 6px;
 }
 
+.menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--text);
+    background: var(--panel);
+    font-size: 22px;
+}
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 24px 0;
+}
+
+.pagination a,
+.pagination span {
+    min-width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.pagination .current {
+    color: var(--bg);
+    background: var(--pearl-mint);
+    border-color: var(--pearl-mint);
+}
+
 .menu a {
     padding: 8px 10px;
     color: var(--muted);
@@ -2362,5 +2401,71 @@ body[data-page="weo"] .terms__row:nth-child(3) { animation-delay: 120ms; }
 
     .scroll-progress {
         display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    :root {
+        --wrap: calc(100% - 24px);
+    }
+
+    .header__inner {
+        padding: 10px 0;
+    }
+
+    .logo__text {
+        font-size: 20px;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    .menu {
+        display: none;
+        width: 100%;
+        order: 3;
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 8px;
+    }
+
+    .menu-open .menu {
+        display: flex;
+    }
+
+    .menu a,
+    .menu a.menu__login {
+        width: 100%;
+        margin: 0;
+        border: 1px solid var(--line);
+        border-bottom-width: 1px;
+        text-align: center;
+    }
+
+    .docbar__inner {
+        flex-wrap: wrap;
+        gap: 4px 12px;
+    }
+
+    .docbar__inner span:nth-child(2),
+    .docbar__inner span:nth-child(3) {
+        display: none;
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: clamp(34px, 14vw, 64px);
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+    }
+
+    .doc-table {
+        min-width: 760px;
     }
 }

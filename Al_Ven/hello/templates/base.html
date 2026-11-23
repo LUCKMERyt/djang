@@ -55,7 +55,11 @@
       <div class="logo">
         <a href="{% url 'index' %}"><span class="logo__pearl" aria-hidden="true"></span><span class="logo__text">SOPHISTICATED</span></a>
       </div>
-      <nav class="menu" aria-label="Основная навигация">
+      <button class="menu-toggle" type="button" aria-controls="main-menu" aria-expanded="false">
+        <span class="visually-hidden">Открыть меню</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+      <nav class="menu" id="main-menu" aria-label="Основная навигация">
           {% with current=request.resolver_match.url_name %}
           <a href="{% url 'index' %}"{% if current == 'index' %} class="active"{% endif %}>Главная</a>
           <a href="{% url 'news' %}"{% if current == 'news' %} class="active"{% endif %}>Команда</a>

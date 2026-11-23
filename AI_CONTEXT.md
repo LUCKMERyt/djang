@@ -60,9 +60,9 @@
     │   ├── authentication.py  # EmailBackend, username_for_email
     │   ├── context_processors.py # SITE_CONTACTS
     │   ├── admin.py           # Django Admin + Jazzmin
-    │   ├── tests.py           # 23 теста
+    │   ├── tests.py           # 28 тестов
     │   ├── management/commands/seed_products.py # загрузка товаров
-    │   ├── migrations/        # 0001–0012
+    │   ├── migrations/        # 0001–0013
     │   ├── templates/         # 10 шаблонов: base.html + 9 страниц
     │   └── static/
     │       ├── css/style.css  # основной сайт: 2226 строк, 47 @keyframes
@@ -241,7 +241,7 @@ SQLite — `Al_Ven/db.sqlite3`, MySQL использует `utf8mb4`. Язык `
 
 ## Тесты
 
-В `hello/tests.py` 23 теста:
+В `hello/tests.py` 28 тестов:
 
 - `AuthenticationTests` — хеширование пароля, расхождение паролей, вход по
   email и выход;

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.validators import MinValueValidator
 
 
 # ! Основная модель сотрудника. Фотографии хранятся в media/people/,
@@ -40,10 +41,10 @@ class Category(models.Model):
 
 class Products(models.Model):
     name = models.CharField('Название товара', max_length=100)
-    sale = models.IntegerField('Цена')
+    sale = models.IntegerField('Цена', validators=[MinValueValidator(0)])
     material = models.CharField('Материал', max_length=100)
     date_prod = models.DateField('Дата производства')
-    conter = models.IntegerField('Количество')
+    conter = models.IntegerField('Количество', validators=[MinValueValidator(0)])
     cat_id = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,

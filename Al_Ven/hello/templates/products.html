@@ -63,7 +63,7 @@
             <tbody>
                 {% for p in product %}
                 <tr>
-                    <td class="num">{{ forloop.counter }}</td>
+                    <td class="num">{{ page_obj.start_index|add:forloop.counter0 }}</td>
                     <td>
                         {% if p.image %}
                             <img src="{{ p.image.url }}" alt="{{ p.name }}" class="thumb" width="64" height="64" loading="lazy">
@@ -88,11 +88,28 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="8">Всего позиций: <b>{{ product|length }}</b></td>
+                    <td colspan="8">Всего позиций: <b>{{ page_obj.paginator.count }}</b></td>
                 </tr>
             </tfoot>
         </table>
     </div>
+    {% if page_obj.has_other_pages %}
+    <nav class="pagination" aria-label="Страницы каталога">
+        {% if page_obj.has_previous %}
+            <a href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">Назад</a>
+        {% endif %}
+        {% for number in page_obj.paginator.page_range %}
+            {% if number == page_obj.number %}
+                <span class="current" aria-current="page">{{ number }}</span>
+            {% else %}
+                <a href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ number }}">{{ number }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Далее</a>
+        {% endif %}
+    </nav>
+    {% endif %}
     {% else %}
     <div class="empty-message">
         {% if selected_category %}

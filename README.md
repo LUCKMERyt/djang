@@ -13,7 +13,7 @@
 | Админка | Django Admin + `django-jazzmin` |
 | Вход | по email через собственный `EmailBackend` |
 | Анимации | 47 `@keyframes` в `style.css` + небольшой `motion.js` |
-| Тесты | 23 теста в `hello.tests` |
+| Тесты | 28 тестов в `hello.tests` |
 | Запуск | PowerShell, команды из каталога `Al_Ven` |
 
 ## Содержание
@@ -37,7 +37,9 @@
 - **Оптовый каталог** (`/products/`) — таблица позиций с поиском по названию и
   описанию (`q`), фильтрами по категории (`category_id`), материалу (`material`),
   наличию (`stock=available`) и сортировкой (`sort`: `name`, `sale`, `-sale`,
-  `date_prod`). По кнопке «Подробнее» открывается модальное окно `<dialog>`.
+  `date_prod`). На странице показывается до 50 товаров, счётчик отражает общее
+  число результатов, а при большем количестве появляется пагинация. По кнопке
+  «Подробнее» открывается карточка товара.
 - **Команда** (`/news/`) — таблица сотрудников с фото, должностью, возрастом и
   контактами; карточка сотрудника также открывается в модальном окне.
 - **Для бизнеса** (`/blog/`) — три статические статьи о закупках, ассортименте и
@@ -56,6 +58,12 @@
 
 ## Быстрый старт
 
+Для воспроизводимой установки зависимостей используйте корневой `requirements.txt`:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
 Команды выполняются из `D:\kod\djang-main\Al_Ven`. Виртуальное окружение уже
 находится в `D:\kod\djang-main\.venv`.
 
@@ -70,6 +78,8 @@ python -m venv ..\.venv
 
 ```powershell
 $env:DB_ENGINE = "sqlite"
+$env:DJANGO_DEBUG = "True"
+$env:DJANGO_SSL_REDIRECT = "False"
 ..\.venv\Scripts\python.exe manage.py migrate
 ..\.venv\Scripts\python.exe manage.py runserver
 ```
@@ -101,7 +111,7 @@ $env:DB_PORT = "3306"
 | `DJANGO_SECRET_KEY` | генерируется случайно только при `DEBUG=True` | production требует ключ из переменной среды |
 | `DJANGO_ALLOWED_HOSTS` | `localhost,127.0.0.1,[::1]` | список хостов через запятую |
 | `DJANGO_SECURE_COOKIES` | `not DEBUG` | флаги `Secure` для session/CSRF-кук |
-| `DJANGO_SSL_REDIRECT` | `not DEBUG` | принудительный HTTPS |
+| `DJANGO_SSL_REDIRECT` | `not DEBUG` (в DEBUG всегда выключен) | принудительный HTTPS вне режима разработки |
 | `DJANGO_HSTS_SECONDS` | `0` | время HSTS в секундах |
 | `DJANGO_TRUST_PROXY_SSL_HEADER` | `False` | включать только за доверенным HTTPS-прокси/туннелем |
 | `SITE_EMAIL`, `SITE_PHONE`, `SITE_ADDRESS` | демонстрационные | контакты в футере |
@@ -116,7 +126,7 @@ $env:DB_ENGINE = "sqlite"
 ..\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
 ```
 
-Ожидаемый результат: `System check identified no issues`, `Ran 23 tests ... OK`,
+Ожидаемый результат: `System check identified no issues`, `Ran 28 tests ... OK`,
 `No changes detected`. Тест модалки создаёт временный файл в
 `media/products/` — после прогона его нужно удалить, если он появился в
 `git status`.
@@ -201,9 +211,9 @@ $env:DB_ENGINE = "sqlite"
     │   ├── authentication.py  # EmailBackend и username_for_email
     │   ├── context_processors.py # SITE_CONTACTS
     │   ├── admin.py           # Django Admin + Jazzmin
-    │   ├── tests.py           # 23 теста
+    │   ├── tests.py           # 28 тестов
     │   ├── management/commands/seed_products.py # загрузка товаров
-    │   ├── migrations/        # 0001–0012
+    │   ├── migrations/        # 0001–0013
     │   ├── templates/         # 10 шаблонов: base + 9 страниц
     │   └── static/
     │       ├── css/style.css  # основной сайт: 2226 строк, 47 @keyframes

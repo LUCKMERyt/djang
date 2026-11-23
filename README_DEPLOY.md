@@ -17,6 +17,8 @@
 | `DJANGO_SSL_REDIRECT` | `not DEBUG` | `True` |
 | `DJANGO_HSTS_SECONDS` | `0` | `31536000` после проверки HTTPS |
 | `DJANGO_TRUST_PROXY_SSL_HEADER` | `False` | `True` только за доверенным HTTPS-прокси/туннелем |
+| `SITE_DOMAIN` | пусто | абсолютный origin для sitemap и robots, например `https://example.ru` |
+| `EMAIL_BACKEND/EMAIL_HOST/EMAIL_PORT/EMAIL_HOST_USER/EMAIL_HOST_PASSWORD` | console-почта | настройки реального SMTP-сервиса |
 | `SITE_EMAIL/PHONE/ADDRESS` | демонстрационные | настоящие контакты |
 | `SITE_VK/TELEGRAM/YOUTUBE` | заглушки | реальные ссылки или уберите блок |
 
@@ -84,6 +86,10 @@ $env:DB_ENGINE = "mysql"
 - [ ] Проверить ссылки соцсетей и контакты в футере.
 
 ## 6. Финальная проверка
+
+Если сайт опубликован через Cloudflare, используйте отдельные инструкции по
+[ошибке 530](./530.md) и [ошибке 1033 Tunnel](./Ошибка%201033.md). Ошибка 1033
+возникает до Django и требует проверки Cloudflare Tunnel.
 
 ```powershell
 $env:DB_ENGINE = "mysql"  # или sqlite для staging

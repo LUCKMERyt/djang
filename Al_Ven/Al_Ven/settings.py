@@ -172,19 +172,34 @@ SITE_ADDRESS = os.environ.get('SITE_ADDRESS', 'Москва, ул. Пример�
 SITE_VK = os.environ.get('SITE_VK', 'https://vk.com/')
 SITE_TELEGRAM = os.environ.get('SITE_TELEGRAM', 'https://t.me/')
 SITE_YOUTUBE = os.environ.get('SITE_YOUTUBE', 'https://www.youtube.com/')
+SITE_DOMAIN = os.environ.get('SITE_DOMAIN', '').rstrip('/')
 
 # NOTE: MEDIA_ROOT содержит загруженные фотографии товаров и сотрудников.
 MEDIA_URL = '/media/'
 # Загруженные изображения товаров сохраняются отдельно от исходников проекта.
 MEDIA_ROOT = BASE_DIR / 'media'
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND",
+    "django.core.mail.backends.console.EmailBackend",
+)
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True").lower() in {"1", "true", "yes"}
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "False").lower() in {"1", "true", "yes"}
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", SITE_EMAIL)
 
 SESSION_COOKIE_SECURE = os.environ.get("DJANGO_SECURE_COOKIES", str(not DEBUG)).lower() in {"1", "true", "yes"}
 CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
-SECURE_SSL_REDIRECT = os.environ.get("DJANGO_SSL_REDIRECT", str(not DEBUG)).lower() in {"1", "true", "yes"}
+if DEBUG:
+    # The development server speaks HTTP only; stale production env vars must not redirect local traffic.
+    SECURE_SSL_REDIRECT = False
+else:
+    SECURE_SSL_REDIRECT = os.environ.get("DJANGO_SSL_REDIRECT", "True").lower() in {"1", "true", "yes"}
 SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_HSTS_SECONDS", "0"))
 if os.environ.get("DJANGO_TRUST_PROXY_SSL_HEADER", "").lower() in {"1", "true", "yes"}:
     # Enable only behind a trusted proxy that overwrites X-Forwarded-Proto.
