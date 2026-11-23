@@ -87,9 +87,10 @@ $env:DB_ENGINE = "mysql"
 
 ## 6. Финальная проверка
 
-Если сайт опубликован через Cloudflare, используйте отдельные инструкции по
-[ошибке 530](./530.md) и [ошибке 1033 Tunnel](./Ошибка%201033.md). Ошибка 1033
-возникает до Django и требует проверки Cloudflare Tunnel.
+Если сайт опубликован через Cloudflare, используйте [справочник типовых
+ошибок](./Cloudflare-ошибки.md), включая инструкции по ошибкам 530 и 1033
+Tunnel. Такие ошибки могут возникать до Django и требовать проверки Cloudflare,
+DNS, TLS, firewall или origin.
 
 ```powershell
 $env:DB_ENGINE = "mysql"  # или sqlite для staging

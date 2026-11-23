@@ -53,5 +53,6 @@ $env:DB_ENGINE = "sqlite"
 | Адрес в футере отображается как `РђР...` | Переменная `SITE_ADDRESS` была сохранена в Windows-1251 вместо UTF-8 | Известная форма повреждения исправляется автоматически; для другого текста задайте `SITE_ADDRESS` заново в корректной кодировке |
 | Фото товаров не отображаются | `MEDIA_URL` раздаётся только при `DEBUG=True` | Локально оставьте `DJANGO_DEBUG=True`; в production настройте веб-сервер |
 | `Invalid HTTP_HOST: testserver` в самописном скрипте | Django не знает тестовый хост | В скрипте добавьте `settings.ALLOWED_HOSTS += ["testserver"]` |
+| Cloudflare показывает 520, 521–526, 1016, 1020 или 1033 | Ошибка edge, сети, DNS, TLS или security rule; запрос может не дойти до Django | Сверьте код в [справочнике Cloudflare](Cloudflare-ошибки.md); для локальной разработки используйте `http://127.0.0.1:8000/` |
 
 Подробности — в [`README.md`](README.md) и [`AI_CONTEXT.md`](AI_CONTEXT.md).
